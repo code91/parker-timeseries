@@ -253,9 +253,9 @@ def analyze_cross_chorus(df: pd.DataFrame):
         if chorus in chorus_shape.columns:
             # Relabel: Chorus 1 = "Head", Chorus 2 = "Chorus 1", etc.
             if int(chorus) == 1:
-                label = 'Head'
+                label = 'Chorus 1 (Head)'
             else:
-                label = f'Chorus {int(chorus) - 1}'
+                label = f'Chorus {int(chorus)}'
 
             ax.plot(x, chorus_shape[chorus], color=color, linewidth=2,
                    label=label, marker='o', markersize=4)
