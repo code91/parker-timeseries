@@ -2,7 +2,7 @@
 
 Computational time series analysis of Charlie Parker's improvisational practice examining temporal evolution of harmonic material across multiple scales.
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17880983.svg)](https://doi.org/10.5281/zenodo.17880983)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18037822.svg)](https://doi.org/10.5281/zenodo.18037822)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## 📄 Paper
@@ -313,7 +313,7 @@ If you use this code or data in your research, please cite:
   title={Charlie Parker Time Series Analysis Pipeline},
   year={2025},
   publisher={Zenodo},
-  doi={10.5281/zenodo.17880983},
+  doi={10.5281/zenodo.18037822},
   url={https://github.com/mikerubini/parker-timeseries}
 }
 ```
