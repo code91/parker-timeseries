@@ -279,11 +279,11 @@ def analyze_cross_chorus(df: pd.DataFrame):
     if 1 in chorus_shape.columns and 2 in chorus_shape.columns:
         # Head (original Chorus 1)
         ax.plot(x, chorus_shape[1], color='#e74c3c', linewidth=2.5,
-               label='Head (composed melody)', marker='o', markersize=5)
+               label='Chorus 1 (composed melody/head)', marker='o', markersize=5)
 
         # Chorus 1 (original Chorus 2)
         ax.plot(x, chorus_shape[2], color='#3498db', linewidth=2.5,
-               label='Chorus 1 (first improvisation)', marker='o', markersize=5)
+               label='Chorus 2 (first improvisation)', marker='o', markersize=5)
 
         ax.set_xlabel('Form Position (%)', fontsize=12)
         ax.set_ylabel('IV Sum (complexity)', fontsize=12)
@@ -298,7 +298,7 @@ def analyze_cross_chorus(df: pd.DataFrame):
         ax.axhline(y=improv_mean, color='#3498db', linestyle='--', alpha=0.5, linewidth=1)
 
         # Add text showing means
-        ax.text(0.02, 0.98, f'Head mean: {head_mean:.2f}\nChorus 1 mean: {improv_mean:.2f}\nDifference: +{improv_mean - head_mean:.2f}',
+        ax.text(0.02, 0.98, f'Chorus 1 (head) mean: {head_mean:.2f}\nChorus 2 mean: {improv_mean:.2f}\nDifference: +{improv_mean - head_mean:.2f}',
                 transform=ax.transAxes, fontsize=10, verticalalignment='top',
                 bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.8))
 
