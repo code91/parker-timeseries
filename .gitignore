@@ -1,0 +1,93 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Raw data files (copyright protected - cannot redistribute)
+xml/
+midi/
+mp3/
+*.xml
+*.mid
+*.midi
+*.mp3
+*.wav
+
+# Large output directories (plots and intermediate files)
+*_plots/
+*_output/
+*_results/
+figures/
+plots/
+
+# Keep processed CSV files but ignore large intermediates
+# KEEP these (commented out so they ARE committed):
+# parker_phrases.csv
+# parker_sequential.csv
+# parker_timeseries.csv
+# tune_titles.csv
+
+# Ignore large analysis outputs
+parker_granger_results.csv
+parker_robustness_metrics.csv
+parker_autocorrelation_metrics.csv
+parker_cluster_assignments.csv
+parker_corpus_nodes.csv
+parker_corpus_edges.csv
+parker_iv_robustness.csv
+
+# Ignore annotated scores and diagrams
+*_annotated.xml
+*_phrase_diagram.png
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Other
+other/
+temp/
+tmp/
+*.log
+*.bak
