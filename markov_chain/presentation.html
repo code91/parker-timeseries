@@ -35,7 +35,9 @@
   .deck { display: flex; flex-direction: column; align-items: center; gap: 22px; padding: 22px 0; }
   .slide {
     width: var(--w); height: var(--h);
-    margin: 0 auto;
+    /* .deck is a flex column, so slides are flex items: pin the basis and
+       stop them shrinking, or a long slide steals the 22px inter-page gap. */
+    flex: 0 0 var(--h);
     background: var(--bg-paper);
     box-shadow: 0 3px 14px rgba(0,0,0,.18);
     box-sizing: border-box;
@@ -168,7 +170,7 @@
   <img class="portrait" src="../figures/parker.png" alt="Charlie Parker">
   <div class="eyebrow">Final project · Dynamical Models for Social Behavior</div>
   <h1>Bebop as a Markov Chain</h1>
-  <div class="sub">A discrete-time finite-state stochastic model of Charlie Parker's improvisational lines, with within- vs across-chord decomposition.</div>
+  <div class="sub">A discrete-time finite-state random walk on a graph of 428 states, estimated from Charlie Parker's improvisational lines.</div>
   <div class="meta">
     <div><b>Mike Rubini</b> &nbsp;·&nbsp; MSc Decision Science &nbsp;·&nbsp; Università di Bari</div>
     <div>Course: <i>Dynamical Models for Social Behavior</i> &nbsp;·&nbsp; Profs. Gonnella &amp; Suma</div>
@@ -341,8 +343,6 @@
         </tbody>
       </table>
       <p class="small" style="margin-top: 8px;">Same current state, different futures. Approached from the 3rd, the line keeps descending to the ♭7 four times out of ten; approached from the 6th, that continuation barely appears. <b>The property is false in the strict sense</b>, and we know the direction of the error: descending lines carry momentum a first-order chain cannot see.</p>
-    </div>
-
     </div>
   </div>
 
