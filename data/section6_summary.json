@@ -1,0 +1,62 @@
+{
+  "P": {
+    "chi2_observed": 113987.35965018725,
+    "chi2_null_mean": 4411.905194203558,
+    "chi2_null_std": 106.69399864069487,
+    "chi2_p_value": 0.000999000999000999,
+    "dof_approx": 182756,
+    "kl_observed": 2.5487765001520684,
+    "kl_null_mean": 0.9857260372597391,
+    "kl_null_std": 0.0030504883212564573,
+    "kl_p_value": 0.000999000999000999,
+    "beat_preserving_null": {
+      "chi2_null_mean": 29342.247162176034,
+      "chi2_null_std": 490.3442311158376,
+      "chi2_p_value": 0.000999000999000999,
+      "kl_null_mean": 1.6391787662917632,
+      "kl_null_std": 0.0031776990883514455,
+      "kl_p_value": 0.000999000999000999
+    },
+    "permutations": 1000
+  },
+  "P_within": {
+    "chi2_observed": 92814.78110121908,
+    "chi2_null_mean": 2971.7096135655606,
+    "chi2_null_std": 86.39542342908177,
+    "chi2_p_value": 0.000999000999000999,
+    "dof_approx": 176778,
+    "kl_observed": 2.7935477525032124,
+    "kl_null_mean": 1.1684971318130302,
+    "kl_null_std": 0.0037587084033633977,
+    "kl_p_value": 0.000999000999000999,
+    "beat_preserving_null": {
+      "chi2_null_mean": 19402.523045533264,
+      "chi2_null_std": 485.4421049419086,
+      "chi2_p_value": 0.000999000999000999,
+      "kl_null_mean": 1.7735779844834627,
+      "kl_null_std": 0.0036849995720543076,
+      "kl_p_value": 0.000999000999000999
+    },
+    "permutations": 1000
+  },
+  "P_across": {
+    "chi2_observed": 5334.33827361947,
+    "chi2_null_mean": 21.44344620390345,
+    "chi2_null_std": 3.192994551660242,
+    "chi2_p_value": 0.000999000999000999,
+    "dof_approx": 92659,
+    "kl_observed": 2.0434383519709485,
+    "kl_null_mean": 1.9131912717731352,
+    "kl_null_std": 0.008675927324202852,
+    "kl_p_value": 0.000999000999000999,
+    "beat_preserving_null": {
+      "chi2_null_mean": 2801.77991447417,
+      "chi2_null_std": 195.32572504585718,
+      "chi2_p_value": 0.000999000999000999,
+      "kl_null_mean": 1.6640419626169474,
+      "kl_null_std": 0.007511852659710937,
+      "kl_p_value": 0.000999000999000999
+    },
+    "permutations": 1000
+  }
+}

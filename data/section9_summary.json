@@ -1,0 +1,8 @@
+{
+  "M_trajectories": 1000,
+  "T_length": 100,
+  "total_samples": 100000,
+  "pearson_r_f_sim_vs_pi": 0.9984327101705239,
+  "pearson_p_f_sim_vs_pi": 0.0,
+  "total_variation_f_sim_vs_pi": 0.023481928032795033
+}

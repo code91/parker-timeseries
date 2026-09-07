@@ -1,0 +1,111 @@
+{
+  "grid_size": 520,
+  "observed": 428,
+  "missing": 92,
+  "missing_on_rare_qualities": 90,
+  "corpus_offbeat_share_pct": 55.2,
+  "per_quality": [
+    {
+      "quality": "maj7",
+      "events": 4183,
+      "cells_covered": 103,
+      "cells_total": 104,
+      "cells_missing": 1,
+      "null_coverage_mean": 103.92475,
+      "null_coverage_sd": 0.26755828804206383,
+      "p_coverage_at_or_below": 0.07425
+    },
+    {
+      "quality": "min7",
+      "events": 5800,
+      "cells_covered": 103,
+      "cells_total": 104,
+      "cells_missing": 1,
+      "null_coverage_mean": 103.98525,
+      "null_coverage_sd": 0.12055055993233708,
+      "p_coverage_at_or_below": 0.01475
+    },
+    {
+      "quality": "dom7",
+      "events": 12829,
+      "cells_covered": 104,
+      "cells_total": 104,
+      "cells_missing": 0,
+      "null_coverage_mean": 104.0,
+      "null_coverage_sd": 0.0,
+      "p_coverage_at_or_below": 1.0
+    },
+    {
+      "quality": "m7b5",
+      "events": 170,
+      "cells_covered": 60,
+      "cells_total": 104,
+      "cells_missing": 44,
+      "null_coverage_mean": 74.0895,
+      "null_coverage_sd": 3.3566336931515184,
+      "p_coverage_at_or_below": 0.0
+    },
+    {
+      "quality": "dim7",
+      "events": 161,
+      "cells_covered": 58,
+      "cells_total": 104,
+      "cells_missing": 46,
+      "null_coverage_mean": 72.5895,
+      "null_coverage_sd": 3.31579398485491,
+      "p_coverage_at_or_below": 0.0
+    }
+  ],
+  "structural_zeros": [
+    {
+      "state": "(3, min7, \u26694)",
+      "missing_cell": [
+        4,
+        "min7",
+        "4"
+      ],
+      "quality_events": 5800,
+      "degree_events_on_quality": 106,
+      "beat_breakdown": {
+        "1": 9,
+        "2": 6,
+        "3": 3,
+        "4": 0,
+        "&1": 33,
+        "&2": 26,
+        "&3": 17,
+        "&4": 12
+      },
+      "offbeat_share_pct": 83.0,
+      "expected_count": 11.45,
+      "poisson_p_zero": 1.0643655174947374e-05,
+      "survives_bonferroni": true,
+      "bonferroni_threshold": 1.923076923076923e-05
+    },
+    {
+      "state": "(#4, maj7, \u26691)",
+      "missing_cell": [
+        6,
+        "maj7",
+        "1"
+      ],
+      "quality_events": 4183,
+      "degree_events_on_quality": 74,
+      "beat_breakdown": {
+        "1": 0,
+        "2": 3,
+        "3": 4,
+        "4": 6,
+        "&1": 18,
+        "&2": 11,
+        "&3": 7,
+        "&4": 25
+      },
+      "offbeat_share_pct": 82.4,
+      "expected_count": 8.5,
+      "poisson_p_zero": 0.00020432737662399463,
+      "survives_bonferroni": false,
+      "bonferroni_threshold": 1.923076923076923e-05
+    }
+  ]
+}
