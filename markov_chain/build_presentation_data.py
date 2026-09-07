@@ -58,12 +58,8 @@ def main() -> None:
         },
         "transitions": {
             "total_all":    int(s1_by_name["P (all transitions)"]["total_transitions"]),
-            "total_within": int(s1_by_name["P_within"]["total_transitions"]),
-            "total_across": int(s1_by_name["P_across"]["total_transitions"]),
             "sparsity_pct": {
-                "P":         float(s1_by_name["P (all transitions)"]["sparsity_pct"]),
-                "P_within":  float(s1_by_name["P_within"]["sparsity_pct"]),
-                "P_across":  float(s1_by_name["P_across"]["sparsity_pct"]),
+                "P": float(s1_by_name["P (all transitions)"]["sparsity_pct"]),
             },
         },
         "stationary": {
@@ -71,7 +67,7 @@ def main() -> None:
                 "pearson_r_vs_empirical": s2[name]["pearson_r_vs_empirical"],
                 "top_3": s2[name]["top_10"][:3],
             }
-            for name in ("P", "P_within", "P_across")
+            for name in ("P",)
         },
         "spectral": {
             name: {
@@ -79,7 +75,7 @@ def main() -> None:
                 "spectral_gap": s3[name]["spectral_gap"],
                 "mixing_time_steps": s3[name]["mixing_time_steps"],
             }
-            for name in ("P", "P_within", "P_across")
+            for name in ("P",)
         },
         "hitting_times": {
             name: {
@@ -88,9 +84,9 @@ def main() -> None:
                 "max": s4[name]["h_max"],
                 "shortest_3": s4[name]["shortest_8"][:3],
             }
-            for name in ("P", "P_within", "P_across")
+            for name in ("P",)
         },
-        "voice_leading_top_10_P_across": s5["P_across_top_20"][:10],
+        "voice_leading_top_10": s5["P_top_20"][:10],
         "v7_to_I_cells": v7_cells,
         "null_comparison": {
             name: {
@@ -102,7 +98,7 @@ def main() -> None:
                 "kl_p_value":         s6[name]["kl_p_value"],
                 "permutations":       s6[name]["permutations"],
             }
-            for name in ("P", "P_within", "P_across")
+            for name in ("P",)
         },
         "memory_order": {
             name: {
@@ -112,7 +108,7 @@ def main() -> None:
                 "test_mean_ll_order2": s7[name]["test_mean_ll_order2"],
                 "test_mean_ll_delta":  s7[name]["test_mean_ll_delta"],
             }
-            for name in ("P", "P_within", "P_across")
+            for name in ("P",)
         },
         "generative_validation": {
             "M_trajectories": s9["M_trajectories"],

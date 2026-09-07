@@ -178,7 +178,7 @@ def main() -> None:
     per_tune = collect_transitions(df, idx)
 
     summary: dict = {}
-    for kind in ("all", "within", "across"):
+    for kind in ("all",):
         train_pairs, test_pairs, train_triples, test_triples = split_train_test_pairs(
             per_tune, kind, TRAIN_FRAC
         )

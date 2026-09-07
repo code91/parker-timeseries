@@ -96,7 +96,7 @@ def main() -> None:
         print(f"  {state_label(states[i])}")
 
     summary: dict = {}
-    for name in ("P", "P_within", "P_across"):
+    for name in ("P",):
         print(f"\n--- {name} ---")
         P = load_operator(name)
         h = hitting_times(P, R_idx)

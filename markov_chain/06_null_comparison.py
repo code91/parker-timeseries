@@ -182,7 +182,7 @@ def main() -> None:
 
     summary: dict = {}
 
-    for kind in ("all", "within", "across"):
+    for kind in ("all",):
         op_name = "P" if kind == "all" else f"P_{kind}"
         N_path = DATA_DIR / (f"N_{kind}.npy" if kind != "all" else "N.npy")
         N_obs = np.load(N_path)

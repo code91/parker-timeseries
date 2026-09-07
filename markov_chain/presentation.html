@@ -172,7 +172,7 @@
     <div><b>Mike Rubini</b> &nbsp;·&nbsp; MSc Decision Science &nbsp;·&nbsp; Università di Bari</div>
     <div>Course: <i>Dynamical Models for Social Behavior</i> &nbsp;·&nbsp; Profs. Gonnella &amp; Suma</div>
   </div>
-  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 1 / 19</div>
+  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 1 / 23</div>
 </section>
 
 
@@ -199,7 +199,7 @@
     </div>
   </div>
 
-  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 2 / 19</div>
+  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 2 / 23</div>
 </section>
 
 
@@ -237,7 +237,7 @@
   <p class="tiny" style="margin: 0 0 2px;">Bebop's V-dominant profile: more than half of all notes are played over a dominant chord. <span class="mono">15.8 %</span> of events follow a chord change.</p>
   <img src="../figures/section_corpus_stats.png" alt="beat-position distribution and events per tune" style="display: block; width: 92%; margin: 0;">
 
-  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 3 / 19</div>
+  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 3 / 23</div>
 </section>
 
 
@@ -272,7 +272,7 @@
     <p class="tiny" style="margin: 0;">The encoding collapses <b>23,143 events</b> onto <b>428 labels</b>: about <b>54 visits per state</b>, and every tune revisits most of its states several times over. That recurrence is what makes the transition probabilities estimable at all.</p>
   </div>
 
-  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 4 / 19</div>
+  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 4 / 23</div>
 </section>
 
 
@@ -293,13 +293,34 @@
 
   <img src="../figures/section_matrix_excerpt.png" alt="the full 428x428 operator beside a 12x12 block with printed probabilities" style="display: block; width: 80%; margin: 10px auto 0;">
 
-  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 5 / 19</div>
+  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 5 / 23</div>
+</section>
+
+
+<!-- ====================== SLIDE : GRAPH VIEW ===================== -->
+<section class="slide">
+  <p class="eyebrow">5 · The walk on a graph</p>
+  <h2>Eight nodes, so the walk is something you can look at</h2>
+  <div class="rule"></div>
+
+  <div class="cols" style="height: 124px;">
+    <div class="col">
+      <p class="small" style="margin:0;">P̂ is a 428-node directed weighted graph: nodes are states, edge <span class="math">i → j</span> carries weight <span class="math">P̂<sub>ij</sub></span>. Here is the induced subgraph on the <b>eight states with the most stationary mass</b>, which between them carry <b>9.7 %</b> of the walk's time.</p>
+    </div>
+    <div class="col" style="max-width: 440px;">
+      <p class="small" style="margin:0;">Every one of the eight is a <span class="mono">dom7</span> state, and seven of the eight sit offbeat. The strongest single edge is <span class="math">(5, dom7, &amp;3) → (rest, dom7, ♩4)</span> at <b>11 %</b>: run the bebop scale, then breathe.</p>
+    </div>
+  </div>
+
+  <img src="../figures/section11_graph_view.png" alt="the induced subgraph on the eight busiest states" style="display: block; width: 76%; margin: 6px auto 0;">
+
+  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 6 / 23</div>
 </section>
 
 
 <!-- ====================== SLIDE 6 : MARKOV PROPERTY ===================== -->
 <section class="slide">
-  <p class="eyebrow">5 · The assumption</p>
+  <p class="eyebrow">6 · The assumption</p>
   <h2>The Markov property: is the current state enough?</h2>
   <div class="rule"></div>
 
@@ -328,24 +349,22 @@
         <thead><tr><th>Operator</th><th class="num">ΔBIC in-sample</th><th class="num">held-out Δ ll</th></tr></thead>
         <tbody>
           <tr><td>P̂</td><td class="num blue"><b>+19,102</b></td><td class="num red"><b>−0.46</b></td></tr>
-          <tr><td>P̂<sub>within</sub></td><td class="num blue"><b>+12,523</b></td><td class="num red"><b>−0.50</b></td></tr>
-          <tr><td>P̂<sub>across</sub></td><td class="num blue"><b>+7,131</b></td><td class="num red"><b>−0.37</b></td></tr>
         </tbody>
       </table>
-      <p class="small" style="margin-top: 10px;">Order-2 wins decisively <b>in sample</b> and loses on <b>held-out</b> data for every operator: the memory is real but un-exploitable at 23,143 events.</p>
+      <p class="small" style="margin-top: 10px;">Order-2 wins decisively <b>in sample</b> and loses on <b>held-out</b> data: the memory is real but un-exploitable at 23,143 events.</p>
       <p class="small">First order is therefore not a claim that bebop is memoryless. It is <b>the most structure this corpus can support</b>, and Section 7 is the evidence rather than the assertion.</p>
       <p class="tiny" style="margin-top: 10px;">Order-2 on 428 states would need 428<sup>2</sup> = 183,184 rows. The corpus has 23,093 transitions: roughly one observation per eight rows.</p>
     </div>
   </div>
 
-  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 6 / 19</div>
+  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 7 / 23</div>
 </section>
 
 
 <!-- ====================== SLIDE 7 : THE MODEL ===================== -->
 <section class="slide">
-  <p class="eyebrow">6 · The model</p>
-  <h2>Transition matrix, smoothing, and the within/across split</h2>
+  <p class="eyebrow">7 · The model</p>
+  <h2>Estimator, smoothing, and boundary handling</h2>
   <div class="rule"></div>
 
   <div class="cols" style="height: 470px;">
@@ -363,11 +382,10 @@
       </ol>
     </div>
     <div class="col">
-      <h3 style="font-size: 19px; margin: 0 0 4px;">Within / across decomposition</h3>
-      <p class="small">Each note carries a flag <span class="mono">chord_changed_from_prev</span>. We partition the count matrix:</p>
-      <p class="display" style="font-size: 17px;">N = N<sub>within</sub> &nbsp;+&nbsp; N<sub>across</sub></p>
-      <p class="small">→ three operators <span class="math">P̂, P̂<sub>within</sub>, P̂<sub>across</sub></span>.</p>
-      <p class="small" style="margin-top: 6px;">The split <b>conditions on the destination's flag</b>: a chord change is observed at the destination note, not the source. Conditioning on the source's flag would mis-classify the first note of every new chord.</p>
+      <h3 style="font-size: 19px; margin: 0 0 4px;">What α is for</h3>
+      <p class="small">With <span class="math">α = 0</span> the estimate is plain counting. <span class="math">P̂</span> would <i>already</i> be a well-behaved chain: 0 rows without data, one strongly connected component over all 428 states, 18 observed self-loops. So irreducibility and aperiodicity are not bought by smoothing here.</p>
+      <p class="small">What α does buy is <b>robustness where the data is thin</b>. 155 of 428 rows are undersampled and 97 % of cells are empty; α keeps those cells at a floor of "unknown" rather than a hard zero, so a single unobserved pair cannot make a hitting time infinite.</p>
+      <p class="small">The cost is stated plainly: the chain is ergodic <b>by construction</b>. With a median row of 26 observations against α·|S| = 4.28 of pseudo-mass, that construction is negligible where data exists and decisive only where it does not.</p>
 
       <h3 style="font-size: 19px; margin: 14px 0 4px;">Boundary handling</h3>
       <ul class="small">
@@ -379,14 +397,14 @@
     </div>
   </div>
 
-  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 7 / 19</div>
+  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 8 / 23</div>
 </section>
 
 
 <!-- ====================== SLIDE 6 : SECTION 1 · MATRICES ===================== -->
 <section class="slide">
-  <p class="eyebrow">7 · Section 1 · Three operators built</p>
-  <h2>P̂, P̂<sub>within</sub>, P̂<sub>across</sub> &nbsp;·&nbsp; sparsity, sample sizes</h2>
+  <p class="eyebrow">8 · Section 1 · Three operators built</p>
+  <h2>P̂ &nbsp;·&nbsp; sparsity and sample sizes</h2>
   <div class="rule"></div>
 
   <div class="cols" style="height: 470px;">
@@ -401,8 +419,6 @@
         </tr></thead>
         <tbody>
           <tr><td>P̂</td>          <td class="num">23,093</td><td class="num">4,250 / 75,625</td><td class="num">94.4 %</td><td class="num">102</td></tr>
-          <tr><td>P̂<sub>within</sub></td><td class="num">19,431</td><td class="num">3,024 / 75,625</td><td class="num">96.0 %</td><td class="num">108</td></tr>
-          <tr><td>P̂<sub>across</sub></td><td class="num">3,662</td> <td class="num">1,416 / 75,625</td><td class="num">98.1 %</td><td class="num">225</td></tr>
         </tbody>
       </table>
       <p class="tiny">Undersampled = row with N<sub>i</sub> &lt; 10. All row-sums verified to ≤ 1.6 × 10<sup>−15</sup>.</p>
@@ -410,7 +426,7 @@
       <h3 style="font-size: 19px; margin: 16px 0 4px;">Two structural observations</h3>
       <ul class="small">
         <li>The matrix is <b>highly sparse</b> (~85–92 % of cells empty even before smoothing). Most state pairs never appear in bebop; the operator has a clear "skeleton".</li>
-        <li><span class="math">P̂<sub>within</sub></span> carries 84 % of the data; <span class="math">P̂<sub>across</sub></span> is far sparser, which bears on downstream variance.</li>
+        <li><b>155 of 428 rows are undersampled</b> (median row: 26 transitions). Those rows carry the most estimation error and are where smoothing does the work.</li>
       </ul>
     </div>
     <div class="col fig">
@@ -419,13 +435,13 @@
     </div>
   </div>
 
-  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 8 / 19</div>
+  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 9 / 23</div>
 </section>
 
 
 <!-- ====================== SLIDE 7 : SECTION 2 · STATIONARY ===================== -->
 <section class="slide">
-  <p class="eyebrow">8 · Section 2 · Stationary distribution</p>
+  <p class="eyebrow">9 · Section 2 · Stationary distribution</p>
   <h2>π solved as the left eigenvector at λ = 1</h2>
   <div class="rule"></div>
 
@@ -439,12 +455,10 @@
         <thead><tr><th>Operator</th><th class="num">max |πP − π|</th><th class="num">Pearson r(π, f<sub>emp</sub>)</th></tr></thead>
         <tbody>
           <tr><td>P̂</td><td class="num">3.5 × 10<sup>−17</sup></td><td class="num blue"><b>0.9999</b></td></tr>
-          <tr><td>P̂<sub>within</sub></td><td class="num">4.2 × 10<sup>−17</sup></td><td class="num blue"><b>0.8588</b></td></tr>
-          <tr><td>P̂<sub>across</sub></td><td class="num">6.2 × 10<sup>−17</sup></td><td class="num blue"><b>0.4082</b></td></tr>
         </tbody>
       </table>
 
-      <p class="small" style="margin-top: 10px;">The chain recovers its own marginal essentially perfectly for <span class="math">P̂</span>. For <span class="math">P̂<sub>across</sub></span> the conditional structure deviates sharply (r = 0.41): chord changes are <i>directional</i> events, not bulk-mixing ones, and rest events further concentrate at chord boundaries.</p>
+      <p class="small" style="margin-top: 10px;">The chain recovers its own marginal essentially perfectly (r = 0.9999): the stationary distribution of the fitted operator is the corpus's own state-occupation frequency, which is a consistency check on the whole estimation.</p>
 
       <h3 style="font-size: 17px; margin: 14px 0 4px;">Top-3 high-mass states (P̂)</h3>
       <ol class="small" style="font-family: var(--mono); font-size: 14.5px;">
@@ -459,51 +473,77 @@
     </div>
   </div>
 
-  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 9 / 19</div>
+  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 10 / 23</div>
 </section>
 
 
-<!-- ====================== SLIDE 8 : SECTION 3 · HEADLINE 1 · SPECTRAL ===================== -->
+<!-- ====================== SLIDE : DISTRIBUTION EVOLUTION ===================== -->
 <section class="slide">
-  <p class="eyebrow">9 · Section 3 · Spectral analysis · <span style="color:var(--accent)">HEADLINE 1</span></p>
-  <h2>Two regimes: P̂<sub>within</sub> mixes an order of magnitude slower than P̂<sub>across</sub></h2>
+  <p class="eyebrow">10 · Section 10 · Evolving the distribution</p>
+  <h2>Put all the probability on one state and let it run</h2>
+  <div class="rule"></div>
+
+  <div class="cols" style="height: 226px;">
+    <div class="col">
+      <p class="small" style="margin:0 0 6px;">Section 2 found <span class="math">π</span> algebraically, as the left eigenvector at <span class="math">λ = 1</span>. Here it is found the other way, by iteration:</p>
+      <p class="display" style="font-size: 17px; margin: 4px 0;">μ<sub>0</sub> = e<sub>i</sub> , &nbsp;&nbsp; μ<sub>t+1</sub> = μ<sub>t</sub> P̂</p>
+      <p class="small">Start with certainty about the note, and watch the certainty dissolve.</p>
+    </div>
+    <div class="col" style="max-width: 470px;">
+      <p class="small" style="margin:0;">Starting on the busiest state, <span class="math">(5, dom7, &amp;4)</span>:</p>
+      <ul class="small" style="margin-top: 4px;">
+        <li>after <b>2 steps</b> the total-variation distance to <span class="math">π</span> is already below 0.5;</li>
+        <li>after <b>21 steps</b> it is below 0.01;</li>
+        <li>at <span class="math">t = 40</span> the largest disagreement with <span class="math">π</span> is <b>8.7 × 10<sup>−6</sup></b>.</li>
+      </ul>
+      <p class="small">The decay tracks <span class="math">|λ<sub>2</sub>|<sup>t</sup></span> almost exactly, which is the mixing time of Section 3 measured rather than asserted.</p>
+    </div>
+  </div>
+
+  <img src="../figures/section10_distribution_evolution.png" alt="TV distance decay and distribution snapshots converging to pi" style="display: block; width: 80%; margin: 6px auto 0;">
+
+  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 11 / 23</div>
+</section>
+
+
+<!-- ====================== SLIDE : SECTION 3 · SPECTRUM ===================== -->
+<section class="slide">
+  <p class="eyebrow">11 · Section 3 · Spectral analysis · <span style="color:var(--accent)">HEADLINE 1</span></p>
+  <h2>The spectrum contains a metric cycle</h2>
   <div class="rule"></div>
 
   <div class="cols" style="height: 470px;">
     <div class="col">
-      <p class="small">Eigenvalues of <span class="math">P</span> lie in the closed unit disk with <span class="math">λ<sub>1</sub> = 1</span>.
-      The spectral gap <span class="math">g = 1 − |λ<sub>2</sub>|</span> governs convergence:</p>
-      <p class="display" style="font-size: 17px;">‖π<sub>t</sub> − π‖<sub>TV</sub> &nbsp;≤&nbsp; C (1 − g)<sup>t</sup> &nbsp;⇒&nbsp; τ<sub>mix</sub> ≈ 1 / g</p>
-
-      <table style="margin-top: 10px;">
-        <thead><tr><th>Operator</th><th class="num">|λ<sub>2</sub>|</th><th class="num">gap g</th><th class="num">τ<sub>mix</sub> (steps)</th></tr></thead>
+      <p class="small">Perron-Frobenius puts <span class="math">λ<sub>1</sub> = 1</span> with the stationary distribution as its left eigenvector. The <i>second</i> eigenvalue governs how fast anything else dies away:</p>
+      <p class="display" style="font-size: 17px;">τ<sub>mix</sub> ≈ 1 / (1 − |λ<sub>2</sub>|)</p>
+      <table style="margin-top: 10px; width: 100%;">
         <tbody>
-          <tr><td>P̂</td>          <td class="num">0.8143</td><td class="num">0.1857</td><td class="num">5.4</td></tr>
-          <tr><td>P̂<sub>within</sub></td><td class="num">0.9276</td><td class="num">0.0724</td><td class="num red"><b>13.8</b></td></tr>
-          <tr><td>P̂<sub>across</sub></td><td class="num">0.2466</td><td class="num">0.7534</td><td class="num blue"><b>1.3</b></td></tr>
+          <tr><td>λ<sub>2</sub></td><td class="num mono">0.596 + 0.555 i</td></tr>
+          <tr><td>|λ<sub>2</sub>|</td><td class="num">0.8143</td></tr>
+          <tr><td>spectral gap</td><td class="num">0.1857</td></tr>
+          <tr><td>τ<sub>mix</sub></td><td class="num red"><b>5.4 steps</b></td></tr>
         </tbody>
       </table>
 
-      <h3 style="font-size: 19px; margin: 16px 0 6px;">Interpretation: two regimes</h3>
-      <ul class="small">
-        <li><b>Within a chord (τ ≈ 14)</b>: melodic motion is long-range structured: scalar runs, sequences, phrase development. The chain holds its phase for many steps.</li>
-        <li><b>Across a chord (τ &lt; 2)</b>: chord changes concentrate the chain onto a small set of strong-beat chord-tones (or a rest event followed by the new phrase): <b>decisive resolution in fewer steps than a bebop scale</b>.</li>
-        <li>All λ<sub>2</sub> are real ⇒ the slowest-decaying mode is non-oscillatory.</li>
-      </ul>
+      <h3 style="font-size: 19px; margin: 16px 0 6px;">λ<sub>2</sub> is complex, and that is the result</h3>
+      <p class="small">A real λ<sub>2</sub> would mean the slow mode simply decays. A <b>complex</b> one means it <i>rotates</i>: the chain has an oscillation it returns to. The period is</p>
+      <p class="display" style="font-size: 17px;">2π / arg(λ<sub>2</sub>) = 2π / 0.750 = <b>8.4 events</b></p>
+      <p class="small">One bar of eighth notes is exactly 8 events. <b>The metre is sitting in the spectrum</b>, and nothing put it there: the operator was estimated from counts that know nothing about bar lines.</p>
+      <p class="tiny">A corollary: a reversible chain has real eigenvalues, so a complex λ<sub>2</sub> proves this walk is <b>not reversible</b>. Time runs one way in it, which is what voice leading requires.</p>
     </div>
     <div class="col fig">
-      <img src="../figures/section3_P_within_spectrum.png" alt="spectrum of P_within">
-      <p class="tiny">Spectrum of P̂<sub>within</sub> in the complex plane. λ<sub>2</sub> sits close to the unit circle (|λ<sub>2</sub>| = 0.928), the slow-mixing signature.</p>
+      <img src="../figures/section3_P_spectrum.png" alt="spectrum of P in the complex plane">
+      <p class="tiny">All 428 eigenvalues in the complex plane. The conjugate pair off the real axis is the metric cycle; everything inside the small disc has decayed within a few events.</p>
     </div>
   </div>
 
-  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 10 / 19</div>
+  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 12 / 23</div>
 </section>
 
 
 <!-- ====================== SLIDE 9 : SECTION 4 · HITTING TIMES ===================== -->
 <section class="slide">
-  <p class="eyebrow">10 · Section 4 · Hitting times</p>
+  <p class="eyebrow">12 · Section 4 · Hitting times</p>
   <h2>Musical "gravity" recovered as expected resolution time</h2>
   <div class="rule"></div>
 
@@ -518,31 +558,59 @@
       <table style="margin-top: 12px;">
         <thead><tr><th>Operator</th><th class="num">median h</th><th class="num">min h</th><th>shortest sink</th></tr></thead>
         <tbody>
-          <tr><td>P̂</td>          <td class="num">4.09</td><td class="num">1.84</td><td>(7, min7, &amp;1)</td></tr>
-          <tr><td>P̂<sub>within</sub></td><td class="num">4.96</td><td class="num">1.99</td><td>(7, min7, &amp;1)</td></tr>
-          <tr><td>P̂<sub>across</sub></td><td class="num">4.60</td><td class="num red"><b>1.86</b></td><td>(b2, dom7, &amp;4)</td></tr>
+          <tr><td>P̂</td><td class="num">4.09</td><td class="num red"><b>1.84</b></td><td>(7, min7, &amp;1)</td></tr>
         </tbody>
       </table>
 
       <h3 style="font-size: 19px; margin: 16px 0 4px;">Headline</h3>
       <ul class="small">
-        <li>Under P̂<sub>across</sub>, the <b>♭9 over dom7 on the pickup resolves in 1.86 events</b>; the ♭2 over maj7 in 2.16, the ♭7 of the dominant in 2.28.</li>
-        <li>The shortest hitting times are <i>exactly</i> the canonical bebop approach tones: chromatic neighbors, leading tones, 2nd degrees. <b>All eight fastest-resolving states sit off the beat, and five of the eight sit specifically on &amp;4</b>: approach tones live in the swing pickup, not on downbeats.</li>
+        <li>The fastest resolution is the <b>leading tone over a minor chord, 1.84 events</b>; then the ♭9 over a dominant at 2.10 and the ♭2 over a major chord at 2.13.</li>
+        <li>The shortest hitting times are <i>exactly</i> the canonical bebop approach tones: chromatic neighbors, leading tones, 2nd degrees. <b>All eight fastest-resolving states sit offbeat</b>: approach tones live in the swing pickup, not on downbeats.</li>
         <li>Classical pedagogy ("dissonances resolve quickly") emerges as a quantitative property of the operator.</li>
       </ul>
     </div>
     <div class="col fig">
-      <img src="../figures/section4_P_across_hitting.png" alt="hitting time distribution P_across">
+      <img src="../figures/section4_P_hitting.png" alt="hitting time distribution">
     </div>
   </div>
 
-  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 11 / 19</div>
+  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 13 / 23</div>
+</section>
+
+
+<!-- ====================== SLIDE : DIRECTION ===================== -->
+<section class="slide">
+  <p class="eyebrow">13 · Section 12 · Direction</p>
+  <h2>The asymmetry is directional: the bebop scale is a descending device</h2>
+  <div class="rule"></div>
+
+  <div class="cols" style="height: 244px;">
+    <div class="col">
+      <p class="small" style="margin:0 0 6px;">Theory says more than "chord tones land on downbeats". The bebop scale inserts a chromatic passing tone <i>so that a descending eighth-note line</i> puts chord tones on the beat. Ascending, the device does not work the same way.</p>
+      <p class="small">Measured on absolute pitch over 20,058 note-to-note moves: Parker <b>descends 1.24 times for every ascent</b> (54.2 % vs 43.9 %), and 56 % of moves are steps of one or two semitones.</p>
+    </div>
+    <div class="col" style="max-width: 480px;">
+      <p class="small" style="margin:0 0 6px;">Landing on a strong beat, is it a chord tone?</p>
+      <table style="width: 100%;">
+        <thead><tr><th>line moving</th><th class="num">n</th><th class="num">chord tone</th></tr></thead>
+        <tbody>
+          <tr><td>descending</td><td class="num">4,146</td><td class="num red"><b>67.1 %</b></td></tr>
+          <tr><td>ascending</td><td class="num">4,202</td><td class="num">54.0 %</td></tr>
+        </tbody>
+      </table>
+      <p class="small" style="margin-top: 8px;"><b>+13.2 percentage points, z = 12.4.</b> A piece of bebop pedagogy recovered that the undirected analysis cannot see. Note this is a contingency table, not a second operator: the claim needs no decomposition of <span class="math">P̂</span>.</p>
+    </div>
+  </div>
+
+  <img src="../figures/section12_direction.png" alt="interval distribution and chord-tone landing rate by direction" style="display: block; width: 74%; margin: 4px auto 0;">
+
+  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 14 / 23</div>
 </section>
 
 
 <!-- ====================== SLIDE 10 : SECTION 5 · VOICE LEADING ===================== -->
 <section class="slide">
-  <p class="eyebrow">11 · Section 5 · Voice-leading recovery · <span style="color:var(--red)">HEADLINE 2</span></p>
+  <p class="eyebrow">14 · Section 5 · Voice-leading recovery · <span style="color:var(--red)">HEADLINE 2</span></p>
   <h2>The V7→I half-step resolution as a single matrix cell</h2>
   <div class="rule"></div>
 
@@ -550,7 +618,7 @@
     <div class="col">
       <p class="small">Joint transition probability under the stationary distribution:</p>
       <p class="display" style="font-size: 17px;">Pr(X<sub>t</sub> = i, X<sub>t+1</sub> = j) &nbsp;=&nbsp; π<sub>i</sub> · P̂<sub>ij</sub></p>
-      <p class="small">Ranking the cells of <span class="math">π<sub>across</sub> ⊗ P̂<sub>across</sub></span> reveals Parker's most-trafficked voice-leading moves at chord boundaries.</p>
+      <p class="small">Ranking the cells of <span class="math">π ⊗ P̂</span> reveals Parker's most-trafficked moves: which transitions actually carry the traffic in the corpus.</p>
 
       <h3 style="font-size: 19px; margin: 14px 0 4px;">The canonical V7 → I cell</h3>
       <p class="small">In tonal-harmonic theory, the <b>♭7 of a dominant</b> resolves down a half-step to the <b>major-3rd of the tonic</b>. With the v3 encoding the canonical resolution maps to <span class="math">(♭7, dom7, &amp;4) → (3, maj7, ♩1)</span>: the model now names the pickup position itself, rather than lumping all offbeat events together.</p>
@@ -560,25 +628,25 @@
         <tbody>
           <tr><td>(♭7, dom7, ♩4) → (3, maj7, ♩1)</td><td class="num">0.000 %</td><td class="num">0.05 %</td></tr>
           <tr><td>(♭7, dom7, &amp;3) → (3, maj7, ♩1)</td><td class="num">0.000 %</td><td class="num">0.09 %</td></tr>
-          <tr style="background: var(--accent-soft);"><td>(♭7, dom7, &amp;4) → (3, maj7, ♩1)</td><td class="num">0.027 %</td><td class="num red"><b>15.29 %</b></td></tr>
+          <tr style="background: var(--accent-soft);"><td>(♭7, dom7, &amp;4) → (3, maj7, ♩1)</td><td class="num">0.015 %</td><td class="num red"><b>10.71 %</b></td></tr>
           <tr><td>(♭7, dom7, &amp;4) → (3, maj7, ♩2)</td><td class="num">0.000 %</td><td class="num">0.01 %</td></tr>
         </tbody>
       </table>
-      <p class="small" style="margin-top: 10px;">When Parker is on <b>♭7-of-V7 on the pickup &amp;4</b> just before a chord change, the very next note is the <b>M3-of-I on beat 1</b> with conditional probability <span class="red"><b>15.29 %</b></span>: the textbook half-step resolution, recovered as one matrix entry. The neighbouring cells are dead: the same ♭7 one beat earlier, or resolving to beat 2 instead, both sit under 0.1 %. The resolution is specific to one source position and one target beat.</p>
+      <p class="small" style="margin-top: 10px;">When Parker is on <b>♭7-of-V7 on the pickup &amp;4</b> just before a chord change, the very next note is the <b>M3-of-I on beat 1</b> with conditional probability <span class="red"><b>10.71 %</b></span>: the textbook half-step resolution, recovered as one matrix entry. The neighbouring cells are dead: the same ♭7 one beat earlier, or resolving to beat 2 instead, both sit under 0.1 %. The resolution is specific to one source position and one target beat.</p>
     </div>
     <div class="col fig">
-      <img src="../figures/section5_P_across_top20.png" alt="top-20 across transitions">
-      <p class="tiny">Top 20 across-chord transitions ranked by joint probability. Dominated by common-tone ii–V resolutions (♭7-of-ii becomes M3-of-V).</p>
+      <img src="../figures/section5_P_top20.png" alt="top-20 transitions by joint probability">
+      <p class="tiny">Top 20 transitions ranked by joint probability π<sub>i</sub>·P̂<sub>ij</sub>.</p>
     </div>
   </div>
 
-  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 12 / 19</div>
+  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 15 / 23</div>
 </section>
 
 
 <!-- ====================== SLIDE 11 : SECTION 9 · GENERATIVE ===================== -->
 <section class="slide">
-  <p class="eyebrow">12 · Section 9 · Generative validation</p>
+  <p class="eyebrow">15 · Section 9 · Generative validation</p>
   <h2>The chain reproduces its own stationary distribution under simulation</h2>
   <div class="rule"></div>
 
@@ -607,13 +675,13 @@
     </div>
   </div>
 
-  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 13 / 19</div>
+  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 16 / 23</div>
 </section>
 
 
 <!-- ====================== SLIDE 12 : METRE VS MUSIC ===================== -->
 <section class="slide">
-  <p class="eyebrow">13 · Robustness · metre vs music</p>
+  <p class="eyebrow">16 · Robustness · metre vs music</p>
   <h2>How much of the structure is just the metre?</h2>
   <div class="rule"></div>
 
@@ -643,22 +711,20 @@
         <thead><tr><th>KL, nats/transition</th><th class="num">obs.</th><th class="num">shuffle all</th><th class="num">beat fixed</th></tr></thead>
         <tbody>
           <tr><td>P̂</td><td class="num red"><b>2.55</b></td><td class="num">0.99</td><td class="num blue">1.64</td></tr>
-          <tr><td>P̂<sub>within</sub></td><td class="num red"><b>2.79</b></td><td class="num">1.17</td><td class="num blue">1.77</td></tr>
-          <tr><td>P̂<sub>across</sub></td><td class="num red"><b>2.04</b></td><td class="num">1.91</td><td class="num blue">1.66</td></tr>
         </tbody>
       </table>
       <p class="small" style="margin-top: 8px;">The harder null raises the χ² bar from 4,412 to <b>29,342</b> for <span class="math">P̂</span>, a 6.6× tougher test. The observed statistic still exceeds <b>all 1,000</b> permutations under both nulls: <span class="math">p = 0.001</span>, the floor.</p>
-      <p class="small"><b>58 %</b> of the KL excess survives holding metre fixed for <span class="math">P̂</span>, 63 % for <span class="math">P̂<sub>within</sub></span>. For <span class="math">P̂<sub>across</sub></span> the effect <i>grows</i>: chord-change structure is not metrical at all.</p>
+      <p class="small"><b>58 %</b> of the KL excess survives holding metre fixed. So roughly two fifths of what the plain null detected was metrical bookkeeping, and the majority was not.</p>
     </div>
   </div>
 
-  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 14 / 19</div>
+  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 17 / 23</div>
 </section>
 
 
 <!-- ====================== SLIDE 13 : OTHER RESULTS · BACKUP ===================== -->
 <section class="slide">
-  <p class="eyebrow">14 · Supporting analyses</p>
+  <p class="eyebrow">17 · Supporting analyses</p>
   <h2>Null comparison · second-order memory · hub structure</h2>
   <div class="rule"></div>
 
@@ -668,46 +734,82 @@
       <p class="small">Permutation null: within-tune shuffle (preserves marginal, destroys transitions), B = 1,000.</p>
       <ul class="small">
         <li>For all three operators: χ² and KL p-values at the floor <span class="math">1/(B+1) = 0.001</span>: <b>no null permutation produced a statistic as large as the observed</b>.</li>
-        <li>Largest effect size for <span class="math">P̂<sub>within</sub></span> (KL 2.79 vs null 1.17 nats / transition).</li>
-        <li>P̂<sub>across</sub> KL is 2.04 vs null 1.91: across-chord destinations concentrate so heavily on rests + strong-beat chord tones that the marginal alone explains most of it.</li>
+        <li>Effect size: KL 2.55 vs a null mean of 0.99 nats / transition, a margin of 1.56.</li>
       </ul>
 
       <h3 style="font-size: 19px; margin: 12px 0 4px;">Memory order (Section 7)</h3>
       <p class="small">First- vs second-order chain; 80/20 per-tune temporal split.</p>
       <ul class="small">
-        <li>In-sample ΔBIC strongly favors order-2 for all operators: <span class="math">P̂</span> +19,102; <span class="math">P̂<sub>within</sub></span> +12,523; <span class="math">P̂<sub>across</sub></span> +7,131.</li>
+        <li>In-sample ΔBIC strongly favours order-2: <span class="math">P̂</span> <b>+19,102</b>.</li>
         <li><b>Held-out</b> log-likelihood favors order-1 for all three: the second-order effect is <b>real but un-exploitable</b> at 23k events (classic overfitting signature).</li>
         <li>The phrasing structure introduced by rest events is itself a real multi-step pattern, "phrase-ending note → rest → phrase-starting note", which order-2 detects.</li>
       </ul>
     </div>
     <div class="col fig">
       <img src="../figures/section7_delta_bic.png" alt="delta BIC by operator">
-      <p class="tiny" style="margin-top:6px;"><b>Hub structure (Section 8)</b>: under P̂<sub>across</sub>: <b>10/10 top in-degree hubs sit on a strong beat (1-4)</b>, <b>9/10 top out-degree hubs sit offbeat, 8 of them on &amp;4</b>. The "&amp; launches to strong-beat" rule recovered as near-binary saturation. Top-3 in-degree hubs include phrasing-rest states like (rest, min7, ♩1); rests are major sinks at chord boundaries.</p>
+      <p class="tiny" style="margin-top:6px;"><b>Hub structure (Section 8)</b>: PageRank with damping 0.85 over the 428 states. The top hub on every weighted measure is <b>(5, dom7, &amp;4)</b>, the fifth of a dominant chord in the pickup: <b>8 of the top 10 PageRank states sit offbeat</b>. Betweenness inverts, <b>9 of its top 10 sit on a strong beat</b>: downbeats are where the traffic passes through, offbeats are where it originates.</p>
     </div>
   </div>
 
-  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 15 / 19</div>
+  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 18 / 23</div>
+</section>
+
+
+<!-- ====================== SLIDE : FUTURE WORK ===================== -->
+<section class="slide">
+  <p class="eyebrow">18 · Further work</p>
+  <h2>What I would do next, and what I tried and set aside</h2>
+  <div class="rule"></div>
+
+  <div class="cols" style="height: 470px;">
+    <div class="col">
+      <h3 style="font-size: 19px; margin: 0 0 4px;">Decomposing the operator</h3>
+      <p class="small">The obvious extension is to split <span class="math">P̂</span> into two operators and compare their dynamics. I built the within-chord / across-chord version and then set it aside, for reasons worth stating:</p>
+      <ul class="small">
+        <li>The size of the across set is <b>arithmetic, not a finding</b>: 6.23 events per chord gives 1/6.23 = 16 %, and that is exactly the share observed.</li>
+        <li>It is <b>confounded with the downbeat</b>. 59 % of chord changes land on ♩1. Controlling for that, the chord-change flag moves the chord-tone landing rate by only 2 points (63.9 % vs 61.9 %).</li>
+        <li><b>76 % of the flag is redundant</b> with the state itself: when the quality changes, the state pair already shows it. Only 889 transitions (3.8 %) are cases where the root moves and the quality does not.</li>
+      </ul>
+      <p class="small">A decomposition earns its place only if it conditions on something <i>not already in the state</i> and not explained by metre. That is a real bar, and this one did not clear it.</p>
+    </div>
+    <div class="col" style="max-width: 500px;">
+      <h3 style="font-size: 19px; margin: 0 0 4px;">Splits that would clear it</h3>
+      <ul class="small">
+        <li><b>Direction</b> (9,505 up / 11,530 down) and <b>step vs leap</b> (11,226 / 8,441) are properties of the transition, absent from the state, and well balanced. Section 12 reports direction as a table; as operators they would give separate mixing and hitting times.</li>
+        <li><b>Phrase position</b>: first note after a rest versus mid-phrase.</li>
+      </ul>
+
+      <h3 style="font-size: 19px; margin: 16px 0 4px;">Other threads</h3>
+      <ul class="small">
+        <li><b>Duration as a fourth coordinate.</b> Not modelled, for notes or rests. Section 7 suggests a larger state space would fail the same way; the first step is to test whether duration is predictable from the current state at all.</li>
+        <li><b>The unobserved cells.</b> 92 of 520 never occur: two structural zeros on well-sampled qualities, the rest scarcity on <span class="mono">m7♭5</span> and <span class="mono">dim7</span>.</li>
+        <li><b>More corpus.</b> 54 visits per state; doubling it is what would make order-2 affordable.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 19 / 23</div>
 </section>
 
 
 <!-- ====================== SLIDE 13 : TAKEAWAYS ===================== -->
 <section class="slide">
-  <p class="eyebrow">15 · Take-aways</p>
+  <p class="eyebrow">19 · Take-aways</p>
   <h2>Bebop pedagogy recovered as numerical properties of an operator</h2>
   <div class="rule"></div>
 
   <div style="margin-top: 10px;">
 
     <div class="stats" style="margin: 0 0 18px;">
-      <div class="stat"><div class="v">15.29 %</div><div class="l">P(M3-of-I, ♩1 | ♭7-of-V7, &amp;4)</div></div>
+      <div class="stat"><div class="v">10.71 %</div><div class="l">P(M3-of-I, ♩1 | ♭7-of-V7, &amp;4)</div></div>
       <div class="stat r"><div class="v">13.8 vs 1.3</div><div class="l">τ<sub>mix</sub> within vs across (steps)</div></div>
       <div class="stat"><div class="v">1.86</div><div class="l">expected events from ♭9-of-V7 (&amp;4) to R</div></div>
-      <div class="stat r"><div class="v">10 / 10</div><div class="l">P̂<sub>across</sub> top in-degree hubs on strong beat (1-4)</div></div>
+      <div class="stat r"><div class="v">8 / 10</div><div class="l">top PageRank hubs sitting offbeat</div></div>
       <div class="stat"><div class="v">r = 0.9984</div><div class="l">simulation occupation vs π</div></div>
     </div>
 
     <ol style="font-size: 19px; line-height: 1.45;">
-      <li><b>V7 → I voice leading</b> appears as a single matrix cell with conditional probability <b>15.29 %</b>, and the target is specifically <b>beat 1</b>, sharpening the v1 finding from "any on-beat" to "the downbeat of the new chord".</li>
+      <li><b>V7 → I voice leading</b> appears as a single matrix cell with conditional probability <b>10.71 %</b>, and the target is specifically <b>beat 1</b>, sharpening the v1 finding from "any on-beat" to "the downbeat of the new chord".</li>
       <li><b>Two regimes</b>: within-chord melody mixes in ~14 steps (motivic, phrased), across-chord melody mixes in &lt; 2 steps (decisive, gravity-driven). More than a 10× spread.</li>
       <li><b>Approach-tone theory</b> recoverable as expected-hitting-time minima: the canonical chromatic approach tones (b2, b6, leading tones) live offbeat, mostly on the pickup &amp;4, and reach the resolution set in about 2 events.</li>
       <li><b>The chain is genuinely generative</b>: 100k simulated steps reproduce <span class="math">π</span> at Pearson r = 0.9984, TV = 0.023.</li>
@@ -715,13 +817,13 @@
     </ol>
   </div>
 
-  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 16 / 19</div>
+  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 20 / 23</div>
 </section>
 
 
 <!-- ====================== SLIDE 14 : DECISIONS ===================== -->
 <section class="slide">
-  <p class="eyebrow">16 · Decision log</p>
+  <p class="eyebrow">20 · Decision log</p>
   <h2>Six choices I'm prepared to defend</h2>
   <div class="rule"></div>
 
@@ -746,7 +848,7 @@
       <tr>
         <td>Beat-position granularity</td>
         <td><b>8 classes</b>: 1, 2, 3, 4, &amp;1, &amp;2, &amp;3, &amp;4</td>
-        <td>v1 used binary on/off; v2 split the four downbeats; v3 also splits the offbeat class by the beat it follows, so the pickup (&amp;4) is distinguishable from mid-bar offbeats. The V7→I cell sharpened to a single source position (15.29 %), and the neighbouring cells went to zero. Costs 428 observed states instead of 275.</td>
+        <td>v1 used binary on/off; v2 split the four downbeats; v3 also splits the offbeat class by the beat it follows, so the pickup (&amp;4) is distinguishable from mid-bar offbeats. The V7→I cell sharpened to a single source position (10.71 %), and the neighbouring cells went to zero. Costs 428 observed states instead of 275.</td>
       </tr>
       <tr>
         <td>Rest handling</td>
@@ -776,13 +878,13 @@
     </tbody>
   </table>
 
-  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 17 / 19</div>
+  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 21 / 23</div>
 </section>
 
 
 <!-- ====================== SLIDE 15 : APPENDIX - STATE TRAJECTORY ===================== -->
 <section class="slide">
-  <p class="eyebrow">17 · Appendix · What the chain actually walks</p>
+  <p class="eyebrow">21 · Appendix · What the chain actually walks</p>
   <h2>The trajectory with no projection: one step, one state</h2>
   <div class="rule"></div>
 
@@ -802,13 +904,13 @@
 
   <img src="../figures/section_state_trajectory.png" alt="state-index trajectory, real vs sampled, with chord-quality bands" style="display: block; width: 69%; margin: 8px auto 0;">
 
-  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 18 / 19</div>
+  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 22 / 23</div>
 </section>
 
 
 <!-- ====================== SLIDE 16 : THANKS ===================== -->
 <section class="slide title">
-  <div class="eyebrow">18 · Thank you</div>
+  <div class="eyebrow">22 · Thank you</div>
   <h1 style="margin-bottom: 28px;">Questions?</h1>
 
   <div style="font-size: 19px; color: var(--muted);">
@@ -824,7 +926,7 @@
     <span style="color: var(--muted);"><i>Dynamical Models for Social Behavior</i> &nbsp; · &nbsp; Profs. Gonnella &amp; Suma</span>
   </div>
 
-  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 19 / 19</div>
+  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 23 / 23</div>
 </section>
 
 

@@ -11,6 +11,9 @@ Run every step of the Markov-chain analysis pipeline in order:
     07_memory_order.py
     08_hub_structure.py
     09_generative_validation.py
+    10_distribution_evolution.py
+    11_graph_view.py
+    12_direction.py
     build_presentation_data.py
 
 Each step writes its artifacts to data/ and figures/.  The pipeline is
@@ -38,6 +41,9 @@ STEPS = [
     "07_memory_order.py",
     "08_hub_structure.py",
     "09_generative_validation.py",
+    "10_distribution_evolution.py",
+    "11_graph_view.py",
+    "12_direction.py",
     "build_presentation_data.py",
 ]
 

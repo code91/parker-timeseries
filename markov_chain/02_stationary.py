@@ -112,7 +112,7 @@ def main() -> None:
     f_emp = empirical_distribution(df, states)
 
     summary: dict = {}
-    for name in ("P", "P_within", "P_across"):
+    for name in ("P",):
         print(f"\n--- {name} ---")
         P = load_operator(name)
         pi = stationary_distribution(P)

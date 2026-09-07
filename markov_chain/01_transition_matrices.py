@@ -3,8 +3,6 @@ Section 1 — Transition matrices.
 
 Build three transition operators on the canonical state space:
     P̂          : ML-estimated transition matrix over all in-tune note pairs
-    P̂_within   : restricted to pairs where the active chord does NOT change
-    P̂_across   : restricted to pairs where the active chord DOES change
 
 Estimator (Laplace-smoothed):
     P̂_ij = (N_ij + α) / (N_i + α · |S|)
@@ -16,9 +14,6 @@ Tune-boundary handling:
     No transition is counted across tune boundaries — we iterate per tune
     and stop one short of the last note within each.
 
-Within vs across split:
-    The chord_changed_from_prev flag belongs to the *destination* note t+1.
-    A transition (s_t -> s_{t+1}) is "across" iff that flag is True on t+1.
 """
 
 from __future__ import annotations
@@ -69,25 +64,17 @@ def plot_log_heatmap(P: np.ndarray, name: str, out: Path) -> None:
     plt.close(fig)
 
 
-def build_count_matrices(df: pd.DataFrame, idx: dict) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
-    """Return (N_all, N_within, N_across) count matrices."""
+def build_count_matrices(df: pd.DataFrame, idx: dict) -> np.ndarray:
+    """Return the count matrix N.  Transitions are counted per tune, stopping
+    one short of each tune's last event, so nothing is counted across a
+    boundary between solos."""
     n = len(idx)
-    N_within = np.zeros((n, n), dtype=np.int64)
-    N_across = np.zeros((n, n), dtype=np.int64)
-
-    for _, grp in df.groupby("tune_id", sort=False):
-        states = grp["state"].tolist()
-        changed = grp["chord_changed_from_prev"].tolist()
-        for t in range(len(states) - 1):
-            i = idx[states[t]]
-            j = idx[states[t + 1]]
-            if changed[t + 1]:
-                N_across[i, j] += 1
-            else:
-                N_within[i, j] += 1
-
-    N_all = N_within + N_across
-    return N_all, N_within, N_across
+    N = np.zeros((n, n), dtype=np.int64)
+    for tune_id, grp in df.groupby("tune_id", sort=False):
+        states_t = grp["state"].tolist()
+        for t in range(len(states_t) - 1):
+            N[idx[states_t[t]], idx[states_t[t + 1]]] += 1
+    return N
 
 
 def smooth_to_stochastic(N: np.ndarray, alpha: float) -> np.ndarray:
@@ -140,33 +127,23 @@ def main() -> None:
     print(f"\nObserved state space |S| = {len(states)}")
 
     print("\nBuilding count matrices ...")
-    N_all, N_within, N_across = build_count_matrices(df, idx)
+    N_all = build_count_matrices(df, idx)
 
     print("\nLaplace smoothing (alpha = "
           f"{SMOOTHING_ALPHA}) and conversion to row-stochastic form ...")
     P_all = smooth_to_stochastic(N_all, SMOOTHING_ALPHA)
-    P_within = smooth_to_stochastic(N_within, SMOOTHING_ALPHA)
-    P_across = smooth_to_stochastic(N_across, SMOOTHING_ALPHA)
 
     reports = []
     reports.append(report("P (all transitions)", N_all, P_all))
-    reports.append(report("P_within", N_within, P_within))
-    reports.append(report("P_across", N_across, P_across))
 
     FIGURES_DIR.mkdir(parents=True, exist_ok=True)
     plot_log_heatmap(P_all, "P (all transitions)", FIGURES_DIR / "section1_P_logheatmap")
-    plot_log_heatmap(P_within, "P_within", FIGURES_DIR / "section1_P_within_logheatmap")
-    plot_log_heatmap(P_across, "P_across", FIGURES_DIR / "section1_P_across_logheatmap")
 
     # Persist
     save_state_order(states)
     save_operator("P", P_all)
-    save_operator("P_within", P_within)
-    save_operator("P_across", P_across)
     # Also persist raw counts for downstream tests (null comparison, χ²).
     np.save(DATA_DIR / "N.npy", N_all)
-    np.save(DATA_DIR / "N_within.npy", N_within)
-    np.save(DATA_DIR / "N_across.npy", N_across)
 
     summary_path = DATA_DIR / "section1_summary.json"
     with summary_path.open("w") as f:

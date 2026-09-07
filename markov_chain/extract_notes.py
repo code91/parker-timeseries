@@ -3,7 +3,7 @@ Extract a per-event dataset (played notes + rests) from the Charlie Parker
 Aligned Digital Omnibook.
 
 For every event we record:
-    tune_id, event_index, kind ('note'|'rest'), pitch_pc, chord_root_pc,
+    tune_id, event_index, kind ('note'|'rest'), pitch_pc, pitch_midi, chord_root_pc,
     chord_quality, scale_degree (int 0..11 for notes, the sentinel string
     REST_SD for rests), beat_position ('1'|'2'|'3'|'4'|'&1'..'&4'),
     chord_changed_from_prev, onset_midi_time, measure, state (the triple
@@ -133,6 +133,7 @@ def _build_event_stream(measures) -> list[dict]:
                     "local_offset": local_offset,
                     "measure": measure_num,
                     "pitch_pc": int(el.pitch.pitchClass),
+                    "pitch_midi": int(el.pitch.midi),
                 })
             elif isinstance(el, m21note.Rest):
                 events.append({
@@ -141,6 +142,7 @@ def _build_event_stream(measures) -> list[dict]:
                     "local_offset": local_offset,
                     "measure": measure_num,
                     "pitch_pc": -1,
+                    "pitch_midi": -1,
                 })
             # Chord (multi-note simultaneity) skipped — Parker's solos are single-line.
     events.sort(key=lambda e: e["global_offset"])
@@ -227,6 +229,9 @@ def extract_tune(xml_path: Path) -> tuple[list[dict], dict]:
             "event_index": len(rows),
             "kind": ev["kind"],
             "pitch_pc": ev["pitch_pc"],
+            # absolute pitch is not part of the state; it is kept so that melodic
+            # direction and interval size can be measured exactly (Section 12)
+            "pitch_midi": ev["pitch_midi"],
             "chord_root_pc": root_pc,
             "chord_quality": quality,
             "scale_degree": scale_degree,

@@ -25,17 +25,20 @@ the print-ready slide deck.
 
 ---
 
-## State of the repo (frozen — v3)
+## State of the repo (v4)
 
 - Pipeline runs end-to-end in ~60 s via `python markov_chain/run_all.py`.
 - 23,143 events extracted (21,590 notes + 1,553 rests), 428 / 520
   states observed, 27 pipeline figures (PNG + PDF) plus 6 standalone
   demo figures.  The deck is 18 slides.
+- **v4 removed the within/across split.** There is one operator, `P`.
+  See "Further work" in `results.md` for why: the across set's size is
+  arithmetic (1 / 6.23 events per chord), it is confounded with the
+  downbeat, and 76 % of the chord-change flag is redundant with the state.
 - All numerical results match `results.md`. **Smoke test** after any
-  change: the V7→I cell `(♭7, dom7, &4) → (3, maj7, ♩1)` should have
-  conditional probability ≈ **15.29 %** in `P̂_across`. Other smoke
-  numbers: τ_mix(P_within) ≈ 13.8, τ_mix(P_across) ≈ 1.3, generative
-  r ≈ 0.998. If any move significantly, something upstream broke.
+  change: the V7→I cell `(♭7, dom7, &4) → (3, maj7, ♩1)` ≈ **10.71 %**
+  conditional in `P`; τ_mix(P) ≈ 5.4; λ₂ complex with period ≈ 8.4;
+  generative r ≈ 0.998; direction effect z ≈ 12.4.
 
 ## v3 changes vs v2 (load-bearing)
 
@@ -187,7 +190,7 @@ references), `readme.md` (old project's README), `tune_titles.csv`
 | File | Purpose | Reads | Writes |
 |---|---|---|---|
 | `common.py` | Shared utilities, all tunable parameters, IO | — | — |
-| `extract_notes.py` | MusicXML → per-note dataset | `xml/*.xml` | `data/notes.parquet` |
+| `extract_notes.py` | MusicXML → per-event dataset (stores `pitch_midi` for Section 12) | `xml/*.xml` | `data/notes.parquet` |
 | `01_transition_matrices.py` | Build P̂, P̂_within, P̂_across | `data/notes.parquet` | `data/P*.npy`, `data/N*.npy`, `data/states.json`, `figures/section1_*`, `data/section1_summary.json` |
 | `02_stationary.py` | π via left eigenvector at λ=1 | `data/P*.npy`, `data/states.json` | `data/pi_*.npy`, `figures/section2_*`, `data/section2_summary.json` |
 | `03_spectral.py` | Eigenvalues, mixing time, v₂ | `data/P*.npy`, `data/states.json` | `data/eigvals_*.npy`, `figures/section3_*`, `data/section3_summary.json` |
@@ -198,6 +201,9 @@ references), `readme.md` (old project's README), `tune_titles.csv`
 | `08_hub_structure.py` | PageRank, degree, betweenness | `data/P*.npy`, `data/N*.npy`, `data/states.json` | `figures/section8_*`, `data/section8_summary.json` |
 | `09_generative_validation.py` | 1000 simulated trajectories | `data/notes.parquet`, `data/P.npy`, `data/pi_P.npy`, `data/states.json` | `figures/section9_*`, `data/section9_summary.json` |
 | `build_presentation_data.py` | Aggregate headline numbers | `data/section*_summary.json`, `data/states.json`, `data/notes.parquet` | `markov_chain/presentation_data.json` |
+| `10_distribution_evolution.py` | μ₀ = e_i, iterate μP, converge to π | `data/P.npy`, `data/pi_P.npy` | `figures/section10_*`, `data/section10_summary.json` |
+| `11_graph_view.py` | Induced subgraph on the 8 busiest states | `data/P.npy`, `data/N.npy`, `data/pi_P.npy` | `figures/section11_*`, `data/section11_summary.json` |
+| `12_direction.py` | Descending vs ascending chord-tone landing | `data/notes.parquet` | `figures/section12_*`, `data/section12_summary.json` |
 | `run_all.py` | Orchestrator | — | (re-runs every step) |
 
 Standalone scripts, **not** in `run_all.py` — run them by hand after a
@@ -263,12 +269,11 @@ Figure references are relative: `../figures/...`. Don't break that.
      for backwards compatibility but actually counts notes + rests)
    - `corpus.states_observed` == **428**
    - `v7_to_I_cells["(b7, dom7, &4) -> (3, maj7, ♩1)"].conditional`
-     ≈ **0.1529**
-   - `spectral.P_within.mixing_time_steps` ≈ **13.8**
-   - `spectral.P_across.mixing_time_steps` ≈ **1.3**
+     ≈ **0.1071**
+   - `spectral.P.mixing_time_steps` ≈ **5.4**
    - `generative_validation.pearson_r_f_sim_vs_pi` ≈ **0.998**
-3. `ls figures/*.png | wc -l` should equal **35** (27 from `run_all.py`,
-   plus `parker.png`, `scrapple.png` and the six demo-script figures).
+3. `ls figures/*.png | wc -l` should equal **24** (27 from `run_all.py`,
+   plus `parker.png`, `scrapple.png` and the demo-script figures).
 
 If any of those drift by more than rounding noise, find what changed
 before declaring success.

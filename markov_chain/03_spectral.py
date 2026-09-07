@@ -132,7 +132,7 @@ def main() -> None:
     states = load_state_order()
 
     summary: dict = {}
-    for name in ("P", "P_within", "P_across"):
+    for name in ("P",):
         print(f"\n--- {name} ---")
         P = load_operator(name)
         eigvals, eigvecs = spectrum(P)

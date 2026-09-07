@@ -138,7 +138,7 @@ def main() -> None:
     states = load_state_order()
     summary: dict = {}
 
-    for name in ("P", "P_within", "P_across"):
+    for name in ("P",):
         print(f"\n--- {name} ---")
         P = load_operator(name)
         count_name = "N" if name == "P" else "N_" + name[len("P_"):]
@@ -187,7 +187,7 @@ def main() -> None:
 
     FIGURES_DIR.mkdir(parents=True, exist_ok=True)
     per_op_pr = {name: summary[name]["metrics"]["PageRank"]["top_10"]
-                 for name in ("P", "P_within", "P_across")}
+                 for name in ("P",)}
     plot_top_pagerank(per_op_pr, FIGURES_DIR / "section8_top10_pagerank")
     print(f"\nWrote section8_summary.json and figures")
 

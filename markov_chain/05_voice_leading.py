@@ -3,8 +3,8 @@ Section 5 — Voice-leading recovery (centerpiece).
 
 Joint transition probability under the stationary distribution is
     Pr(X_t = i,  X_{t+1} = j)  =  π_i · P_ij.
-Ranking the cells of (π_across ⊗ P_across) reveals the most-trafficked
-across-chord transitions, i.e. Parker's habitual voice-leading moves at
+Ranking the cells of (π ⊗ P) reveals the most-trafficked transitions,
+i.e. Parker's habitual voice-leading moves at and around
 chord boundaries.
 
 The canonical V7→I half-step resolution maps to
@@ -90,13 +90,13 @@ def main() -> None:
     states = load_state_order()
     idx_of = {s: i for i, s in enumerate(states)}
 
-    P_across = load_operator("P_across")
-    pi_across = stationary(P_across)
+    P_all = load_operator("P")
+    pi_all = stationary(P_all)
 
     FIGURES_DIR.mkdir(parents=True, exist_ok=True)
-    top = top_k_transitions(P_across, pi_across, 20)
-    plot_top_transitions(top, states, "P_across", FIGURES_DIR / "section5_P_across_top20")
-    print("\nTop 20 across-chord transitions by joint probability (π_i · P_ij):\n")
+    top = top_k_transitions(P_all, pi_all, 20)
+    plot_top_transitions(top, states, "P", FIGURES_DIR / "section5_P_top20")
+    print("\nTop 20 transitions by joint probability (π_i · P_ij):\n")
     print(f"  {'#':>2}  {'source':30s}  {'target':30s}  {'joint':>8}  {'cond':>8}")
     for k, (i, j, joint, cond) in enumerate(top, 1):
         print(f"  {k:>2}  {state_label(states[i]):30s}  -> {state_label(states[j]):30s}  "
@@ -109,33 +109,18 @@ def main() -> None:
         for s_tgt in V7_TO_I_TARGETS:
             if s_src in idx_of and s_tgt in idx_of:
                 i = idx_of[s_src]; j = idx_of[s_tgt]
-                joint = float(pi_across[i] * P_across[i, j])
-                cond = float(P_across[i, j])
+                joint = float(pi_all[i] * P_all[i, j])
+                cond = float(P_all[i, j])
                 v7_to_I_rows.append({"source": state_label(s_src), "target": state_label(s_tgt),
                                      "joint": joint, "conditional": cond})
                 print(f"  {state_label(s_src):20s} -> {state_label(s_tgt):20s}  "
                       f"joint = {joint*100:6.3f}%   conditional = {cond*100:6.2f}%")
 
-    # Also tabulate top P_within transitions for comparison
-    P_within = load_operator("P_within")
-    pi_within = stationary(P_within)
-    top_within = top_k_transitions(P_within, pi_within, 20)
-    print("\nTop 20 within-chord transitions by joint probability:\n")
-    print(f"  {'#':>2}  {'source':30s}  {'target':30s}  {'joint':>8}  {'cond':>8}")
-    for k, (i, j, joint, cond) in enumerate(top_within, 1):
-        print(f"  {k:>2}  {state_label(states[i]):30s}  -> {state_label(states[j]):30s}  "
-              f"{joint*100:>7.3f}%  {cond*100:>7.2f}%")
-
     summary = {
-        "P_across_top_20": [
+        "P_top_20": [
             {"rank": k + 1, "source": state_label(states[i]), "target": state_label(states[j]),
              "joint": joint, "conditional": cond}
             for k, (i, j, joint, cond) in enumerate(top)
-        ],
-        "P_within_top_20": [
-            {"rank": k + 1, "source": state_label(states[i]), "target": state_label(states[j]),
-             "joint": joint, "conditional": cond}
-            for k, (i, j, joint, cond) in enumerate(top_within)
         ],
         "v7_to_I_cells": v7_to_I_rows,
     }

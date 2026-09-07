@@ -47,13 +47,11 @@ Three operators built with Laplace smoothing α = 0.01:
 | Operator | Transitions counted | Nonzero count cells | Sparsity | Rows with N_i < 10 | Max &#124;Σ_j P_ij − 1&#124; |
 | --- | ---: | ---: | ---: | ---: | ---: |
 | P (all)    | 23,093 | 4,250 / 75,625 | 94.4 % | 102 | < 10⁻¹⁵ |
-| P_within   | 19,431 | 3,024 / 75,625 | 96.0 % | 108 | < 10⁻¹⁵ |
-| P_across   | 3,662  | 1,416 / 75,625 | 98.1 % | 225 | < 10⁻¹⁵ |
 
 50 tune boundaries are correctly skipped (23,093 = 23,143 − 50).
 Row-sums verified to machine precision.
 
-P_across has 362 undersampled rows out of 428 observed states — the
+P has 155 undersampled rows out of 428 observed states — the
 sparser cousin, as in v1. Smoothing keeps every estimable.
 
 ---
@@ -65,25 +63,20 @@ sparser cousin, as in v1. Smoothing keeps every estimable.
 | Operator | Σπ | min π | max &#124;πP − π&#124; | Pearson r(π, empirical) |
 | --- | ---: | ---: | ---: | ---: |
 | P        | 1.000000 | small | < 10⁻¹⁵ | **1.0000** |
-| P_within | 1.000000 | small | < 10⁻¹⁵ | **0.8588** |
-| P_across | 1.000000 | small | < 10⁻¹⁶ | **0.4082** |
 
 Top-3 high-mass states:
 
-| | π_P | π_within | π_across |
+| | π_P |
 | --- | --- | --- | --- |
 | 1 | (5, dom7, &4) 0.0141  | (1, dom7, &4) 0.0244  | (rest, min7, ♩1) 0.0316|
 | 2 | (1, dom7, &4) 0.0137  | (b7, dom7, &4) 0.0218 | (rest, dom7, ♩3) 0.0165|
 | 3 | (5, dom7, &3) 0.0128  | (5, dom7, &4) 0.0216  | (rest, dom7, ♩1) 0.0122|
 
-**Interpretation.** π for P and P_within is dominated by offbeat (`&`)
-bebop-scale tones over V7 — Parker's eighth-note swing fingerprint. π
-for P_across is dominated by phrasing-rest states: a rest on ♩1 of a
-minor-7 chord (the iconic "land on root-of-ii-then-pause-then-V"
-phrase end) is the single most-occupied across-chord state. The drop
-in r(π_across, empirical) from v1's 0.787 to 0.387 reflects this
-rest-mass concentration — across-chord conditional structure deviates
-much more sharply from the marginal once phrasing is in the model.
+**Interpretation.** π is dominated by offbeat dominant-chord states:
+the three heaviest are (5, dom7, &4), (1, dom7, &4) and (5, dom7, &3).
+r(π, empirical) = 0.9999, i.e. the stationary distribution of the fitted
+operator reproduces the corpus's own state-occupation frequency, which is
+a consistency check on the estimation as a whole.
 
 ---
 
@@ -92,31 +85,23 @@ much more sharply from the marginal once phrasing is in the model.
 | Operator | λ_1 | λ_2 | &#124;λ_2&#124; | gap g | τ_mix ≈ 1/g |
 | --- | ---: | ---: | ---: | ---: | ---: |
 | P        | 1.0 | real, ≈ +0.80  | 0.7997 | **0.2003** | **5.0 steps** |
-| P_within | 1.0 | real, ≈ +0.93  | 0.9276 | **0.0724** | **13.8 steps** |
-| P_across | 1.0 | real, ≈ −0.30  | 0.2967 | **0.7033** | **1.4 steps** |
 
-**Headline.** Mixing times still separate by **more than an order of
-magnitude**
-between the within-chord and across-chord regimes (v1: 2 orders; v2 is
-slightly less dramatic because rest events break up the long-range
-motivic continuity that drove v1's τ ≈ 233; v3 lower again, see below).
+**Headline.** τ_mix ≈ 5.4 steps: information about the current state is
+gone within roughly one and a half bars of eighth notes.
 
-- **P_within mixes in ≈ 14 steps.** Motivic and scalar structure still
-  holds the chain's phase for many steps — just less than in v1
-  because rests now punctuate the line.
-- **P_across mixes in < 2 steps.** Chord changes concentrate the chain
-  onto either a chord-tone on a strong beat or a rest state, decisively.
-- **P** sits in between (≈ 5 steps), mixing within- and across-chord
-  dynamics in their natural ratio.
+The more interesting fact is the *shape* of λ_2, not its size.
+λ_2 = 0.596 + 0.555i is **complex**, so the slow mode does not merely
+decay, it rotates. Its argument is 0.750 rad, giving a period of
+2π / 0.750 ≈ **8.4 events** — one 4/4 bar of eighth notes. The metre is
+present in the spectrum, and nothing put it there: the operator was
+estimated from counts that know nothing about bar lines. This appears
+only under the 8-class beat encoding; with a single "&" class the beat
+coordinate cannot cycle and λ_2 is real.
 
-λ_2 is real for P_within and P_across, but **complex for P**:
-λ_2 = 0.596 + 0.555i, |λ_2| = 0.814. Its argument is 0.750 rad, so the
-slow mode oscillates with period 2π / 0.750 ≈ **8.4 events** — one 4/4 bar
-of eighth notes. This is new in v3: with the offbeat class split by the
-beat it follows, the operator contains an explicit metric cycle
-(1 → &1 → 2 → &2 → …), and that cycle shows up as a rotation in the
-spectrum. Under the single-'&' encoding the beat coordinate could not
-cycle and λ_2 was real.
+A corollary worth stating: a reversible chain has real eigenvalues, so a
+complex λ_2 proves this walk is **not reversible**. Detailed balance
+fails (max |π_i P_ij − π_j P_ji| = 3.7 × 10⁻³), as it must for an
+operator that encodes directed voice leading.
 
 ---
 
@@ -133,27 +118,18 @@ It was never correct for the 4-beat encoding.)
 | Operator | median h | min h | max h | shortest 3 (gravity sinks) |
 | --- | ---: | ---: | ---: | --- |
 | P        | 4.09 | **1.84** | 5.09 | (7, min7, &1) 1.84 · (b2, dom7, &3) 2.10 · (b2, maj7, &4) 2.13 |
-| P_within | 4.96 | **1.99** | 6.66 | (7, min7, &1) 1.99 · (2, maj7, &1) 2.29 · (3, min7, &1) 2.34 |
-| P_across | 4.60 | **1.86** | 5.24 | (b2, dom7, &4) 1.86 · (2, min7, &2) 2.10 · (b2, maj7, &4) 2.16 |
 
-**Gravity, quantified.** All shortest hitting times sit offbeat, on the
-`&` position — i.e., the canonical bebop **approach tones live in the
-swing pickup**, not on the downbeats. Under P_across, the **♭9 over
-dom7 on the pickup resolves in 1.86 events**, the **2 of min7 in 2.10**, the
-**♭2 over maj7 in 2.16** — all chromatic neighbors collapsing to the
-chord-tone resolution set in less than two events.
-
-Median hitting times went up again in v3 (P_across 3.34 → 4.60) because the
-chain can detour through rest states before reaching R — rests are not
-themselves in R, so paths through silence add length. This is a real
-property of the v2 model.
+**Gravity, quantified.** All eight shortest hitting times sit offbeat:
+the canonical bebop approach tones live in the swing pickup, not on the
+downbeats. The fastest are the leading tone over min7 (1.84 events), the
+♭9 over dom7 (2.10) and the ♭2 over maj7 (2.13) — chromatic neighbours
+collapsing into the resolution set in about two events.
 
 ---
 
 ## 5. Voice-leading recovery (centerpiece)
 
-Top 10 across-chord transitions ranked by joint probability
-π_across · P̂_across:
+Top 10 transitions ranked by joint probability π · P̂:
 
 | # | source → target | joint | conditional |
 | ---: | --- | ---: | ---: |
@@ -172,7 +148,7 @@ Top 10 across-chord transitions ranked by joint probability
 8 are all variants of the same pattern — **Parker lands on a chord-tone
 of V or ii on beat 3, then rests at the start of the new chord**.
 Transition #1 at 64.65 % conditional is the strongest single rule in
-the across-chord operator: when on the M3 of V on beat 3, after a
+the operator: when on the M3 of V on beat 3, after a
 chord change, the next event is a rest on beat 1 of the new ii two
 times out of three. The Markov chain rediscovers a fundamental
 phrasing convention of bebop.
@@ -215,26 +191,16 @@ everything else and answers an easier question than it appears to.
 | Operator | χ² obs | χ² null A | χ² null B | KL obs | KL null A | KL null B |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
 | P        | 113,987 |  4,412 | **29,342** | 2.549 | 0.986 | **1.639** |
-| P_within |  92,815 |  2,972 | **19,403** | 2.794 | 1.169 | **1.774** |
-| P_across |   5,334 |     21 |  **2,802** | 2.043 | 1.913 | **1.664** |
 
 All twelve p-values sit at the floor, p̂ = 1 / (B + 1) = 0.0010: **no
 permutation under either null produced a statistic as large as the
 observed one.**
 
-Null B is a substantially harder test. For P it raises the χ² bar from
-4,412 to 29,342, a factor of 6.6. Measured on KL excess over the null,
-**58 % of the effect survives holding metre fixed** for P and 63 % for
-P_within. So roughly two fifths of what Null A was detecting was metrical
-bookkeeping, and the majority was not.
-
-P_across behaves differently in both directions. Under Null A its KL
-margin is thin (2.043 vs 1.913), which is the honest weakness of KL when
-rest mass dominates a small operator. Under Null B the margin *widens*
-(2.043 vs 1.664), because holding the metre fixed does nothing to help a
-null reproduce chord-change structure. Across-chord behaviour is not
-metrical, which is the cleanest statement of why the within/across split
-was worth making.
+Null B is a substantially harder test: it raises the χ² bar from 4,412 to
+29,342, a factor of 6.6. Measured as KL excess over the null,
+**58 % of the effect survives holding metre fixed**. So roughly two fifths
+of what Null A was detecting was metrical bookkeeping, and the majority
+was not.
 
 ---
 
@@ -246,8 +212,6 @@ Smoothed with α = 0.01; unseen test contexts back off to order-1.
 | Operator | T_train | **ΔBIC (obs)** | held-out LL(1) | held-out LL(2) | held-out Δ |
 | --- | ---: | ---: | ---: | ---: | ---: |
 | P        | ~18,500 | **+19,102** | −3.36 | −3.81 | **−0.46** |
-| P_within | ~15,500 | **+12,523** | −2.98 | −3.49 | **−0.50** |
-| P_across | ~2,900  | **+7,131**  | −4.29 | −4.66 | **−0.37** |
 
 Positive ΔBIC = order-2 preferred on training. Negative held-out Δ =
 order-1 generalizes better.
@@ -256,7 +220,7 @@ order-1 generalizes better.
 
 1. **In-sample BIC strongly prefers order-2 for every operator** — the
    v2 model has much more multi-step structure than v1 did, especially
-   for P_within (+12,523). This is the rest events
+   (+19,102). This is the rest events
    surfacing as multi-step patterns: a "note → rest → note" template
    is by definition order-2, and the chain detects it.
 
@@ -283,24 +247,17 @@ raw counts; betweenness with edge weight −log P_ij.
 | out-degree  | (5, dom7, &4)        | chord-tone 9/10, rest 1/10, strong-beat 3/10, offbeat 7/10 |
 | betweenness | (rest, dom7, ♩3)     | chord-tone 2/10, rest 8/10, strong-beat 9/10, offbeat 1/10 |
 
-### P_across — the cleanest pattern
+**Headline.** The top hub on every weighted measure is **(5, dom7, &4)**,
+the fifth of a dominant chord in the pickup, and **8 of the top 10
+PageRank states sit offbeat**. Betweenness inverts the picture: **9 of its
+top 10 sit on a strong beat**. Offbeats are where melodic motion
+originates; downbeats are where it passes through.
 
-| Metric | Top hub | Top-10 breakdown |
-| --- | --- | --- |
+--- | --- | --- |
 | PageRank    | (rest, min7, ♩1)     | chord-tone 6/10, rest 3/10, strong-beat 10/10, offbeat 0/10 |
 | in-degree   | (3, dom7, ♩1)        | chord-tone 7/10, rest 1/10, strong-beat 10/10, offbeat 0/10 |
 | out-degree  | (5, dom7, &4)        | chord-tone 5/10, rest 1/10, strong-beat 1/10, offbeat 9/10 |
 | betweenness | (rest, min7, ♩1)     | chord-tone 3/10, rest 5/10, strong-beat 7/10, offbeat 3/10 |
-
-**Headline survives v3 and sharpens.** Under P_across, **every
-top-10 in-degree hub is on a strong beat (1-4)** and **9 of 10
-top-out-degree hubs are offbeat — 8 of them specifically on `&4`,
-the pickup**. Across chord changes
-melody is *launched* from the offbeat swing-pickup and *lands* on a
-strong-beat chord-tone or a rest. The "&-launches-to-strong-beat" rule
-holds with near-binary saturation, and now we additionally see that
-rest events are major sinks (top-3 in-degree includes
-(rest, min7, ♩1)) — confirming the phrasing dynamics from Section 5.
 
 ---
 
@@ -322,7 +279,72 @@ v1's r = 0.9991.
 
 ---
 
-## 10. The unobserved states (supplementary)
+## 10. Evolving the distribution
+
+Produced by `10_distribution_evolution.py`. Section 2 obtains π
+algebraically as the left eigenvector at λ = 1; this section obtains it by
+iteration, which is what the exam task asks for directly:
+
+    mu_0 = e_i,   mu_(t+1) = mu_t P
+
+Starting with all probability on the busiest state, (5, dom7, &4):
+
+| quantity | value |
+| --- | ---: |
+| steps to TV(μ_t, π) < 0.5 | **2** |
+| steps to TV(μ_t, π) < 0.01 | **21** |
+| max &#124;μ_40 − π&#124; | 8.7 × 10⁻⁶ |
+
+The total-variation distance decays almost exactly as |λ_2|^t, so the
+mixing time of Section 3 is measured here rather than asserted, and the
+iterative and algebraic routes to π agree to six decimal places.
+
+---
+
+## 11. The chain as a graph
+
+Produced by `11_graph_view.py`. The exam task is posed on a graph of 6–8
+nodes; the full operator has 428. This section draws the induced subgraph
+on the **eight states carrying the most stationary mass** (9.7 % of the
+walk's time between them), with real transition probabilities on the
+edges and node area proportional to π.
+
+All eight are dom7 states and seven of the eight sit offbeat. The
+strongest single edge is (5, dom7, &3) → (rest, dom7, ♩4) at 11 %: run the
+bebop scale, then breathe.
+
+---
+
+## 12. Direction
+
+Produced by `12_direction.py`, on absolute pitch (`pitch_midi`, added to
+the extractor for this; pitch class alone misreads the 8 % of intervals
+wider than a tritone).
+
+The bebop scale is explicitly a *descending* device: the chromatic passing
+tone is inserted so that a descending eighth-note line places chord tones
+on the downbeats. The project's research question asks for the on-beat /
+off-beat asymmetry, but Sections 4 and 8 test it undirected.
+
+Over 20,058 note-to-note moves, Parker descends
+1.24 times for every ascent (54.2 %
+vs 43.9 %), and 56 %
+of moves are steps of one or two semitones.
+
+Landing on a strong beat, is it a chord tone?
+
+| line moving | n | chord tone |
+| --- | ---: | ---: |
+| descending | 4,146 | **67.1 %** |
+| ascending | 4,202 | 54.0 % |
+
+**+13.2 percentage points, z = 12.4.** A piece of bebop
+pedagogy the undirected analysis cannot see. Note this is a contingency
+table, not a second operator: the claim requires no decomposition of P.
+
+---
+
+## 13. The unobserved states (supplementary)
 
 Produced by `markov_chain/missing_states.py`; not part of `run_all.py`.
 
@@ -383,12 +405,36 @@ from the negative side: an avoid note never occupies a structural position.
 | Chord-quality classes | 5: maj7, min7, dom7, m7♭5, dim7 | Folding "dim" into m7♭5 misrepresents the 7th degree for 43 chord events. Extending to a 5th class adds at most 24 theoretical states and preserves harmonic fidelity. |
 | Bebop-convention quality recovery | "m" → min7, "" → maj7 | Bare "m" in a 4-note bebop context implies min7; surrounding chord tones confirm 7ths are routinely played over both. |
 | Beat-position tolerance | 0.05 quarter-notes | Absorbs grace notes and transcriber rounding without leaking "and"-of-beat eighths into the strong-beat class. |
-| Beat-position granularity | **v3: 8 classes (1, 2, 3, 4, &1, &2, &3, &4)** | v1 used binary on/off; v2 split the four downbeats; v3 also splits the offbeat class by the beat it follows, so the pickup (&4) is separable from mid-bar off-beats. The V7→I cell resolves to a single source position (15.29 %) with its neighbours at ~0, and the metric cycle appears in the spectrum of P. Costs 428 observed states instead of 275, and cuts τ_mix(P_within) from 46 to 14. |
+| Beat-position granularity | **8 classes (1, 2, 3, 4, &1, &2, &3, &4)** | v1 used binary on/off; v2 split the four downbeats; v3 also splits the offbeat class by the beat it follows, so the pickup (&4) is separable from mid-bar off-beats. The V7→I cell resolves to a single source position (15.29 %) with its neighbours at ~0, and the metric cycle appears in the spectrum of P. Costs 428 observed states instead of 275, and cuts τ_mix(P_within) from 46 to 14. |
 | Rest handling | **v2: rests as states with chord context; consecutive rests collapsed** | v1 ignored rests (continuous note streams). v2 captures phrasing structure. Collapsing consecutive rests prevents long-silence dominance of the operator. |
 | Beat reference | MusicXML notated offset, not MIDI | Notated beat is what bebop theorists mean by "on the beat". MIDI alignment is per-segment, not per-note; rebuilding it is orthogonal to the model. |
 | Smoothing α | 0.01 | Small enough that observed transitions dominate; large enough for Perron-Frobenius irreducibility and `I − Q` invertibility. |
-| Within/across split | conditioned on the destination's chord-change flag | A chord change is observed at the destination note. Conditioning on the source mis-classifies the first note of every new chord. |
 | Memory-order parameter count | observed cells | n²(n−1) ≈ 5.5M parameters for a 4K-cell observed model is wildly conservative; observed-count BIC penalizes only what the model actually uses. |
+
+---
+
+## Further work
+
+**The within/across decomposition, built and set aside.** An earlier version
+split P into within-chord and across-chord operators. It was removed, for
+reasons worth recording:
+
+- The size of the across set is arithmetic, not a finding: 6.23 events per
+  chord gives 1/6.23 = 16 %, which is exactly the observed share.
+- It is confounded with the downbeat. 59 % of chord changes land on ♩1;
+  controlling for that, the chord-change flag moves the chord-tone landing
+  rate by 2 points (63.9 % vs 61.9 %).
+- 76 % of the flag is redundant with the state itself: when the chord
+  quality changes, the state pair already shows it. Only 889 transitions
+  (3.8 %) are cases where the root moves and the quality does not.
+
+A decomposition earns its place only if it conditions on something not
+already in the state and not explained by metre. Splits that would clear
+that bar: **direction** (9,505 up / 11,530 down) and **step vs leap**
+(11,226 / 8,441), both properties of the transition rather than the source,
+both well balanced. Section 12 reports direction as a contingency table; as
+operators they would additionally give per-direction mixing and hitting
+times.
 
 ---
 

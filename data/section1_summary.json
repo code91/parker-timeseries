@@ -9,27 +9,5 @@
     "rows_undersampled": 155,
     "row_sample_size_median": 26.5,
     "row_sum_max_error": 9.992007221626409e-16
-  },
-  {
-    "operator": "P_within",
-    "n_states": 428,
-    "total_transitions": 19431,
-    "nonzero_cells": 4018,
-    "sparsity_pct": 97.80657699362389,
-    "rows_with_zero_count": 14,
-    "rows_undersampled": 171,
-    "row_sample_size_median": 21.0,
-    "row_sum_max_error": 7.771561172376096e-16
-  },
-  {
-    "operator": "P_across",
-    "n_states": 428,
-    "total_transitions": 3662,
-    "nonzero_cells": 1531,
-    "sparsity_pct": 99.16422831688358,
-    "rows_with_zero_count": 211,
-    "rows_undersampled": 362,
-    "row_sample_size_median": 1.0,
-    "row_sum_max_error": 6.661338147750939e-16
   }
 ]
