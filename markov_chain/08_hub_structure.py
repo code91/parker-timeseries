@@ -62,9 +62,10 @@ plt.rcParams.update({
 
 
 def plot_top_pagerank(per_op: dict, out: Path) -> None:
-    """3-panel horizontal-bar plot: top-10 PageRank per operator."""
-    fig, axes = plt.subplots(1, 3, figsize=(11.0, 4.8), sharex=False)
-    for ax, (name, vals) in zip(axes, per_op.items()):
+    """Horizontal-bar plot: top-10 PageRank, one panel per operator."""
+    k = len(per_op)
+    fig, axes = plt.subplots(1, k, figsize=(4.6 * k + 1.4, 4.4), sharex=False, squeeze=False)
+    for ax, (name, vals) in zip(axes[0], per_op.items()):
         labels = [row["state"] for row in vals]
         scores = [row["value"] for row in vals]
         y = np.arange(len(labels))
@@ -73,7 +74,8 @@ def plot_top_pagerank(per_op: dict, out: Path) -> None:
         ax.invert_yaxis()
         ax.set_xlabel("PageRank")
         ax.set_title(name)
-    fig.suptitle("Section 8 — top-10 hubs by damped PageRank (d = 0.85)")
+        ax.spines[["top", "right"]].set_visible(False)
+    fig.suptitle("Top-10 hubs by damped PageRank (d = 0.85)")
     fig.tight_layout()
     fig.savefig(out.with_suffix(".png"))
     fig.savefig(out.with_suffix(".pdf"))
