@@ -75,8 +75,12 @@ def main() -> None:
     tot = sum(ref.values())
     probs = np.array([ref.get(c, 0) / tot for c in cells])
 
-    beat_marg = Counter(b for _, _, b in states)
-    beat_share = {b: beat_marg[b] / len(states) for b in BEATS}
+    # Baseline over played notes only.  93.6 % of rest events land on a strong
+    # beat, so an all-events marginal over-predicts strong-beat counts for any
+    # note degree and makes every one of them look deficient there.
+    note_states = [s for s in states if s[0] != REST_SD]
+    beat_marg = Counter(b for _, _, b in note_states)
+    beat_share = {b: beat_marg[b] / len(note_states) for b in BEATS}
 
     per_quality = []
     for q in QUALITY_CLASSES:
@@ -151,7 +155,8 @@ def main() -> None:
 
 
 def plot(per_quality, structural, beat_share, cells) -> None:
-    fig, (ax_cov, ax_beat) = plt.subplots(1, 2, figsize=(10.0, 2.9), width_ratios=[1.0, 1.15])
+    """Grid coverage per chord quality, against what scarcity alone predicts."""
+    fig, ax_cov = plt.subplots(figsize=(6.4, 3.4))
 
     qs = [r["quality"] for r in per_quality]
     x = np.arange(len(qs))
@@ -162,34 +167,15 @@ def plot(per_quality, structural, beat_share, cells) -> None:
     ax_cov.bar(x, covered, width=0.6,
                color=[MUTED if q in WELL_SAMPLED else ACCENT for q in qs])
     ax_cov.errorbar(x, null_mu, yerr=null_sd, fmt="_", color=INK, markersize=14,
-                    linewidth=1.0, capsize=3, label="expected under scarcity alone")
+                    linewidth=1.0, capsize=3, label="expected if played like the common chords")
     ax_cov.set_xticks(x, qs)
     ax_cov.set_ylim(0, len(cells) * 1.08)
     ax_cov.set_ylabel(f"grid cells occupied (of {len(cells)})")
-    ax_cov.set_title(f"Coverage of the {len(cells)}-cell grid, by chord quality", fontsize=10, pad=8)
-    ax_cov.legend(frameon=False, fontsize=7.5, loc="upper right")
+    ax_cov.set_title(f"Coverage of the {len(cells)}-cell grid, by chord quality",
+                     fontsize=10, pad=8)
+    ax_cov.legend(frameon=False, fontsize=7.5, loc="lower left")
     ax_cov.spines[["top", "right"]].set_visible(False)
     ax_cov.tick_params(axis="x", length=0)
-
-    # beat profile of the structural-zero degrees vs the corpus
-    width = 0.26
-    xb = np.arange(len(BEATS))
-    ax_beat.bar(xb - width, [100 * beat_share[b] for b in BEATS], width=width,
-                color=MUTED, label="all events")
-    for i, r in enumerate(structural):
-        vals = r["beat_breakdown"]
-        n = sum(vals.values())
-        d, q, _ = r["missing_cell"]
-        ax_beat.bar(xb + i * width, [100 * vals[b] / n for b in BEATS], width=width,
-                    color=ACCENT if i == 0 else SOFT, edgecolor=ACCENT, linewidth=0.8,
-                    label=f"{scale_degree_name(d)} over {q}")
-    ax_beat.set_xticks(xb, ["♩1", "♩2", "♩3", "♩4", "&1", "&2", "&3", "&4"])
-    ax_beat.set_ylabel("% of that degree's events")
-    ax_beat.set_title("Clash tones live offbeat, and skip one strong beat entirely",
-                      fontsize=10, pad=8)
-    ax_beat.legend(frameon=False, fontsize=7.5)
-    ax_beat.spines[["top", "right"]].set_visible(False)
-    ax_beat.tick_params(axis="x", length=0)
 
     fig.tight_layout()
     out = FIGURES_DIR / "section_missing_states"

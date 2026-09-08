@@ -3,7 +3,7 @@
   "observed": 428,
   "missing": 92,
   "missing_on_rare_qualities": 90,
-  "corpus_offbeat_share_pct": 55.2,
+  "corpus_offbeat_share_pct": 58.7,
   "per_quality": [
     {
       "quality": "maj7",
@@ -77,9 +77,9 @@
         "&4": 12
       },
       "offbeat_share_pct": 83.0,
-      "expected_count": 11.45,
-      "poisson_p_zero": 1.0643655174947374e-05,
-      "survives_bonferroni": true,
+      "expected_count": 10.3,
+      "poisson_p_zero": 3.3615963651878986e-05,
+      "survives_bonferroni": false,
       "bonferroni_threshold": 1.923076923076923e-05
     },
     {
@@ -102,8 +102,8 @@
         "&4": 25
       },
       "offbeat_share_pct": 82.4,
-      "expected_count": 8.5,
-      "poisson_p_zero": 0.00020432737662399463,
+      "expected_count": 7.89,
+      "poisson_p_zero": 0.000374419279069601,
       "survives_bonferroni": false,
       "bonferroni_threshold": 1.923076923076923e-05
     }

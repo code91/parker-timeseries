@@ -101,7 +101,7 @@ def plot_real_vs_synth(real_seq: np.ndarray, synth_seqs: np.ndarray, states: lis
     )]
     for k in range(n_synth):
         panels.append((
-            f"Synthetic trajectory {k + 1} (from P̂)",
+            f"Synthetic trajectory {k + 1} (from $\\hat{{P}}$)",
             _sd_axis(states, synth_seqs[k]),
             "#3b6fb6",
         ))

@@ -91,3 +91,6 @@ temp/
 tmp/
 *.log
 *.bak
+
+# Downloaded reference recordings (not ours to redistribute)
+videos/

@@ -99,7 +99,7 @@ def main() -> None:
     panel(axes[0], real, states, blocks,
           f"Real: Anthropology, first {T_LENGTH} events (full state)", ACCENT)
     panel(axes[1], synth, states, blocks,
-          f"Synthetic trajectory 1 (from P̂), first {T_LENGTH} events", BLUE)
+          f"Synthetic trajectory 1 (from $\\hat{{P}}$), first {T_LENGTH} events", BLUE)
     axes[-1].set_xlabel("event index")
     fig.tight_layout()
 

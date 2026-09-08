@@ -57,7 +57,7 @@ def plot_log_heatmap(P: np.ndarray, name: str, out: Path) -> None:
     ax.set_xlabel("destination state index")
     ax.set_ylabel("source state index")
     cbar = fig.colorbar(im, ax=ax, fraction=0.04, pad=0.02)
-    cbar.set_label("log₁₀ P̂_ij")
+    cbar.set_label(r"$\log_{10}\hat{P}_{ij}$")
     fig.tight_layout()
     fig.savefig(out.with_suffix(".png"))
     fig.savefig(out.with_suffix(".pdf"))

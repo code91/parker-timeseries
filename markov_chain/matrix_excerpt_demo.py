@@ -27,6 +27,7 @@ if __package__ in (None, ""):
 
 from markov_chain.common import (  # noqa: E402
     DATA_DIR,
+    REST_SD,
     FIGURES_DIR,
     load_operator,
     load_state_order,
@@ -43,8 +44,12 @@ plt.rcParams.update({"font.family": "serif", "font.size": 9, "savefig.dpi": 300}
 
 
 def label(s) -> str:
+    """Show the semitone and the musician's name together, e.g. "10 (b7)".
+    The slides define d as (pc_note - pc_root) mod 12, so the number has to be
+    visible; the name is what makes the row readable as music."""
     d, q, b = s
-    return f"{scale_degree_name(d)}, {q}, {b if b.startswith('&') else '♩' + b}"
+    deg = REST_SD if d == REST_SD else f"{d} ({scale_degree_name(d)})"
+    return f"{deg}, {q}, {b if b.startswith('&') else '♩' + b}"
 
 
 def main() -> None:
@@ -60,7 +65,7 @@ def main() -> None:
     ax_full.imshow(np.log10(P), cmap=CMAP, aspect="equal", interpolation="nearest")
     ax_full.add_patch(Rectangle((COL0 - 0.5, ROW0 - 0.5), SPAN, SPAN,
                                 fill=False, edgecolor=ACCENT, linewidth=1.4))
-    ax_full.set_title(f"P̂, all {n} × {n} cells (log scale)", fontsize=10, pad=8)
+    ax_full.set_title(f"$\\hat{{P}}$, all {n} × {n} cells (log scale)", fontsize=10, pad=8)
     ax_full.set_xlabel("to state"); ax_full.set_ylabel("from state")
     ax_full.tick_params(labelsize=7.5)
 
