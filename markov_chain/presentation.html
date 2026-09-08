@@ -237,7 +237,6 @@
   </div>
 
   <h3 style="font-size: 17px; margin: 4px 0 2px;">Corpus statistics</h3>
-  <p class="tiny" style="margin: 0 0 2px;">Bebop's V-dominant profile: more than half of all notes are played over a dominant chord. <span class="mono">15.8 %</span> of events follow a chord change.</p>
   <img src="../figures/section_corpus_stats.png" alt="beat-position distribution and events per tune" style="display: block; width: 92%; margin: 0;">
 
   <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 3 / 18</div>
@@ -256,7 +255,7 @@
       <ul class="small">
         <li><b>Scale degree</b> <span class="math">d ∈ {0, …, 11} ∪ {R}</span>: for a note, semitones above the active chord root <span class="math">d = (pc<sub>note</sub> − pc<sub>chord-root</sub>) mod 12</span>; for a rest, the sentinel <span class="math">R</span>.</li>
         <li><b>Chord quality</b> <span class="math">q ∈ Q = {maj7, min7, dom7, m7♭5, dim7}</span>: the active chord at event onset (rests inherit it).</li>
-        <li><b>Beat position</b> <span class="math">b ∈ {1, 2, 3, 4, &amp;1, &amp;2, &amp;3, &amp;4}</span>: an integer beat if <span class="math">|offset mod 1| &lt; 0.05</span> quarter-notes, else offbeat, labelled by the beat it follows: "&amp;4" is anywhere between beat 4 and the barline.</li>
+        <li><b>Beat position</b> <span class="math">b ∈ {b1, b2, b3, b4, &amp;1, &amp;2, &amp;3, &amp;4}</span>: all 50 tunes are 4/4, so an event either lands on one of the four beats or falls offbeat, labelled by the beat it follows.</li>
       </ul>
     </div>
     <div class="col" style="max-width: 540px;">
@@ -272,7 +271,7 @@
 
   <div style="display: flex; align-items: center; gap: 24px; margin-top: 12px;">
     <img src="../figures/section_intro_encoding.png" alt="encoding demo: pickup rest and first 9 notes of Anthropology mapped to states" style="width: 57%;">
-    <p class="tiny" style="margin: 0;">The encoding collapses <b>23,143 events</b> onto <b>428 labels</b>: about <b>54 visits per state</b>, and every tune revisits most of its states several times over. That recurrence is what makes the transition probabilities estimable at all.</p>
+    <p class="tiny" style="margin: 0;">The encoding collapses <b>23,143 events</b> onto <b>428 states</b>: about <b>54 visits per state</b>, and every tune revisits most of its states several times over. That recurrence is what makes the transition probabilities estimable at all.</p>
   </div>
 
   <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 4 / 18</div>
@@ -367,7 +366,7 @@
           <th class="num">undersampled rows</th>
         </tr></thead>
         <tbody>
-          <tr><td>P̂</td>          <td class="num">23,093</td><td class="num">5,421 / 183,184</td><td class="num">97.0 %</td><td class="num">102</td></tr>
+          <tr><td>P̂</td>          <td class="num">23,093</td><td class="num">5,421 / 183,184</td><td class="num">97.0 %</td><td class="num">155</td></tr>
         </tbody>
       </table>
       <p class="tiny">Undersampled = row with N<sub>i</sub> &lt; 10. All row-sums verified to ≤ 1.0 × 10<sup>−15</sup>.</p>

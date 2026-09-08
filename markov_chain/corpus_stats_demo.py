@@ -75,7 +75,7 @@ def main() -> None:
     ax_len.text(0.97, 0.90, f"median {median:.0f}", transform=ax_len.transAxes,
                 ha="right", va="top", fontsize=8.5, color=INK)
     ax_len.set_xlabel("events per tune")
-    ax_len.set_ylabel("tunes")
+    ax_len.set_ylabel("number of tunes")
     ax_len.set_title(f"Solo length across the {len(per_tune)} tunes", fontsize=10, pad=8)
     ax_len.spines[["top", "right"]].set_visible(False)
 

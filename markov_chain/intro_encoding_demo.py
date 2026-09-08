@@ -23,7 +23,7 @@ from matplotlib.patches import FancyBboxPatch
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from markov_chain.common import FIGURES_DIR, REST_SD, SCALE_DEGREE_NAMES  # noqa: E402
+from markov_chain.common import FIGURES_DIR, REST_SD  # noqa: E402
 from markov_chain.extract_notes import extract_tune  # noqa: E402
 
 PC_NAMES = ("C", "D♭", "D", "E♭", "E", "F", "F♯", "G", "A♭", "A", "B♭", "B")
@@ -123,11 +123,11 @@ def main() -> None:
 
     # ---- State row: composed tuple in a soft pill ----
     for i, e in enumerate(events):
-        if e["scale_degree"] == REST_SD:
-            sd_name = "rest"
-        else:
-            sd_name = SCALE_DEGREE_NAMES[e["scale_degree"]]
-        b_pretty = e["beat_position"] if e["beat_position"].startswith("&") else f"♩{e['beat_position']}"
+        # Raw semitones here, not musician names: this figure's whole job is to
+        # show the arithmetic (pc_note - pc_root) mod 12, so printing the root
+        # as "1" rather than 0 would contradict the row above it.
+        sd_name = REST_SD if e["scale_degree"] == REST_SD else str(e["scale_degree"])
+        b_pretty = e["beat_position"] if e["beat_position"].startswith("&") else f"b{e['beat_position']}"
         text = f"({sd_name}, {e['chord_quality']}, {b_pretty})"
         box = FancyBboxPatch(
             (i - 0.44, Y_STATE - 0.30), 0.88, 0.60,
