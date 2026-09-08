@@ -91,7 +91,7 @@ def plot_stationary_vs_empirical(
     ax.set_xlabel("Empirical frequency")
     ax.set_ylabel("Stationary probability  π")
     r, _ = pearsonr(f, pi)
-    ax.set_title(f"{name}  —  Pearson r = {r:.4f}")
+    ax.set_title(f"{name}:  Pearson r = {r:.4f}")
     ax.legend(loc="lower right", frameon=False)
     fig.tight_layout()
     fig.savefig(out.with_suffix(".png"))

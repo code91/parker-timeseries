@@ -49,19 +49,30 @@ from markov_chain.common import (  # noqa: E402
     classify_beat,
     FIGURES_DIR,
     REST_SD,
+    RNG_SEED,
     load_notes,
     load_state_order,
 )
 
 TUNE_ID = "3zn4c"
 FIRST_MEASURE = 1
-LAST_MEASURE = 3
+LAST_MEASURE = 5
 XML_DIR = Path(__file__).resolve().parent.parent / "xml"
 TRAJECTORY_PATH = DATA_DIR / "section9_plot_trajectory.npy"
 # Parker's line is a pickup into bar 2; the sampled staff enters on that
 # downbeat rather than filling the pickup bar, so the two lines start together.
 SYNTH_START_BAR = 1
 SYNTH_OCTAVE_SHIFT = 12
+# Duration is not modelled, so a rest has no length of its own.  Rather than
+# engrave every rest as an eighth, draw one at random from REST_DURATIONS.  A
+# rest longer than an eighth absorbs the events on the slots it covers, so the
+# staff shows slightly fewer events than the walk emitted.  Seeded, so the
+# figure is reproducible.
+REST_DURATIONS: tuple[float, ...] = (0.5, 1.0, 1.5)
+# Parker's staff is engraved at written pitch.  Octave carries no meaning in
+# the state space, so this is purely a display choice; set to 12 to lift it
+# into the same register as the sampled staff below.
+REAL_OCTAVE_SHIFT = 0
 
 QUALITY_SUFFIX = {"maj7": "maj7", "min7": "m7", "dom7": "7", "m7b5": "m7\u266d5", "dim7": "dim7"}
 PC_SPELLING = ("C", "D\u266d", "D", "E\u266d", "E", "F", "G\u266d", "G", "A\u266d", "A", "B\u266d", "B")
@@ -78,45 +89,80 @@ def chord_symbol(root_pc: int, quality: str) -> expressions.TextExpression:
     return te
 
 
-def autocrop(path: Path, pad: int = 24) -> None:
+def autocrop(path: Path, pad: int = 24, max_gap: int = 46) -> None:
+    """Trim the page margins, then squeeze the vertical white band MuseScore
+    leaves between systems down to max_gap, so a two-system excerpt does not
+    arrive with a third of its height empty."""
     img = Image.open(path).convert("RGB")
-    grey = img.convert("L")
-    mask = grey.point(lambda p: 255 if p < 240 else 0)
+    mask = img.convert("L").point(lambda v: 255 if v < 240 else 0)
     box = mask.getbbox()
     if box is None:
         return
     l, t, r, b = box
-    img.crop((
-        max(0, l - pad), max(0, t - pad),
-        min(img.width, r + pad), min(img.height, b + pad),
-    )).save(path)
+    img = img.crop((max(0, l - pad), max(0, t - pad),
+                    min(img.width, r + pad), min(img.height, b + pad)))
+
+    ink = np.array(img.convert("L")) < 240
+    rows = ink.any(axis=1)
+    keep, run = [], 0
+    for y, has_ink in enumerate(rows):
+        if has_ink:
+            run = 0
+            keep.append(y)
+        else:
+            run += 1
+            if run <= max_gap:
+                keep.append(y)
+    if len(keep) < len(rows):
+        img = Image.fromarray(np.array(img)[keep])
+    img.save(path)
 
 
-# MuseScore 4's CLI ignores -S and drops MusicXML system breaks on import, so
-# neither page geometry nor system breaks can be set from here.  Three measures
-# (the pickup plus two full bars) is what fits on one system at its default
-# Letter layout; a fourth wraps and leaves an uncroppable gap down the middle.
-
+# MuseScore 4 ignores -S when rendering MusicXML straight to an image, and it
+# ignores <defaults><page-layout> in the MusicXML too.  It *does* apply the
+# style when converting MusicXML to .mscz, so the render is two steps: convert
+# with a wide page, then rasterise the .mscz.  That keeps all five measures on
+# one system instead of wrapping onto a second.  10 inches is the
+# narrowest page that still holds all five; 9 wraps.
 MSCORE = Path("/Applications/MuseScore 4.app/Contents/MacOS/mscore")
+
+STYLE = """<?xml version="1.0" encoding="UTF-8"?>
+<museScore version="4.00">
+  <Style>
+    <pageWidth>10</pageWidth>
+    <pageHeight>5.2</pageHeight>
+    <pagePrintableWidth>9.6</pagePrintableWidth>
+    <pageEvenLeftMargin>0.2</pageEvenLeftMargin>
+    <pageOddLeftMargin>0.2</pageOddLeftMargin>
+    <pageEvenTopMargin>0.2</pageEvenTopMargin>
+    <pageOddTopMargin>0.2</pageOddTopMargin>
+    <pageEvenBottomMargin>0.2</pageEvenBottomMargin>
+    <pageOddBottomMargin>0.2</pageOddBottomMargin>
+    <spatium>2.2</spatium>
+  </Style>
+</museScore>
+"""
 
 
 def render(score: stream.Score, out: Path) -> None:
     tmp = out.parent / "_notation_tmp"
     xml_path = Path(str(score.write("musicxml", fp=str(tmp.with_suffix(".musicxml")))))
-    subprocess.run(
-        [str(MSCORE), "-r", "300", "-o", str(out), str(xml_path)],
-        check=True, capture_output=True,
-    )
+    style_path = tmp.with_suffix(".mss")
+    style_path.write_text(STYLE)
+    mscz = tmp.with_suffix(".mscz")
+    subprocess.run([str(MSCORE), "-S", str(style_path), "-o", str(mscz), str(xml_path)],
+                   check=True, capture_output=True)
+    subprocess.run([str(MSCORE), "-r", "300", "-o", str(out), str(mscz)],
+                   check=True, capture_output=True)
     produced = sorted(out.parent.glob(f"{out.stem}-*.png"))
     if produced:
         produced[0].replace(out)
         for stray in produced[1:]:
             stray.unlink()
-    subprocess.run(
-        [str(MSCORE), "-o", str(out.with_suffix(".pdf")), str(xml_path)],
-        check=True, capture_output=True,
-    )
-    xml_path.unlink(missing_ok=True)
+    subprocess.run([str(MSCORE), "-o", str(out.with_suffix(".pdf")), str(mscz)],
+                   check=True, capture_output=True)
+    for f in (xml_path, style_path, mscz):
+        f.unlink(missing_ok=True)
     autocrop(out)
 
 
@@ -142,6 +188,8 @@ def main() -> None:
     real_pitches = [n.pitch.midi for n in real.recurse().notes if hasattr(n, "pitch")]
     lo = min(real_pitches) + SYNTH_OCTAVE_SHIFT
     hi = max(real_pitches) + SYNTH_OCTAVE_SHIFT
+    # after the register above is fixed, so both staves land in the same octave
+    real.transpose(REAL_OCTAVE_SHIFT, inPlace=True)
 
     for cs in list(real.recurse().getElementsByClass(harmony.ChordSymbol)):
         cs.activeSite.remove(cs)
@@ -170,13 +218,20 @@ def main() -> None:
 
     prev_midi = real_pitches[0] + SYNTH_OCTAVE_SHIFT
     beat_agreements = 0
+    rng = np.random.default_rng(RNG_SEED)
+    skip_until = -1.0
     for k, si in enumerate(seq):
-        sd, _q, beat = states[si]
         rel = synth_lead_in + 0.5 * k
+        if rel < skip_until:
+            continue
+        sd, _q, beat = states[si]
         slot_beat = classify_beat(rel % 4.0)
         beat_agreements += int(slot_beat == beat)
         if sd == REST_SD:
-            synth.insert(rel, note.Rest(quarterLength=0.5))
+            dur = float(rng.choice(REST_DURATIONS))
+            dur = min(dur, start_offset + 4.0 * n_bars - (start_offset + rel))
+            synth.insert(rel, note.Rest(quarterLength=dur))
+            skip_until = rel + dur
             continue
         root_pc, _ = chord_at(start_offset + rel)
         target_pc = (root_pc + int(sd)) % 12

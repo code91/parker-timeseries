@@ -78,7 +78,7 @@ def plot_eigenvalues(eigvals: np.ndarray, name: str, out: Path) -> None:
     ax.scatter([eigvals[1].real], [eigvals[1].imag], s=70, marker="*",
                color="#f39c12", edgecolor="black", linewidth=0.4, label=r"$\lambda_2$")
     gap = 1 - abs(eigvals[1])
-    ax.set_title(f"{name}  —  spectrum  ($|\\lambda_2|$ = {abs(eigvals[1]):.4f}, gap = {gap:.4f})")
+    ax.set_title(f"{name}:  spectrum  ($|\\lambda_2|$ = {abs(eigvals[1]):.4f}, gap = {gap:.4f})")
     ax.set_xlabel(r"Re $\lambda$")
     ax.set_ylabel(r"Im $\lambda$")
     ax.set_xlim(-1.1, 1.1)

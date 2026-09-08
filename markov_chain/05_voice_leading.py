@@ -52,7 +52,7 @@ def plot_top_transitions(top, states, name: str, out: Path) -> None:
     ax.set_yticklabels(labels, fontsize=7)
     ax.invert_yaxis()
     ax.set_xlabel("Joint probability  π_i · P_ij  (%)")
-    ax.set_title(f"{name}  —  top 20 transitions by joint probability")
+    ax.set_title(f"{name}:  top 20 transitions by joint probability")
     fig.tight_layout()
     fig.savefig(out.with_suffix(".png"))
     fig.savefig(out.with_suffix(".pdf"))

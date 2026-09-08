@@ -34,7 +34,8 @@ from markov_chain.common import (  # noqa: E402
     FIGURES_DIR,
     load_operator,
     load_state_order,
-    state_label,
+    REST_SD,
+    scale_degree_name,
 )
 
 K = 8
@@ -53,7 +54,13 @@ def main() -> None:
     N = np.load(DATA_DIR / "N.npy")
 
     top = list(np.argsort(pi)[::-1][:K])
-    labels = {i: state_label(states[i]) for i in top}
+    # semitone plus musician name, matching the matrix excerpt: "9 (6), dom7, b4"
+    def label(i: int) -> str:
+        d, q, b = states[i]
+        deg = REST_SD if d == REST_SD else f"{d} ({scale_degree_name(d)})"
+        return f"{deg}, {q}, {b if b.startswith('&') else 'b' + b}"
+
+    labels = {i: label(i) for i in top}
 
     G = nx.DiGraph()
     for i in top:
@@ -116,9 +123,6 @@ def plot(G, top, labels, pi, out: Path) -> None:
                                  font_family="serif", label_pos=0.35,
                                  bbox=dict(boxstyle="round,pad=0.1", fc="white", ec="none", alpha=0.7),
                                  ax=ax)
-    ax.set_title(f"The walk on its {len(G)} busiest states\n"
-                 f"node area $\\propto \\pi$, edge label = $P_{{ij}}$ in %, edges below "
-                 f"{MIN_EDGE:.0%} hidden unless they are a node's strongest", fontsize=10)
     ax.axis("off")
     fig.tight_layout()
     fig.savefig(out.with_suffix(".png")); fig.savefig(out.with_suffix(".pdf"))

@@ -186,7 +186,7 @@
     <div><b>Michele "Mike" Rubini</b> &nbsp;·&nbsp; MSc Decision Science &nbsp;·&nbsp; Università di Bari</div>
     <div>Course: <i>Dynamical Models for Social Behavior</i> &nbsp;·&nbsp; Profs. Gonnella &amp; Suma</div>
   </div>
-  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 1 / 20</div>
+  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 1 / 21</div>
 </section>
 
 
@@ -223,7 +223,7 @@
   <h3 style="font-size: 17px; margin: 4px 0 2px;">Corpus statistics</h3>
   <img src="../figures/section_corpus_stats.png" alt="beat-position distribution and events per tune" style="display: block; width: 92%; margin: 0;">
 
-  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 2 / 20</div>
+  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 2 / 21</div>
 </section>
 
 
@@ -253,7 +253,7 @@
   </div>
 
 
-  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 3 / 20</div>
+  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 3 / 21</div>
 </section>
 
 
@@ -276,7 +276,7 @@
 
   <p class="small" style="margin-top: 10px;"><b>Important</b>: we are not considering durations, octaves (heights), dynamics (f, p, pp) etc.</p>
 
-  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 4 / 20</div>
+  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 4 / 21</div>
 </section>
 
 
@@ -298,7 +298,7 @@
 
   <img src="../figures/section_missing_states.png" alt="grid coverage by chord quality" style="display: block; width: 42%; margin: 10px auto 0;">
 
-  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 5 / 20</div>
+  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 5 / 21</div>
 </section>
 
 
@@ -308,61 +308,18 @@
   <h2><span class="hat">P</span> is a table: 428 rows, one question each</h2>
   <div class="rule"></div>
 
-  <p class="small" style="margin: 6px 0 0;">Every row asks one question: <b>Parker is on this state, where does he go next?</b> Walk the 23,143 events in order; each time state <span class="math">i</span> is followed by state <span class="math">j</span>, add 1 to cell <span class="math">(i, j)</span>, then divide each row by its own total. The hat marks an <b>estimate</b>: <span class="math"><span class="hat">P</span></span> is what 50 solos say about the unobservable true <span class="math">P</span>. Probabilities live <b>within a row</b>: each row sums to 1 across <b>all 428 columns</b>.</p>
+  <p class="small" style="margin: 6px 0 0;">Every row asks one question: <b>Parker is on this state, where does he go next?</b> Walk the 23,143 events in order; each time state <span class="math">i</span> is followed by state <span class="math">j</span>, add 1 to cell <span class="math">(i, j)</span>, then divide each row by its own total. The hat marks an <b>estimate</b>: <span class="math"><span class="hat">P</span></span> is what 50 solos say about the unobservable true <span class="math">P</span>. Probabilities live <b>within a row</b>: each row sums to 1 across <b>all 428 columns</b>. Much of the emptiness is <b>metre</b>: from <span class="math">&amp;4</span> the walk goes to <span class="math">b1</span> <b>69 %</b> of the time or stays in <span class="math">&amp;4</span> <b>21 %</b>, and reaches <span class="math">b3</span> just <b>0.4 %</b> of the time. Most cells are empty because the beat cannot get there. Reading the colour: <b>dark dots</b> are moves Parker actually plays; <b>near-white</b> means the model is confident a move does not happen; <b>pink</b> means it has almost no data for that row and is spreading the probability evenly over all 428 states.</p>
 
-  <img src="../figures/section_matrix_excerpt.png" alt="the full 428x428 operator beside a 12x12 block with printed probabilities" style="display: block; width: 80%; margin: 10px auto 0;">
-
-  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 6 / 20</div>
-</section>
+  <img src="../figures/section_matrix_excerpt.png" alt="the full 428x428 operator beside a 12x12 block with printed probabilities" style="display: block; width: 80%; margin: 34px auto 0;">
 
 
-<!-- ====================== SLIDE : A SAMPLE WALK ===================== -->
-<section class="slide">
-  <p class="eyebrow">6 · A sample walk</p>
-  <h2>A walk sampled from <span class="hat">P</span>, beside Parker's own</h2>
-  <div class="rule"></div>
-
-
-  <div class="cols" style="height: 470px;">
-    <div class="col fig">
-      <img src="../figures/section9_real_vs_synth_scale_degree.png" alt="real vs synthetic trajectory teaser">
-      <p class="tiny" style="margin-top:4px;">Teaser: top, real <i>Anthropology</i> head; below, one trajectory sampled from the fitted chain. Both are <b>projections</b>: the chain moves through 428 states, and the plot shows only the scale-degree coordinate of each (0 = root … 11 = major 7th), collapsing the chord-quality and beat coordinates. <b>R</b> = rest event, below the dotted rule.</p>
-    </div>
-    <div class="col">
-      <img src="../figures/section_notation_real_vs_synth.png" alt="bars 2-4 of Anthropology above a line sampled from P-hat, engraved on the same changes" style="width: 100%; margin-top: 8px;">
-      <p class="tiny" style="margin-top:6px;">Top: the pickup and first two bars of <i>Anthropology</i> as Parker played them. Bottom: the opening 16 events of the same synthetic trajectory plotted on the left, entering on the downbeat of bar 2 over the identical changes.</p>
-      <p class="tiny">Each event the chain emits is a full state: a scale degree (or a rest), a chord quality, and a beat position. It carries no register and no duration, so octave is supplied by nearest-neighbour voice leading and the rhythm laid out as straight eighths.</p>
-    </div>
-  </div>
-
-  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 7 / 20</div>
-</section>
-
-
-<!-- ====================== SLIDE : GRAPH VIEW ===================== -->
-<section class="slide">
-  <p class="eyebrow">7 · The walk on a graph</p>
-  <h2>Eight nodes, so the walk is something you can look at</h2>
-  <div class="rule"></div>
-
-  <div class="cols" style="height: 124px;">
-    <div class="col">
-      <p class="small" style="margin:0;"><span class="hat">P</span> is a 428-node directed weighted graph: nodes are states, edge <span class="math">i → j</span> carries weight <span class="math"><span class="hat">P</span><sub>ij</sub></span>. Here is the induced subgraph on the <b>eight states with the most stationary mass</b>, which between them carry <b>9.7 %</b> of the walk's time.</p>
-    </div>
-    <div class="col" style="max-width: 440px;">
-      <p class="small" style="margin:0;">Every one of the eight is a <span class="mono">dom7</span> state, and seven of the eight sit offbeat. The strongest single edge is <span class="math">(5, dom7, &amp;3) → (rest, dom7, ♩4)</span> at <b>11 %</b>: run the bebop scale, then breathe.</p>
-    </div>
-  </div>
-
-  <img src="../figures/section11_graph_view.png" alt="the induced subgraph on the eight busiest states" style="display: block; width: 76%; margin: 6px auto 0;">
-
-  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 8 / 20</div>
+  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 6 / 21</div>
 </section>
 
 
 <!-- ====================== SLIDE 6 : MARKOV PROPERTY ===================== -->
 <section class="slide">
-  <p class="eyebrow">8 · The assumption</p>
+  <p class="eyebrow">6 · The assumption</p>
   <h2>The Markov property: is the current state enough?</h2>
   <div class="rule"></div>
 
@@ -370,205 +327,209 @@
     <div class="col">
       <p class="display" style="font-size: 17px;">Pr(X<sub>t+1</sub> | X<sub>0</sub>, …, X<sub>t</sub> = s<sub>i</sub>) &nbsp;=&nbsp; Pr(X<sub>t+1</sub> | X<sub>t</sub> = s<sub>i</sub>)</p>
       <p class="small">The next state depends only on where the line <i>is</i>, not on how it got there. Everything before the current event is discarded.</p>
-      <p class="small">This is the licence for the previous slide. If history mattered, Parker could not be summarised as a table of "from → to": you would need one row per phrase, and no corpus could fill it.</p>
+      <p class="small">This is the licence for the previous slide. If history mattered, Parker could not be summarised as a table of "from → to".</p>
 
-      <h3 style="font-size: 19px; margin: 14px 0 4px;">It is an assumption, not a fact</h3>
-      <p class="small">Take <span class="math">(5, dom7, &amp;4)</span>, which occurs 346 times with a known predecessor, and split its continuations by what came <i>before</i>:</p>
+      <p class="small">Take <span class="math">7 (5), dom7, &amp;4</span>, which occurs 346 times with a known predecessor, and split its continuations by what came <i>before</i>:</p>
       <table style="width: 100%; margin-top: 6px;">
         <thead><tr><th>arrived from</th><th>most likely continuation</th></tr></thead>
         <tbody>
-          <tr><td>(6, dom7, ♩4) &nbsp;<span class="tiny">n = 63</span></td><td>(1, dom7, ♩1) &nbsp; <b>22 %</b></td></tr>
-          <tr><td>(3, dom7, ♩4) &nbsp;<span class="tiny">n = 45</span></td><td>(♭7, dom7, &amp;4) &nbsp; <span class="red"><b>40 %</b></span></td></tr>
+          <tr><td>9 (6), dom7, b4 &nbsp;<span class="tiny">n = 63</span></td><td>0 (1), dom7, b1 &nbsp; <b>22 %</b></td></tr>
+          <tr><td>4 (3), dom7, b4 &nbsp;<span class="tiny">n = 45</span></td><td>10 (b7), dom7, &amp;4 &nbsp; <span class="red"><b>40 %</b></span></td></tr>
         </tbody>
       </table>
-      <p class="small" style="margin-top: 8px;">Same current state, different futures. Approached from the 3rd, the line keeps descending to the ♭7 four times out of ten; approached from the 6th, that continuation barely appears. <b>The property is false in the strict sense</b>, and we know the direction of the error: descending lines carry momentum a first-order chain cannot see.</p>
+      <p class="small" style="margin-top: 8px;">Same current state, different futures. Approached from the 3rd (semitone 4), the line keeps descending to the ♭7 (semitone 10) four times out of ten; approached from the 6th, that continuation barely appears. <b>The property is false in the strict sense</b>, and we know the direction of the error: descending lines carry momentum a first-order chain cannot see.</p>
     </div>
   </div>
 
-  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 9 / 20</div>
+  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 7 / 21</div>
 </section>
 
 
-<!-- ====================== SLIDE 6 : SECTION 1 · MATRICES ===================== -->
+<!-- ====================== SLIDE : A SAMPLE WALK ===================== -->
 <section class="slide">
-  <p class="eyebrow">9 · Section 1 · The operator</p>
-  <h2><span class="hat">P</span> &nbsp;·&nbsp; sparsity and sample sizes</h2>
+  <p class="eyebrow">7 · A sample walk</p>
+  <h2>A walk sampled from <span class="hat">P</span>, beside Parker's own</h2>
   <div class="rule"></div>
 
-  <div class="cols" style="height: 470px;">
-    <div class="col" style="flex: 0 0 540px;">
-      <table>
-        <thead><tr>
-          <th>Operator</th>
-          <th class="num">transitions</th>
-          <th class="num">nonzero / |S|²</th>
-          <th class="num">sparsity</th>
-          <th class="num">undersampled rows</th>
-        </tr></thead>
-        <tbody>
-          <tr><td><span class="hat">P</span></td>          <td class="num">23,093</td><td class="num">5,421 / 183,184</td><td class="num">97.0 %</td><td class="num">155</td></tr>
-        </tbody>
-      </table>
-      <p class="tiny">Undersampled = row with N<sub>i</sub> &lt; 10. All row-sums verified to ≤ 1.0 × 10<sup>−15</sup>.</p>
 
-      <h3 style="font-size: 19px; margin: 16px 0 4px;">Two structural observations</h3>
-      <ul class="small">
-        <li>The matrix is <b>97 % empty</b>: 5,421 of 183,184 cells ever occur. Most state pairs never appear in bebop, so the operator has a clear skeleton rather than a haze.</li>
-        <li><b>155 of 428 rows are undersampled</b> (median row: 26 transitions). Those rows carry the most estimation error and are where smoothing does the work.</li>
-      </ul>
+  <div class="cols" style="height: 470px;">
+    <div class="col fig">
+      <img src="../figures/section_state_trajectory.png" alt="the same two walks plotted as state index, with chord-quality bands" style="margin-top: 26px;">
+      <p class="tiny" style="margin-top:4px;"><b>The walk itself.</b> Every step is one complete state, plotted by its index. States are ordered by chord quality. Height <i>within</i> a band is scale degree; a jump <i>between</i> bands is a chord change. Filled marker = on an integer beat, hollow = offbeat.</p>
+      <p class="tiny">Over the same 100 events Parker visits <b>52 distinct states</b> and the sampled walk visits <b>81</b>. The real line keeps returning to a smaller working vocabulary.</p>
     </div>
     <div class="col fig">
-      <img src="../figures/section1_P_logheatmap.png" alt="P log-heatmap">
-      <p class="tiny">log<sub>10</sub> <span class="hat">P</span><sub>ij</sub> heatmap; diagonal blocks correspond to within-quality transitions; off-diagonal blocks are quality changes.</p>
+      <img src="../figures/section9_real_vs_synth_scale_degree.png" alt="real vs synthetic trajectory teaser">
+      <p class="tiny" style="margin-top:4px;"><b>The same walk, projected.</b> Two of the three coordinates are discarded and only the scale degree is kept (0 = root … 11 = major 7th), with <b>R</b> for a rest below the dotted rule. This reads as melodic contour, which the panel on the left does not, but it is a shadow: two points at the same height can be completely different states, differing in chord quality or beat.</p>
     </div>
   </div>
 
-  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 10 / 20</div>
+  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 8 / 21</div>
+</section>
+
+
+<!-- ====================== SLIDE : THE WALK AS NOTATION ===================== -->
+<section class="slide">
+  <p class="eyebrow">8 · The same walk, engraved</p>
+  <h2>What the sampled walk sounds like on paper</h2>
+  <div class="rule"></div>
+
+  <img src="../figures/section_notation_real_vs_synth.png" alt="the pickup and first four bars of Anthropology above a line sampled from P-hat, engraved on the same changes" style="display: block; width: 97%; margin: 46px auto 0;">
+
+  <div class="cols" style="height: 200px; margin-top: 18px;">
+    <div class="col">
+      <p class="small" style="margin: 0;">Top: the pickup and first four bars of <i>Anthropology</i> as Parker played them. Bottom: the opening events of the <b>same sampled walk</b> shown on the previous slide, entering on the downbeat of bar 2 over the identical changes. Rest durations are randomized: the model does not carry them.</p>
+    </div>
+
+  </div>
+
+  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 9 / 21</div>
+</section>
+
+
+<!-- ====================== SLIDE : GRAPH VIEW ===================== -->
+<section class="slide">
+  <p class="eyebrow">9 · The walk on a graph</p>
+  <h2>Eight nodes, so the walk is something you can look at</h2>
+  <div class="rule"></div>
+
+  <p class="small" style="margin: 6px 0 0;"><span class="hat">P</span> is a 428-node directed weighted graph: nodes are states, edge <span class="math">i → j</span> carries weight <span class="math"><span class="hat">P</span><sub>ij</sub></span>. Here is the subgraph on the <b>eight states the walk spends the most time in</b>, which between them account for <b>9.7 %</b> of its time. Every one of the eight is a <span class="mono">dom7</span> state, and seven of the eight sit offbeat.</p>
+
+  <img src="../figures/section11_graph_view.png" alt="the induced subgraph on the eight busiest states" style="display: block; width: 92%; margin: 8px auto 0;">
+
+  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 10 / 21</div>
+</section>
+
+
+<!-- ====================== SLIDE : PAGERANK ===================== -->
+<section class="slide">
+  <p class="eyebrow">10 · PageRank</p>
+  <h2>PageRank is <span class="hat">P</span> with a teleport, and here it agrees with π</h2>
+  <div class="rule"></div>
+
+  <div class="cols" style="height: 470px;">
+    <div class="col">
+      <p class="small">PageRank runs the same walk with one change: <b>85 %</b> of the time follow an edge, otherwise <b>jump to a random state</b>.</p>
+
+      <h3 style="font-size: 19px; margin: 16px 0 4px;">Where the measures disagree</h3>
+      <table style="width: 100%;">
+        <thead><tr><th>measure</th><th>busiest state</th><th class="num">offbeat</th></tr></thead>
+        <tbody>
+          <tr><td>PageRank</td><td>7 (5), dom7, &amp;4</td><td class="num red"><b>8 / 10</b></td></tr>
+          <tr><td>in-degree</td><td>7 (5), dom7, &amp;4</td><td class="num">7 / 10</td></tr>
+          <tr><td>out-degree</td><td>7 (5), dom7, &amp;4</td><td class="num">7 / 10</td></tr>
+          <tr><td><b>betweenness</b></td><td>R, dom7, b3</td><td class="num blue"><b>1 / 10</b></td></tr>
+        </tbody>
+      </table>
+
+    </div>
+    <div class="col fig">
+      <img src="../figures/section8_top10_pagerank.png" alt="top-10 states by PageRank">
+      <p class="tiny" style="margin-top:4px;">428 nodes, 5,421 directed edges. Betweenness uses edge weight −log <span class="hat">P</span><sub>ij</sub>, so a short path is a probable one.</p>
+    </div>
+  </div>
+
+  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 11 / 21</div>
 </section>
 
 
 <!-- ====================== SLIDE 7 : SECTION 2 · STATIONARY ===================== -->
 <section class="slide">
-  <p class="eyebrow">10 · Section 2 · Stationary distribution</p>
-  <h2>π solved as the left eigenvector at λ = 1</h2>
+  <p class="eyebrow">11 · Stationary distribution</p>
+  <h2>Where the walk spends its time</h2>
   <div class="rule"></div>
 
   <div class="cols" style="height: 470px;">
     <div class="col">
-      <h3 style="font-size: 19px; margin: 0 0 4px;">Perron-Frobenius (smoothed irreducible aperiodic case)</h3>
-      <p class="display" style="font-size: 18px;">π P = π, &nbsp; Σ<sub>s</sub> π(s) = 1, &nbsp; π &gt; 0</p>
-      <p class="small">→ <span class="math">π</span> exists and is unique. Computed by diagonalizing <span class="math">P<sup>T</sup></span> and selecting the eigenvector at the eigenvalue closest to 1, then ℓ¹-normalizing.</p>
+      <p class="small">Let the walk run a long time and count how often it is in each state. That settles to a fixed share per state, written <span class="math">π</span>: one number per state, adding to 1.</p>
 
-      <table style="margin-top: 14px;">
-        <thead><tr><th>Operator</th><th class="num">max |πP − π|</th><th class="num">Pearson r(π, f<sub>emp</sub>)</th></tr></thead>
-        <tbody>
-          <tr><td><span class="hat">P</span></td><td class="num">3.5 × 10<sup>−17</sup></td><td class="num blue"><b>0.9999</b></td></tr>
-        </tbody>
-      </table>
+      <p class="display" style="font-size: 18px;">π <span class="hat">P</span> = π</p>
 
-      <p class="small" style="margin-top: 10px;">The chain recovers its own marginal essentially perfectly (r = 0.9999): the stationary distribution of the fitted operator is the corpus's own state-occupation frequency, which is a consistency check on the whole estimation.</p>
+      <p class="small"><span class="math">π</span> is the distribution that <b>one more step leaves unchanged</b>.</p>
 
-      <h3 style="font-size: 17px; margin: 14px 0 4px;">Top-3 high-mass states (<span class="hat">P</span>)</h3>
+      <p class="small"><b>Why that matters.</b> <span class="math">π</span> comes out of the <i>transitions</i>, never from how common each state is, yet it reproduces the corpus's own frequencies. A check on the whole estimation.</p>
+
+      <h3 style="font-size: 17px; margin: 14px 0 4px;">The three busiest states</h3>
       <ol class="small" style="font-family: var(--mono); font-size: 14.5px;">
-        <li>(5, dom7, &amp;4) &nbsp;&nbsp; π = 0.0141</li>
-        <li>(1, dom7, &amp;4) &nbsp;&nbsp; π = 0.0137</li>
-        <li>(5, dom7, &amp;3) &nbsp;&nbsp; π = 0.0128</li>
+        <li>7 (5), dom7, &amp;4 &nbsp;&nbsp; π = 0.0141</li>
+        <li>0 (1), dom7, &amp;4 &nbsp;&nbsp; π = 0.0137</li>
+        <li>7 (5), dom7, &amp;3 &nbsp;&nbsp; π = 0.0128</li>
       </ol>
-      <p class="tiny">Top mass = chord tones over V7 on the late offbeat positions (&amp;3, &amp;4): the swing fingerprint, now located in the bar.</p>
     </div>
     <div class="col fig">
-      <img src="../figures/section2_P_pi_vs_empirical.png" alt="pi vs empirical scatter">
+      <img src="../figures/section2_P_pi_vs_empirical.png" alt="pi against the corpus frequencies, one dot per state">
+      <p class="tiny" style="margin-top:4px;">One dot per state: <span class="math">π</span> against how often that state actually occurs. The diagonal is perfect agreement.</p>
     </div>
   </div>
 
-  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 11 / 20</div>
+  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 12 / 21</div>
 </section>
 
 
-<!-- ====================== SLIDE : DISTRIBUTION EVOLUTION ===================== -->
+<!-- ====================== SLIDE 11 : SECTION 9 · GENERATIVE ===================== -->
 <section class="slide">
-  <p class="eyebrow">11 · Section 10 · Evolving the distribution</p>
-  <h2>Put all the probability on one state and let it run</h2>
-  <div class="rule"></div>
-
-  <div class="cols" style="height: 226px;">
-    <div class="col">
-      <p class="small" style="margin:0 0 6px;">Section 2 found <span class="math">π</span> algebraically, as the left eigenvector at <span class="math">λ = 1</span>. Here it is found the other way, by iteration:</p>
-      <p class="display" style="font-size: 17px; margin: 4px 0;">μ<sub>0</sub> = e<sub>i</sub> , &nbsp;&nbsp; μ<sub>t+1</sub> = μ<sub>t</sub> <span class="hat">P</span></p>
-      <p class="small">Start with certainty about the note, and watch the certainty dissolve.</p>
-    </div>
-    <div class="col" style="max-width: 470px;">
-      <p class="small" style="margin:0;">Starting on the busiest state, <span class="math">(5, dom7, &amp;4)</span>:</p>
-      <ul class="small" style="margin-top: 4px;">
-        <li>after <b>2 steps</b> the total-variation distance to <span class="math">π</span> is already below 0.5;</li>
-        <li>after <b>21 steps</b> it is below 0.01;</li>
-        <li>at <span class="math">t = 40</span> the largest disagreement with <span class="math">π</span> is <b>8.7 × 10<sup>−6</sup></b>.</li>
-      </ul>
-      <p class="small">The decay tracks <span class="math">|λ<sub>2</sub>|<sup>t</sup></span> almost exactly, which is the mixing time of Section 3 measured rather than asserted.</p>
-    </div>
-  </div>
-
-  <img src="../figures/section10_distribution_evolution.png" alt="TV distance decay and distribution snapshots converging to pi" style="display: block; width: 80%; margin: 6px auto 0;">
-
-  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 12 / 20</div>
-</section>
-
-
-<!-- ====================== SLIDE : SECTION 3 · SPECTRUM ===================== -->
-<section class="slide">
-  <p class="eyebrow">12 · Section 3 · Spectral analysis · <span style="color:var(--accent)">HEADLINE 1</span></p>
-  <h2>The spectrum contains a metric cycle</h2>
+  <p class="eyebrow">12 · A thousand agents</p>
+  <h2>Letting agents loose on the graph</h2>
   <div class="rule"></div>
 
   <div class="cols" style="height: 470px;">
     <div class="col">
-      <p class="small">Perron-Frobenius puts <span class="math">λ<sub>1</sub> = 1</span> with the stationary distribution as its left eigenvector. The <i>second</i> eigenvalue governs how fast anything else dies away:</p>
-      <p class="display" style="font-size: 17px;">τ<sub>mix</sub> ≈ 1 / (1 − |λ<sub>2</sub>|)</p>
-      <table style="margin-top: 10px; width: 100%;">
-        <tbody>
-          <tr><td>λ<sub>2</sub></td><td class="num mono">0.596 + 0.555 i</td></tr>
-          <tr><td>|λ<sub>2</sub>|</td><td class="num">0.8143</td></tr>
-          <tr><td>spectral gap</td><td class="num">0.1857</td></tr>
-          <tr><td>τ<sub>mix</sub></td><td class="num red"><b>5.4 steps</b></td></tr>
-        </tbody>
-      </table>
+      <p class="small">Drop <b>1,000 agents</b> on random starting states. Each takes <b>100 steps</b>, choosing where to go by the odds in its current row. That is <b>100,000</b> events of newly generated Parker.</p>
+      <p class="small">Then count where they spent their time, and compare with <span class="math">π</span>.</p>
 
-      <h3 style="font-size: 19px; margin: 16px 0 6px;">λ<sub>2</sub> is complex, and that is the result</h3>
-      <p class="small">A real λ<sub>2</sub> would mean the slow mode simply decays. A <b>complex</b> one means it <i>rotates</i>: the chain has an oscillation it returns to. The period is</p>
-      <p class="display" style="font-size: 17px;">2π / arg(λ<sub>2</sub>) = 2π / 0.750 = <b>8.4 events</b></p>
-      <p class="small">One bar of eighth notes is exactly 8 events. <b>The metre is sitting in the spectrum</b>, and nothing put it there: the operator was estimated from counts that know nothing about bar lines.</p>
-      <p class="tiny">A corollary: a reversible chain has real eigenvalues, so a complex λ<sub>2</sub> proves this walk is <b>not reversible</b>. Time runs one way in it, which is what voice leading requires.</p>
     </div>
     <div class="col fig">
-      <img src="../figures/section3_P_spectrum.png" alt="spectrum of P in the complex plane">
-      <p class="tiny">All 428 eigenvalues in the complex plane. The conjugate pair off the real axis is the metric cycle; everything inside the small disc has decayed within a few events.</p>
+      <img src="../figures/section9_occupation_vs_pi.png" alt="occupation vs pi">
+      <p class="tiny">Each dot is one of the 428 observed states. Diagonal = perfect match.</p>
     </div>
   </div>
 
-  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 13 / 20</div>
+  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 13 / 21</div>
 </section>
 
 
 <!-- ====================== SLIDE 9 : SECTION 4 · HITTING TIMES ===================== -->
 <section class="slide">
-  <p class="eyebrow">13 · Section 4 · Hitting times</p>
-  <h2>Musical "gravity" recovered as expected resolution time</h2>
+  <p class="eyebrow">13 · Hitting times</p>
+  <h2>Musical "gravity" as how long resolution takes</h2>
   <div class="rule"></div>
 
   <div class="cols" style="height: 470px;">
     <div class="col">
-      <p class="small">For an absorbing target <span class="math">R</span>, the expected hitting time <span class="math">h(i)</span> from <span class="math">i ∉ R</span> satisfies the linear system</p>
-      <p class="display" style="font-size: 17px;">h(i) = 1 + Σ<sub>j ∉ R</sub> <span class="hat">P</span><sub>ij</sub> h(j), &nbsp; h(j) = 0 for j ∈ R</p>
-      <p class="small">Equivalently, with <span class="math">Q</span> the sub-block of <span class="math"><span class="hat">P</span></span> on <span class="math">S \ R</span>:</p>
-      <p class="display" style="font-size: 17px;">h = (I − Q)<sup>−1</sup> · <b>1</b></p>
-      <p class="small">Laplace smoothing keeps <span class="math">I − Q</span> invertible.</p>
+      <p class="small">Mark a set of states as <b>resolved</b>: a chord tone landing on one of the four beats. That is <b>73</b> of the 428.</p>
+      <p class="small">Now ask, from every <i>other</i> state: <b>starting here, how many events pass before the line first lands on one of those?</b></p>
 
-      <table style="margin-top: 12px;">
-        <thead><tr><th>Operator</th><th class="num">median h</th><th class="num">min h</th><th>shortest sink</th></tr></thead>
+      <table style="margin-top: 12px; width: 100%;">
         <tbody>
-          <tr><td><span class="hat">P</span></td><td class="num">4.09</td><td class="num red"><b>1.84</b></td><td>(7, min7, &amp;1)</td></tr>
+          <tr><td>typical state</td><td class="num">4.09 events to resolve</td></tr>
+          <tr><td>fastest state</td><td class="num red"><b>1.84 events</b></td></tr>
+          <tr><td>slowest state</td><td class="num">5.09 events</td></tr>
         </tbody>
       </table>
 
-      <h3 style="font-size: 19px; margin: 16px 0 4px;">Headline</h3>
-      <ul class="small">
-        <li>The fastest resolution is the <b>leading tone over a minor chord, 1.84 events</b>; then the ♭9 over a dominant at 2.10 and the ♭2 over a major chord at 2.13.</li>
-        <li>The shortest hitting times are <i>exactly</i> the canonical bebop approach tones: chromatic neighbors, leading tones, 2nd degrees. <b>All eight fastest-resolving states sit offbeat</b>: approach tones live in the swing pickup, not on downbeats.</li>
-        <li>Classical pedagogy ("dissonances resolve quickly") emerges as a quantitative property of the operator.</li>
-      </ul>
+      <h3 style="font-size: 19px; margin: 16px 0 4px;">What resolves fastest</h3>
+      <table style="width: 100%;">
+        <tbody>
+          <tr><td>11 (7), min7, &amp;1</td><td class="num">1.84</td></tr>
+          <tr><td>1 (b2), dom7, &amp;3</td><td class="num">2.10</td></tr>
+          <tr><td>1 (b2), maj7, &amp;4</td><td class="num">2.13</td></tr>
+        </tbody>
+      </table>
+
+      <p class="small" style="margin-top: 10px;">These are the notes theory calls <b>approach tones</b>: a semitone from a chord tone, and unstable. The chain finds them without being told which notes clash. <b>All eight fastest sit offbeat</b>, so the pull towards resolution points at the downbeat.</p>
     </div>
     <div class="col fig">
       <img src="../figures/section4_P_hitting.png" alt="hitting time distribution">
     </div>
   </div>
 
-  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 14 / 20</div>
+  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 14 / 21</div>
 </section>
 
 
 <!-- ====================== SLIDE 10 : SECTION 5 · VOICE LEADING ===================== -->
 <section class="slide">
-  <p class="eyebrow">14 · Section 5 · Voice-leading recovery · <span style="color:var(--red)">HEADLINE 2</span></p>
+  <p class="eyebrow">14 · Voice-leading recovery</p>
   <h2>The V7→I half-step resolution as a single matrix cell</h2>
   <div class="rule"></div>
 
@@ -576,10 +537,10 @@
     <div class="col">
       <p class="small">Joint transition probability under the stationary distribution:</p>
       <p class="display" style="font-size: 17px;">Pr(X<sub>t</sub> = i, X<sub>t+1</sub> = j) &nbsp;=&nbsp; π<sub>i</sub> · <span class="hat">P</span><sub>ij</sub></p>
-      <p class="small">Ranking the cells of <span class="math">π ⊗ <span class="hat">P</span></span> reveals Parker's most-trafficked moves: which transitions actually carry the traffic in the corpus.</p>
+      <p class="small">Ranking those cells shows which transitions actually carry the traffic.</p>
 
       <h3 style="font-size: 19px; margin: 14px 0 4px;">The canonical V7 → I cell</h3>
-      <p class="small">In tonal-harmonic theory, the <b>♭7 of a dominant</b> resolves down a half-step to the <b>major-3rd of the tonic</b>. With the v3 encoding the canonical resolution maps to <span class="math">(♭7, dom7, &amp;4) → (3, maj7, ♩1)</span>: the model now names the pickup position itself, rather than lumping all offbeat events together.</p>
+      <p class="small">Theory says the <b>♭7 of a dominant</b> falls a half-step to the <b>major 3rd of the tonic</b>. In this state space that is one cell: <span class="math">(♭7, dom7, &amp;4) → (3, maj7, ♩1)</span>.</p>
 
       <table style="margin-top: 10px;">
         <thead><tr><th>source → target</th><th class="num">joint</th><th class="num">conditional</th></tr></thead>
@@ -590,7 +551,7 @@
           <tr><td>(♭7, dom7, &amp;4) → (3, maj7, ♩2)</td><td class="num">0.000 %</td><td class="num">0.01 %</td></tr>
         </tbody>
       </table>
-      <p class="small" style="margin-top: 10px;">When Parker is on <b>♭7-of-V7 on the pickup &amp;4</b> just before a chord change, the very next note is the <b>M3-of-I on beat 1</b> with conditional probability <span class="red"><b>10.71 %</b></span>: the textbook half-step resolution, recovered as one matrix entry. The neighbouring cells are dead: the same ♭7 one beat earlier, or resolving to beat 2 instead, both sit under 0.1 %. The resolution is specific to one source position and one target beat.</p>
+      <p class="small" style="margin-top: 10px;">From that one state the next note is the major 3rd on the downbeat <span class="red"><b>10.71 %</b></span> of the time, and <b>the neighbouring cells are dead</b>, all under 0.1 %.</p>
     </div>
     <div class="col fig">
       <img src="../figures/section5_P_top20.png" alt="top-20 transitions by joint probability">
@@ -598,82 +559,13 @@
     </div>
   </div>
 
-  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 15 / 20</div>
-</section>
-
-
-<!-- ====================== SLIDE 11 : SECTION 9 · GENERATIVE ===================== -->
-<section class="slide">
-  <p class="eyebrow">15 · Section 9 · Generative validation</p>
-  <h2>The chain reproduces its own stationary distribution under simulation</h2>
-  <div class="rule"></div>
-
-  <div class="cols" style="height: 470px;">
-    <div class="col">
-      <p class="small">Sample <span class="math">M = 1,000</span> trajectories of length <span class="math">T = 100</span> from <span class="math"><span class="hat">P</span></span>, starting at uniform initial states (100,000 total samples).</p>
-      <p class="small">By the <b>ergodic theorem</b>, empirical occupation frequencies should converge to <span class="math">π</span>:</p>
-      <p class="display" style="font-size: 17px;">f<sub>sim</sub>(s) := (# visits to s) / (M · T) &nbsp;→&nbsp; π(s)</p>
-
-      <div class="stats">
-        <div class="stat"><div class="v">0.9984</div><div class="l">Pearson r(f<sub>sim</sub>, π)</div></div>
-        <div class="stat"><div class="v">0.023</div><div class="l">TV(f<sub>sim</sub>, π)</div></div>
-        <div class="stat"><div class="v">100,000</div><div class="l">sampled steps</div></div>
-      </div>
-
-      <h3 style="font-size: 19px; margin: 12px 0 4px;">What this tells us</h3>
-      <ul class="small">
-        <li>The chain is a coherent <b>generative</b> model, not just a descriptive matrix: synthetic Parker lines drawn from <span class="math"><span class="hat">P</span></span> spend the right fraction of their time in each state.</li>
-                <li><b>Scope of the claim.</b> What converges is the <i>marginal</i>, how much time is spent in each state, not phrase shape. Sampled lines range more widely than Parker's actual contour (see the sampled walk earlier): local melodic shape is an order-2 property, and Section 7 shows held-out likelihood cannot support order-2 at 23k events.</li>
-      </ul>
-    </div>
-    <div class="col fig">
-      <img src="../figures/section9_occupation_vs_pi.png" alt="occupation vs pi">
-      <p class="tiny">Each dot is one of the 428 observed states. Diagonal = perfect match.</p>
-    </div>
-  </div>
-
-  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 16 / 20</div>
-</section>
-
-
-<!-- ====================== SLIDE : PAGERANK ===================== -->
-<section class="slide">
-  <p class="eyebrow">16 · PageRank</p>
-  <h2>PageRank on the graph: which states is the walk most often at?</h2>
-  <div class="rule"></div>
-
-  <div class="cols" style="height: 470px;">
-    <div class="col">
-      <p class="small">PageRank is the stationary distribution of a <b>damped</b> walk: with probability <span class="math">d = 0.85</span> follow an edge of <span class="math"><span class="hat">P</span></span>, otherwise teleport uniformly.</p>
-      <p class="display" style="font-size: 17px;">r = d · <span class="hat">P</span><sup>T</sup> r &nbsp;+&nbsp; (1 − d) / n · <b>1</b></p>
-      <p class="small">The damping is what makes it defined on any graph, including one with dangling nodes. On this operator the smoothing already guarantees irreducibility, so PageRank and <span class="math">π</span> agree closely; the interest is in <i>which</i> states come out on top, and in how the different centralities disagree.</p>
-
-      <table style="width: 100%; margin-top: 10px;">
-        <thead><tr><th>measure</th><th>top state</th><th class="num">top-10 offbeat</th></tr></thead>
-        <tbody>
-          <tr><td>PageRank</td><td>(5, dom7, &amp;4)</td><td class="num red"><b>8 / 10</b></td></tr>
-          <tr><td>in-degree</td><td>(5, dom7, &amp;4)</td><td class="num">7 / 10</td></tr>
-          <tr><td>out-degree</td><td>(5, dom7, &amp;4)</td><td class="num">7 / 10</td></tr>
-          <tr><td>betweenness</td><td>(rest, dom7, ♩3)</td><td class="num blue"><b>1 / 10</b></td></tr>
-        </tbody>
-      </table>
-
-      <p class="small" style="margin-top: 10px;"><b>The two measures disagree, and the disagreement is the finding.</b> PageRank and degree rank <i>offbeat</i> dominant-chord tones highest: that is where the walk spends its time. Betweenness ranks <i>rests on strong beats</i> highest: that is what the walk has to pass <i>through</i>. Phrase boundaries are the bottlenecks of the graph.</p>
-      <p class="tiny">428 nodes, 5,421 directed edges. Betweenness computed with edge weight −log <span class="hat">P</span><sub>ij</sub>, so a "short path" is a probable one.</p>
-    </div>
-    <div class="col fig">
-      <img src="../figures/section8_top10_pagerank.png" alt="top-10 states by PageRank">
-      <p class="tiny">Top 10 by PageRank, damping 0.85.</p>
-    </div>
-  </div>
-
-  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 17 / 20</div>
+  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 15 / 21</div>
 </section>
 
 
 <!-- ====================== SLIDE 13 : TAKEAWAYS ===================== -->
 <section class="slide">
-  <p class="eyebrow">17 · Take-aways</p>
+  <p class="eyebrow">15 · Take-aways</p>
   <h2>Bebop pedagogy recovered as numerical properties of an operator</h2>
   <div class="rule"></div>
 
@@ -696,13 +588,13 @@
     </ol>
   </div>
 
-  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 18 / 20</div>
+  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 16 / 21</div>
 </section>
 
 
 <!-- ====================== SLIDE : FURTHER WORK ===================== -->
 <section class="slide">
-  <p class="eyebrow">18 · Further work</p>
+  <p class="eyebrow">16 · Further work</p>
   <h2>What I would do next, and what I tried and set aside</h2>
   <div class="rule"></div>
 
@@ -733,13 +625,13 @@
     </div>
   </div>
 
-  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 19 / 20</div>
+  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 17 / 21</div>
 </section>
 
 
 <!-- ====================== SLIDE 16 : THANKS ===================== -->
 <section class="slide title">
-  <div class="eyebrow">19 · Thank you</div>
+  <div class="eyebrow">17 · Thank you</div>
   <h1 style="margin-bottom: 28px;">Questions?</h1>
 
   <div style="font-size: 19px; color: var(--muted);">
@@ -755,7 +647,78 @@
     <span style="color: var(--muted);"><i>Dynamical Models for Social Behavior</i> &nbsp; · &nbsp; Profs. Gonnella &amp; Suma</span>
   </div>
 
-  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 20 / 20</div>
+  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 18 / 21</div>
+</section>
+
+
+<!-- ====================== EXTRA SLIDES ===================== -->
+<section class="slide title">
+  <div class="eyebrow">Extra slides</div>
+  <h1 style="margin-bottom: 20px;">Backup</h1>
+  <div class="sub">Material held back from the 20 minutes, kept for questions.</div>
+  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 19 / 21</div>
+</section>
+
+
+<!-- ====================== SLIDE : DISTRIBUTION EVOLUTION ===================== -->
+<section class="slide">
+  <p class="eyebrow">Extra · Evolving the distribution</p>
+  <h2>Put all the probability on one state and let it run</h2>
+  <div class="rule"></div>
+
+  <div class="cols" style="height: 226px;">
+    <div class="col">
+      <p class="small" style="margin:0 0 6px;">Section 2 found <span class="math">π</span> algebraically, as the left eigenvector at <span class="math">λ = 1</span>. Here it is found the other way, by iteration:</p>
+      <p class="display" style="font-size: 17px; margin: 4px 0;">μ<sub>0</sub> = e<sub>i</sub> , &nbsp;&nbsp; μ<sub>t+1</sub> = μ<sub>t</sub> <span class="hat">P</span></p>
+      <p class="small">Start with certainty about the note, and watch the certainty dissolve.</p>
+    </div>
+    <div class="col" style="max-width: 470px;">
+      <p class="small" style="margin:0;">Starting on the busiest state, <span class="math">(5, dom7, &amp;4)</span>:</p>
+      <ul class="small" style="margin-top: 4px;">
+        <li>after <b>2 steps</b> the total-variation distance to <span class="math">π</span> is already below 0.5;</li>
+        <li>after <b>21 steps</b> it is below 0.01;</li>
+        <li>at <span class="math">t = 40</span> the largest disagreement with <span class="math">π</span> is <b>8.7 × 10<sup>−6</sup></b>.</li>
+      </ul>
+      <p class="small">The decay tracks <span class="math">|λ<sub>2</sub>|<sup>t</sup></span> almost exactly, which is the mixing time of Section 3 measured rather than asserted.</p>
+    </div>
+  </div>
+
+  <img src="../figures/section10_distribution_evolution.png" alt="TV distance decay and distribution snapshots converging to pi" style="display: block; width: 80%; margin: 6px auto 0;">
+
+  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 20 / 21</div>
+</section>
+
+
+<!-- ====================== SLIDE : SECTION 3 · SPECTRUM ===================== -->
+<section class="slide">
+  <p class="eyebrow">Extra · Spectral analysis</p>
+  <h2>The spectrum contains a metric cycle</h2>
+  <div class="rule"></div>
+
+  <div class="cols" style="height: 470px;">
+    <div class="col">
+      <p class="small">Every step the walk forgets a little of where it started, and it forgets at a fixed rate: whatever you still know shrinks to <b>81 %</b> of itself each step. After five steps about a third is left, after twenty almost nothing.</p>
+      <p class="display" style="font-size: 17px;">τ<sub>mix</sub> ≈ 1 / (1 − |λ<sub>2</sub>|)</p>
+      <table style="margin-top: 10px; width: 100%;">
+        <tbody>
+          <tr><td>λ<sub>2</sub></td><td class="num mono">0.596 + 0.555 i</td></tr>
+          <tr><td>|λ<sub>2</sub>|</td><td class="num">0.8143</td></tr>
+          <tr><td>τ<sub>mix</sub></td><td class="num red"><b>5.4 steps</b></td></tr>
+        </tbody>
+      </table>
+
+      <h3 style="font-size: 19px; margin: 16px 0 6px;">λ<sub>2</sub> is complex, and that is the result</h3>
+      <p class="small">A plain number would mean the walk just fades toward <span class="math">π</span>. A <b>complex</b> one means it also <i>circles</i>, returning to similar territory at a regular interval:</p>
+      <p class="display" style="font-size: 17px;">2π / arg(λ<sub>2</sub>) = 2π / 0.750 = <b>8.4 events</b></p>
+      <p class="small">One bar of eighth notes is exactly 8 events. <b>The metre is in the operator</b>, and nothing put it there: it was built by tallying which state follows which.</p>
+    </div>
+    <div class="col fig">
+      <img src="../figures/section3_P_spectrum.png" alt="spectrum of P in the complex plane">
+      <p class="tiny">One dot per eigenvalue. The blob near the centre is short-lived patterns; the star at 1.0 is <span class="math">π</span>, which never decays; the star off the axis is the circling mode, and its angle is the 8.4-event period.</p>
+    </div>
+  </div>
+
+  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 21 / 21</div>
 </section>
 
 
