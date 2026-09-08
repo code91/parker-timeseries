@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Speaker notes · Bebop as a Markov Chain</title>
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --muted: #6b6b6b;
+    --accent: #9b111e;
+    --accent-soft: #fdf0f1;
+    --rule: #ddd;
+    --mono: "SF Mono", "Menlo", "Consolas", monospace;
+  }
+  @page { size: A4 portrait; margin: 16mm 15mm 14mm; }
+
+  * { box-sizing: border-box; }
+  body {
+    font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    color: var(--ink);
+    font-size: 10.6pt;
+    line-height: 1.5;
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ---------------- front matter ---------------- */
+  .front { page-break-after: always; }
+  .front h1 { font-size: 26pt; margin: 0 0 4px; letter-spacing: -0.4px; }
+  .front .sub { color: var(--muted); font-size: 12pt; font-style: italic; margin-bottom: 22px; }
+  .front .byline { font-size: 10pt; color: var(--muted); margin-bottom: 26px; }
+
+  .howto { background: #fafafa; border: 1px solid var(--rule); padding: 14px 18px; margin-bottom: 22px; }
+  .howto h3 { margin: 0 0 8px; font-size: 11pt; }
+  .howto ul { margin: 0; padding-left: 18px; }
+  .howto li { margin-bottom: 5px; }
+
+  table.toc { width: 100%; border-collapse: collapse; font-size: 9.6pt; }
+  table.toc th {
+    text-align: left; border-bottom: 1.5px solid var(--ink);
+    padding: 4px 6px; font-size: 8.6pt; text-transform: uppercase;
+    letter-spacing: 0.6px; color: var(--muted); font-weight: normal;
+  }
+  table.toc td { padding: 3.5px 6px; border-bottom: 1px solid #eee; vertical-align: top; }
+  table.toc td.n { font-family: var(--mono); color: var(--accent); width: 34px; }
+  table.toc td.t { font-family: var(--mono); text-align: right; width: 52px; color: var(--muted); }
+  table.toc tr.cum td.t { color: var(--ink); }
+  table.toc tr.total td { border-bottom: none; padding-top: 8px; font-weight: bold; }
+
+  /* ---------------- slide blocks ---------------- */
+  .slide { page-break-inside: avoid; margin-bottom: 20px; }
+
+  .head {
+    display: flex; align-items: baseline; gap: 10px;
+    border-bottom: 2px solid var(--accent); padding-bottom: 4px; margin-bottom: 9px;
+  }
+  .head .num {
+    font-family: var(--mono); font-size: 9.5pt; color: #fff; background: var(--accent);
+    padding: 1.5px 7px; border-radius: 2px; flex: none;
+  }
+  .head .ttl { font-size: 13.5pt; font-weight: bold; flex: 1; letter-spacing: -0.2px; }
+  .head .clock { font-family: var(--mono); font-size: 9.5pt; color: var(--muted); flex: none; }
+
+  .say p { margin: 0 0 7px; }
+  .say p:last-child { margin-bottom: 0; }
+
+  .cue {
+    color: var(--accent); font-style: italic; font-size: 9.4pt;
+  }
+
+  b { font-weight: bold; }
+  .k { font-family: var(--mono); font-size: 9.6pt; background: var(--accent-soft); padding: 0 3px; }
+
+  .aside {
+    margin-top: 9px; border-left: 2.5px solid var(--rule); padding: 2px 0 2px 11px;
+    font-size: 9.3pt; color: #3d3d3d;
+  }
+  .aside .lbl {
+    font-family: var(--mono); font-size: 8pt; letter-spacing: 0.8px;
+    text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 3px;
+  }
+  .aside p { margin: 0 0 5px; }
+  .aside p:last-child { margin-bottom: 0; }
+  .aside .q { font-weight: bold; }
+
+  h2.part {
+    page-break-before: always;
+    font-size: 11pt; text-transform: uppercase; letter-spacing: 1.6px;
+    color: var(--muted); font-weight: normal;
+    border-bottom: 1px solid var(--rule); padding-bottom: 5px; margin: 0 0 18px;
+  }
+  h2.part.first { page-break-before: auto; }
+</style>
+</head>
+<body>
+
+<!-- ================= FRONT MATTER ================= -->
+<div class="front">
+  <h1>Bebop as a Markov Chain</h1>
+  <div class="sub">Speaker notes, slide by slide</div>
+  <div class="byline">
+    Michele "Mike" Rubini &nbsp;·&nbsp; MSc Decision Science &nbsp;·&nbsp; Università di Bari<br>
+    <i>Dynamical Models for Social Behavior</i> &nbsp;·&nbsp; Profs. Gonnella &amp; Suma
+  </div>
+
+  <div class="howto">
+    <h3>How to use this</h3>
+    <ul>
+      <li>The body text is what to <b>say</b>, written to be spoken rather than read aloud word for word. Say it in your own words; keep the numbers exact.</li>
+      <li><span class="cue">Italic crimson</span> lines are stage directions, not speech: what to point at, when to click.</li>
+      <li>The boxed <b>IF ASKED</b> notes are for questions. Do not say them unprompted.</li>
+      <li>The timings sum to <b>18 min 40 s</b>, leaving slack in a 20-minute slot. If you are running long, slides 4, 8 and 9 are the ones to compress to a single sentence each: they are illustrations, not results.</li>
+      <li>The three slides after "Thank you" are backup. Do not present them; go there only if a question sends you there.</li>
+    </ul>
+  </div>
+
+  <table class="toc">
+    <thead>
+      <tr><th>#</th><th>Slide</th><th style="text-align:right">Time</th><th style="text-align:right">Cumulative</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="n">—</td><td>Title and research question</td><td class="t">0:40</td><td class="t">0:40</td></tr>
+      <tr><td class="n">1</td><td>The corpus</td><td class="t">0:55</td><td class="t">1:35</td></tr>
+      <tr><td class="n">2</td><td>State space</td><td class="t">1:25</td><td class="t">3:00</td></tr>
+      <tr><td class="n">3</td><td>The encoding, on a real solo</td><td class="t">1:10</td><td class="t">4:10</td></tr>
+      <tr><td class="n">4</td><td>What Parker never plays</td><td class="t">0:40</td><td class="t">4:50</td></tr>
+      <tr><td class="n">5</td><td>The operator, concretely</td><td class="t">1:25</td><td class="t">6:15</td></tr>
+      <tr><td class="n">6</td><td>The Markov property</td><td class="t">1:30</td><td class="t">7:45</td></tr>
+      <tr><td class="n">7</td><td>A sample walk</td><td class="t">1:05</td><td class="t">8:50</td></tr>
+      <tr><td class="n">8</td><td>The same walk, engraved</td><td class="t">0:50</td><td class="t">9:40</td></tr>
+      <tr><td class="n">9</td><td>The walk on a graph</td><td class="t">0:50</td><td class="t">10:30</td></tr>
+      <tr><td class="n">10</td><td>PageRank</td><td class="t">1:00</td><td class="t">11:30</td></tr>
+      <tr><td class="n">11</td><td>Stationary distribution</td><td class="t">1:20</td><td class="t">12:50</td></tr>
+      <tr><td class="n">12</td><td>A thousand agents</td><td class="t">0:50</td><td class="t">13:40</td></tr>
+      <tr><td class="n">13</td><td>Hitting times</td><td class="t">1:30</td><td class="t">15:10</td></tr>
+      <tr><td class="n">14</td><td>Voice-leading recovery</td><td class="t">1:30</td><td class="t">16:40</td></tr>
+      <tr><td class="n">15</td><td>Take-aways</td><td class="t">1:20</td><td class="t">18:00</td></tr>
+      <tr><td class="n">16</td><td>Further work</td><td class="t">0:25</td><td class="t">18:25</td></tr>
+      <tr><td class="n">17</td><td>Thank you</td><td class="t">0:15</td><td class="t">18:40</td></tr>
+      <tr class="total"><td class="n"></td><td>Total</td><td class="t">18:40</td><td class="t"></td></tr>
+    </tbody>
+  </table>
+</div>
+
+
+<!-- ================= PART 1 ================= -->
+<h2 class="part first">Setting up &nbsp;·&nbsp; slides 1 to 5</h2>
+
+<div class="slide">
+  <div class="head"><span class="num">Title</span><span class="ttl">Bebop as a Markov Chain</span><span class="clock">0:40</span></div>
+  <div class="say">
+    <p>Good morning. My project is called <i>Bebop as a Markov Chain</i>.</p>
+    <p>The starting point is this. Jazz improvisation sounds free, but musicians do not describe it as free. They describe it as a language with a grammar: certain notes want to move to certain other notes, tension wants to resolve, and where you are in the bar changes what you are allowed to play. Those rules are taught in words, in every jazz school.</p>
+    <p>My question is whether the same rules can be recovered as <b>numbers</b>, from nothing but the notes, by treating a solo as a random walk on a graph.</p>
+    <p>The data is fifty Charlie Parker improvisations. No music theory is given to the model at any point. It only counts which state follows which. Everything that comes out has to come out of the counting.</p>
+  </div>
+</div>
+
+<div class="slide">
+  <div class="head"><span class="num">1</span><span class="ttl">The corpus</span><span class="clock">0:55</span></div>
+  <div class="say">
+    <p>Fifty transcriptions from the Charlie Parker Omnibook, in MusicXML.</p>
+    <p>Each file is one tune: the head, meaning the written melody, followed by one or more improvised choruses. What makes the corpus usable is that the files also carry the chord symbols, so at every instant I know which chord is sounding underneath the note.</p>
+    <p>Extraction is three rules. Walk the part note by note. Pair each note with the most recent chord. Collapse tied notes, so a note held across a bar line is counted once, at its onset.</p>
+    <p>Rests are kept as events, because silence is a choice a soloist makes, but a run of consecutive rests collapses into one event, otherwise a two-bar silence would flood the model with rest-to-rest transitions.</p>
+    <p>That gives <b>23,143 events</b>: 21,590 notes and 1,553 rests.</p>
+    <p><span class="cue">Point at the table.</span> One number here matters for the rest of the talk: <b>56 percent</b> of the corpus sits over dominant seventh chords. Bebop lives on the dominant, and that is going to show up in every result.</p>
+    <p><span class="cue">Point at the bottom-left panel.</span> And the events are split almost evenly across the bar, with <b>55 percent falling offbeat</b>. The median solo is 426 events.</p>
+  </div>
+</div>
+
+<div class="slide">
+  <div class="head"><span class="num">2</span><span class="ttl">State space</span><span class="clock">1:25</span></div>
+  <div class="say">
+    <p>This is the only modelling decision that really matters. Everything downstream is mechanical once the state is fixed.</p>
+    <p>A state is three coordinates.</p>
+    <p><b>First, scale degree.</b> Not the note name, but the distance in semitones from the chord root up to the note. So a C played over a C7 is degree 0, and the same C over an F7 is degree 7. Rests get a sentinel, <span class="k">R</span>.</p>
+    <p><b>Second, chord quality</b>, in five classes: major seventh, minor seventh, dominant seventh, half-diminished and diminished.</p>
+    <p><b>Third, beat position.</b> All fifty tunes are in four-four. An event either lands on one of the four beats, or it falls between them, and if it falls between them I label it by the beat it follows. So the "and of four", just before the bar line, is a different state from the "and of two".</p>
+    <p><span class="cue">Move to the right-hand column.</span> Why these three.</p>
+    <p><b>Scale degree buys transposition invariance.</b> The same phrase played over F7 and over B-flat 7 becomes the same sequence of states. Fifty solos in a dozen keys pool into one estimate instead of fragmenting into a dozen sparse ones.</p>
+    <p><b>Chord quality is needed because the same degree means different things.</b> A flat seven over a dominant chord is the unstable note, the one that wants to fall. The same flat seven over a minor seventh chord is a chord tone, and it is stable. Same distance, opposite behaviour.</p>
+    <p><b>And beat position, because in bebop the beat carries the syntax.</b> Chord tones land on the beat, tension goes between the beats. Without this coordinate that distinction is invisible to the model, and it turns out to be the single most informative coordinate of the three.</p>
+  </div>
+  <div class="aside">
+    <span class="lbl">If asked</span>
+    <p><span class="q">Why 12 semitones and not diatonic degrees?</span> Bebop is chromatic. Roughly half of the corpus is non-diatonic passing material, so a seven-degree encoding would throw away exactly what I am trying to model.</p>
+    <p><span class="q">Why split the offbeat by which beat it follows?</span> Because "and of four" is functionally different from the others: it is the pickup into the next bar and usually into the next chord. Merging all offbeats into one class hides the strongest cell in the whole matrix, which is on slide 14.</p>
+  </div>
+</div>
+
+<div class="slide">
+  <div class="head"><span class="num">3</span><span class="ttl">The encoding, on a real solo</span><span class="clock">1:10</span></div>
+  <div class="say">
+    <p>Here is the encoding on a real solo, the opening of <i>Anthropology</i>.</p>
+    <p><span class="cue">Walk left to right along the figure.</span> The pickup bar starts with a rest over F7, so that is <span class="k">(R, dom7, b1)</span>. Then Parker plays an F over F7, which is the root, offbeat on the "and of four": <span class="k">(0, dom7, &amp;4)</span>. The chord changes to B-flat major seventh, and he plays a B-flat, which is again degree 0 but now over a different quality, on beat one.</p>
+    <p>Look at the last three events on the right, because they are the whole thesis in miniature. He plays a <b>D-flat offbeat</b>, which encodes as <span class="k">(3, maj7, &amp;3)</span>, a minor third over a major chord. That note is outside the chord. It clashes. Then on beat four he plays a <b>D natural</b>, <span class="k">(4, maj7, b4)</span>, the major third, which is a chord tone.</p>
+    <p>So: tension placed between the beats, resolution a semitone away, landing on the beat. That is a rule from a textbook, and here it is as two adjacent states. The rest of the talk is about whether the model finds that pattern on its own, across 23,143 events, without being told.</p>
+    <p><span class="cue">Point at the result line.</span> The state space has at most 520 cells. <b>428</b> are actually visited, so about 54 visits per state on average. That recurrence is what makes the transition probabilities estimable at all.</p>
+    <p>And note what is deliberately <b>not</b> in the state: no duration, no octave, no dynamics. A state is a pitch class against a chord, on a beat, and nothing else.</p>
+  </div>
+  <div class="aside">
+    <span class="lbl">If asked</span>
+    <p><span class="q">Is there a recording?</span> Yes, the video on this slide is the take these bars come from.</p>
+  </div>
+</div>
+
+<div class="slide">
+  <div class="head"><span class="num">4</span><span class="ttl">What Parker never plays</span><span class="clock">0:40</span></div>
+  <div class="say">
+    <p>Briefly, the 92 states that never occur, because they have two very different causes.</p>
+    <p><b>Ninety of them are just scarcity.</b> Each chord quality has its own grid of 13 degrees by 8 beat positions, so 104 cells. Dominant seventh fills all 104 of its cells, because it carries more than half the corpus. Half-diminished and diminished carry about 165 events each, and 165 events cannot cover 104 cells. Those are empty for want of data, not for musical reasons.</p>
+    <p><b>The rest are structural.</b> Some states are empty because the note simply clashes with the chord, for instance a major third over a minor chord. Parker does not play those, and no amount of extra data would fill them in.</p>
+    <p>I mention it because the distinction matters when reading the matrix on the next slide: an empty cell can mean "never happens" or "never observed", and those are not the same claim.</p>
+  </div>
+</div>
+
+<div class="slide">
+  <div class="head"><span class="num">5</span><span class="ttl">The operator, concretely</span><span class="clock">1:25</span></div>
+  <div class="say">
+    <p>This is the object the whole project is about, and I want to be concrete about what it is before doing anything with it.</p>
+    <p>P-hat is a table with 428 rows and 428 columns. <b>Every row asks one question: Parker is on this state, where does he go next?</b></p>
+    <p>Building it is pure counting. Walk the 23,143 events in order. Every time state <i>i</i> is followed by state <i>j</i>, add one to cell <i>i, j</i>. At the end, divide each row by its own total. That is the maximum likelihood estimate, and it is all there is to it.</p>
+    <p>The hat matters. <b>P-hat is an estimate.</b> It is what fifty solos say about a true operator I cannot observe. Every number I quote today is a sample statistic, not a law.</p>
+    <p>Two things to read off the picture. <span class="cue">Point at the full matrix.</span></p>
+    <p>First, probabilities live <b>inside a row</b>. Each row sums to one across all 428 columns. So the numbers you see in the block on the right are all conditional: given that I am here, this is the chance I go there.</p>
+    <p>Second, the matrix is <b>97 percent empty, and most of that is metre, not music</b>. From the "and of four" the walk goes to beat one 69 percent of the time, or stays where it is 21 percent of the time, and it reaches beat three only 0.4 percent of the time. Most cells are empty because the beat cannot get there. I will come back to this at the end, because it is the main caveat on everything else.</p>
+    <p><span class="cue">Only if someone looks puzzled at the pink.</span> On colour: dark means a move Parker actually plays, near-white means the model is confident the move does not happen, and pink means the model has almost no data for that row and is spreading probability evenly. Pink is ignorance, not structure.</p>
+  </div>
+  <div class="aside">
+    <span class="lbl">If asked</span>
+    <p><span class="q">Is P symmetric?</span> No, and it could not be. Symmetric would mean the flat seven falls to the third exactly as often as the third rises to the flat seven. Voice leading is directional, and the asymmetry is the result.</p>
+    <p><span class="q">What about zero rows?</span> I add Laplace smoothing with alpha = 0.01. Without it some rows are all zeros, and then there is no unique stationary distribution and the hitting-time system is singular. The cost is that thin rows get pulled toward uniform, which is what the pink bands are.</p>
+    <p><span class="q">How many transitions?</span> 21,540. Fifty tunes means fifty boundaries, and I do not count a transition across a tune boundary.</p>
+  </div>
+</div>
+
+
+<!-- ================= PART 2 ================= -->
+<h2 class="part">Is it a Markov chain, and what does it do &nbsp;·&nbsp; slides 6 to 10</h2>
+
+<div class="slide">
+  <div class="head"><span class="num">6</span><span class="ttl">The Markov property</span><span class="clock">1:30</span></div>
+  <div class="say">
+    <p>Before using the operator I should check the assumption that licenses it, and I want to be honest about the answer.</p>
+    <p>The Markov property says the next state depends only on where the line <b>is</b>, not on how it got there. Everything before the current event is discarded. If that is false, then Parker cannot be summarised as a table of "from, to", and the table on the previous slide is not entitled to exist.</p>
+    <p>So I tested it directly. <span class="cue">Point at the table.</span> Take one busy state: the fifth of a dominant chord, on the "and of four". It occurs 346 times with a known predecessor. Now split those 346 continuations by <b>what came before</b>.</p>
+    <p>Arriving from the sixth, the most likely next note is the root on the downbeat, 22 percent of the time.</p>
+    <p>Arriving from the third, the most likely next note is a different one, the flat seven, and it happens <b>40 percent</b> of the time.</p>
+    <p>Same current state. Different futures, depending on history. So the property is <b>false in the strict sense</b>, and I would rather say that than pretend otherwise.</p>
+    <p>What saves the model is that I know the <b>direction</b> of the error. Look at what those two histories are: sixth down to fifth down to flat seven is a descending line, and it keeps descending. Descending lines carry momentum that a first-order chain cannot see. So the model will systematically under-predict continuation and over-predict turning around.</p>
+    <p>I did also fit a second-order chain. In sample it looks much better, BIC improves by about 19,000. On held-out data it is <b>worse</b>, mean log-likelihood drops from minus 3.36 to minus 3.81. There is not enough corpus to estimate 428 squared rows, so first order is not just a simplification, it is the order the data can actually support.</p>
+  </div>
+  <div class="aside">
+    <span class="lbl">If asked</span>
+    <p><span class="q">Then why proceed at all?</span> Because a first-order chain is the model the data supports, and because the quantities I use it for are aggregate, stationary distribution, hitting times, one strong cell, which are far more robust to this than step-by-step prediction would be.</p>
+    <p><span class="q">Did you test against a null?</span> Yes, two. Shuffling everything within a tune, and a stricter null that holds the beat sequence fixed and permutes only pitch and chord within each beat class. Observed KL is 2.55 bits; the plain null gives 0.99 and the beat-preserving null gives 1.64. So metre accounts for about 40 percent of the structure, and the chain still beats the strict null with p below 0.001 over 1,000 permutations.</p>
+  </div>
+</div>
+
+<div class="slide">
+  <div class="head"><span class="num">7</span><span class="ttl">A sample walk</span><span class="clock">1:05</span></div>
+  <div class="say">
+    <p>To see what the operator has learned, the simplest test is to let it walk and look at the result next to the real thing.</p>
+    <p><span class="cue">Left panel.</span> On the left, every step is one complete state, plotted by its index. The states are ordered by chord quality, so a jump between bands is a chord change, and height within a band is the scale degree. Filled markers are on the beat, hollow markers are offbeat.</p>
+    <p>The interesting number: over the same 100 events, <b>Parker visits 52 distinct states and the sampled walk visits 81</b>. The real line keeps returning to a smaller working vocabulary. The model wanders. That gap is essentially the phrase structure the chain cannot represent.</p>
+    <p><span class="cue">Right panel.</span> On the right is the same walk with two of the three coordinates thrown away, keeping only the scale degree, so it reads as a melodic contour, with rests below the dotted line. It is easier on the eye, but I want to flag that it is a shadow: two points at the same height can be completely different states, differing in chord or in beat.</p>
+  </div>
+</div>
+
+<div class="slide">
+  <div class="head"><span class="num">8</span><span class="ttl">The same walk, engraved</span><span class="clock">0:50</span></div>
+  <div class="say">
+    <p>And here is the same sampled walk written out as notation, so you can judge it as music rather than as a plot.</p>
+    <p>On top, the pickup and first four bars of <i>Anthropology</i> as Parker played them. Underneath, the opening of the sampled walk, entering on the downbeat of bar two, over the identical chord changes.</p>
+    <p>My honest reading is that it holds up <b>bar to bar</b>. The intervals are plausible, the notes land in sensible places against the chords, and it would not immediately give itself away. What it does not have is any sense of a phrase: it never sets up an idea and answers it, and over a full chorus that absence is obvious.</p>
+    <p>One caveat: the model carries no durations, so the rhythm here is imposed and the rest lengths are randomized. What is genuinely from the model is the sequence of pitches against chords and their beat positions.</p>
+  </div>
+</div>
+
+<div class="slide">
+  <div class="head"><span class="num">9</span><span class="ttl">The walk on a graph</span><span class="clock">0:50</span></div>
+  <div class="say">
+    <p>The matrix and a graph are the same object. 428 nodes, one per state, and a directed edge from <i>i</i> to <i>j</i> weighted by the probability of that move.</p>
+    <p>428 nodes is not something you can look at, so this is the subgraph on the <b>eight states the walk spends the most time in</b>. Between them they account for 9.7 percent of the walk's time.</p>
+    <p>Two things about those eight, and neither was designed in. <b>Every one of them is a dominant seventh state</b>, and <b>seven of the eight sit offbeat</b>. The busiest places in Parker's language are unstable notes on weak positions. That is not where a naive model would put the centre of gravity, and it is a first hint of the result on slide 13.</p>
+  </div>
+</div>
+
+<div class="slide">
+  <div class="head"><span class="num">10</span><span class="ttl">PageRank</span><span class="clock">1:00</span></div>
+  <div class="say">
+    <p>PageRank is the same walk with one change: 85 percent of the time follow an edge as usual, and the other 15 percent of the time jump to a state chosen at random.</p>
+    <p>The teleport is what makes it well behaved. It guarantees the chain is irreducible and aperiodic, so there is a unique answer, and it stops the ranking being dominated by any part of the graph the walk could get stuck in.</p>
+    <p><span class="cue">Point at the ranking.</span> The top of the PageRank list is the fifth of a dominant chord on the "and of four", and <b>eight of the top ten are offbeat</b>. So the busiest nodes are the unstable ones, again.</p>
+    <p>For contrast I also computed <b>betweenness</b>, which asks something different: not where the walk spends time, but which states sit on the likely routes between other states. I weight each edge by minus the log of its probability, so that a short path is a probable one and the probabilities multiply as the lengths add.</p>
+    <p>Betweenness gives almost the opposite answer. Its top state is a <b>rest</b>, on beat three, and only one of its top ten is offbeat. So offbeat notes are where the line <b>lives</b>, and on-beat notes and rests are where it <b>passes through</b>. Two different questions, two different answers, from the same graph.</p>
+  </div>
+  <div class="aside">
+    <span class="lbl">If asked</span>
+    <p><span class="q">Why minus log and not the probability itself?</span> Because shortest-path algorithms add weights, and probabilities along a path multiply. Taking the log turns the product into a sum, and the minus sign makes a high probability a low cost, so the cheapest path is the most likely one.</p>
+    <p><span class="q">How does PageRank compare to the stationary distribution?</span> Very close, correlation 0.989. That is expected: with damping 0.85 on a well-connected graph PageRank is a mild perturbation of pi. It is a robustness check more than a new result.</p>
+  </div>
+</div>
+
+
+<!-- ================= PART 3 ================= -->
+<h2 class="part">Results &nbsp;·&nbsp; slides 11 to 14</h2>
+
+<div class="slide">
+  <div class="head"><span class="num">11</span><span class="ttl">Stationary distribution</span><span class="clock">1:20</span></div>
+  <div class="say">
+    <p>Now the first of the four results. Let the walk run for a long time and count the fraction of time it spends in each state. That fraction settles down to a fixed number per state, and the vector of those numbers is <b>pi</b>: one number per state, summing to one.</p>
+    <p>Algebraically, pi is the distribution that <b>one more step leaves unchanged</b>. It is the left eigenvector of P-hat at eigenvalue 1, and by Perron and Frobenius it exists and is unique because the chain is irreducible and aperiodic.</p>
+    <p><span class="cue">Point at the three busiest states.</span> The three busiest states are all dominant seventh, all offbeat, and none of them is a chord tone. The most-occupied state in Parker's language is the fifth of a dominant chord on the "and of four".</p>
+    <p><span class="cue">Point at the scatter.</span> And here is why this is worth showing. Every dot is a state: pi on one axis, and how often that state actually occurs in the corpus on the other. They sit on the diagonal.</p>
+    <p>That is not circular, and it is the part I want to be clear about. <b>Pi is computed only from the transitions.</b> It never sees how common each state is. It comes out of the eigenvector of a matrix of conditional probabilities. And yet it reproduces the corpus frequencies almost exactly.</p>
+    <p>So the ergodic theorem holds here, empirically: the long-run behaviour of one walk equals the average over the ensemble. It is a check that the estimation is sound before I ask the operator anything harder.</p>
+  </div>
+  <div class="aside">
+    <span class="lbl">If asked</span>
+    <p><span class="q">How do you know it is irreducible and aperiodic?</span> Smoothing makes every entry strictly positive, so the chain is trivially both. Without smoothing it is still irreducible on the observed states, but the guarantee is what smoothing buys.</p>
+  </div>
+</div>
+
+<div class="slide">
+  <div class="head"><span class="num">12</span><span class="ttl">A thousand agents</span><span class="clock">0:50</span></div>
+  <div class="say">
+    <p>The previous slide computed pi algebraically. This one gets it the other way, by simulation, which is the version that fits the course.</p>
+    <p>Drop <b>1,000 agents</b> on random starting states. Each one takes <b>100 steps</b>, choosing where to go by the odds in the row it is currently in. Nothing else. That is 100,000 events of newly generated Parker.</p>
+    <p>Then count where they collectively spent their time and compare with pi. <span class="cue">Point at the scatter.</span> Correlation <b>0.998</b>.</p>
+    <p>So the two routes to the same object agree: solving the eigenvector problem, and just letting a thousand agents run. The operator does what the theory says it should.</p>
+  </div>
+</div>
+
+<div class="slide">
+  <div class="head"><span class="num">13</span><span class="ttl">Hitting times</span><span class="clock">1:30</span></div>
+  <div class="say">
+    <p>This is the result I would defend first, because it turns a metaphor into a measured quantity.</p>
+    <p>Musicians say some notes are <b>unstable</b> and want to resolve. That is a statement about time: an unstable note is one you do not stay on. So define resolution, then measure how long it takes.</p>
+    <p>I mark a set of states as resolved: <b>a chord tone landing on one of the four beats</b>. That is 73 of the 428. Then, from every other state, I ask: starting here, how many events pass before the line first lands in that set? That is the expected hitting time, and it comes from solving one linear system, <b>h equals (I minus Q) inverse times the all-ones vector</b>, where Q is the operator restricted to the unresolved states.</p>
+    <p><span class="cue">Point at the numbers.</span> A typical state resolves in <b>4.1 events</b>. The slowest takes 5.1. But the fastest takes <b>1.84</b>, which is less than two events away.</p>
+    <p><span class="cue">Point at the list.</span> Now look at which states those are. The major seventh over a minor chord. The flat second over a dominant. The flat second over a major seventh.</p>
+    <p>Every one of them is a <b>semitone away from a chord tone</b>. These are precisely the notes theory calls <b>approach tones</b>, and it is the standard bebop device: play the note next door, then step into the chord tone.</p>
+    <p>The model was never told which notes are chord tones, never told what a semitone is, never told anything clashes. It counted. And the notes it ranks as most urgent are exactly the ones a teacher would name.</p>
+    <p>One more thing, and it is the third piece of the research question. <b>All eight of the fastest-resolving states sit offbeat.</b> So the pull toward resolution is not just toward certain notes, it points at the downbeat. Tension is placed off the beat and released on it, which is the asymmetry I set out to look for.</p>
+  </div>
+  <div class="aside">
+    <span class="lbl">If asked</span>
+    <p><span class="q">Is the result an artefact of how you defined R?</span> Fair challenge, and I tested it. If R is narrowed to chord tones on major seventh chords only, the median hitting time jumps from 4.1 to about 35 events, but all six fastest states are already on major seventh chords, so that version measures how long until the next major chord, which is harmonic rhythm, not gravity. The current definition is the one that isolates the effect I am after.</p>
+    <p><span class="q">Why an expectation and not a distribution?</span> The full distribution is available from the same system; the mean is what makes the ranking legible on a slide.</p>
+  </div>
+</div>
+
+<div class="slide">
+  <div class="head"><span class="num">14</span><span class="ttl">Voice-leading recovery</span><span class="clock">1:30</span></div>
+  <div class="say">
+    <p>The last result, and the most specific. Instead of a summary statistic, can the operator reproduce <b>one named rule</b>, in one cell?</p>
+    <p>The rule is the most-taught in Western harmony: in a five-to-one cadence, the <b>flat seven of the dominant falls by a semitone to the major third of the tonic</b>. It is the resolution the whole cadence is built on.</p>
+    <p>In this state space that sentence is a single cell: from the flat seven, on a dominant chord, on the "and of four", to the major third, on a major seventh chord, on beat one.</p>
+    <p><span class="cue">Point at the highlighted row.</span> That cell is <b>10.71 percent</b>. Out of 428 possible destinations, more than one time in ten the very next event is that specific note on that specific beat.</p>
+    <p>And the important part is the rows around it. <span class="cue">Point at the neighbouring rows.</span> The same move starting from beat four instead of the "and of four" is 0.05 percent. From the "and of three", 0.09 percent. Landing on beat two instead of beat one, 0.01 percent. <b>The neighbours are dead.</b></p>
+    <p>So the model has not learned a vague tendency for flat sevens to go to thirds. It has learned that the resolution happens from <b>one specific position in the bar</b>, into <b>one specific position in the next bar</b>. That precision is the whole argument for putting beat position in the state.</p>
+    <p><span class="cue">Point at the joint column, briefly.</span> One note on reading the table. The joint probability of that cell is only 0.015 percent, and the two columns answer different questions. The joint asks how much of the total traffic runs through this transition, and the answer is not much, because it needs a particular chord change under a particular note. The conditional asks: <b>given that Parker is on that note, where does he go</b>, and that is where the rule lives. Rare situation, near-deterministic response.</p>
+  </div>
+  <div class="aside">
+    <span class="lbl">If asked</span>
+    <p><span class="q">Is 10.71 percent large?</span> Against 428 destinations, uniform would be 0.23 percent, so it is about 45 times uniform. And the comparison that matters is the neighbouring cells, which are 100 to 1,000 times smaller under the same conditions.</p>
+    <p><span class="q">Could smoothing have created this?</span> No, smoothing pushes toward uniform, so it can only shrink a peak like this. It works against the result.</p>
+  </div>
+</div>
+
+
+<!-- ================= PART 4 ================= -->
+<h2 class="part">Closing &nbsp;·&nbsp; slides 15 to 17</h2>
+
+<div class="slide">
+  <div class="head"><span class="num">15</span><span class="ttl">Take-aways</span><span class="clock">1:20</span></div>
+  <div class="say">
+    <p>So, back to the question I opened with. Three things came out, and four did not.</p>
+    <p><b>Voice leading came out as one cell.</b> From the flat seven of a dominant in the pickup, the next note is the major third of the tonic on the downbeat almost 11 percent of the time, with the neighbouring cells under 0.1 percent. A textbook rule, located precisely, from counting alone.</p>
+    <p><b>Harmonic gravity came out as a waiting time.</b> A typical state reaches resolution in 4.1 events, the most unstable ones in under 2, and the notes that resolve fastest are the ones theory calls approach tones. The chain found them without being told which notes clash.</p>
+    <p><b>And the on-beat, offbeat asymmetry came out everywhere.</b> The busiest states are offbeat, all eight of the fastest-resolving states are offbeat, and the strongest cell in the matrix runs from an offbeat position onto a downbeat.</p>
+    <p><span class="cue">Move to the right column.</span> Now what did not work, because I think this half is the more useful one.</p>
+    <p><b>A Markov chain may not be the right tool.</b> I showed on slide 6 that the same state behaves differently depending on how the line arrived, and second order is not affordable on this much data. The assumption is convenient rather than true.</p>
+    <p><b>Much of the structure is metre, not music.</b> The matrix is 97 percent empty largely because the beat cannot jump. Against a null that holds the beat sequence fixed, roughly 40 percent of the apparent structure disappears. Some of what looks like syntax is just bar lines, and I would rather say that myself than have it asked.</p>
+    <p><b>The generated lines are not Parker.</b> Right interval sizes, right rest frequency, no phrases. The engraved staff is the honest version: convincing bar to bar, falling apart across a chorus.</p>
+    <p><b>And most of a note is missing.</b> No register, no duration, no dynamics. The state is a pitch class against a chord on a beat, and nothing else. What is remarkable is how much came out of so little, but it is worth being clear about how little that is.</p>
+  </div>
+</div>
+
+<div class="slide">
+  <div class="head"><span class="num">16</span><span class="ttl">Further work</span><span class="clock">0:25</span></div>
+  <div class="say">
+    <p>Very briefly, the obvious next steps, and I will leave this on screen rather than read it.</p>
+    <p>The main one is <b>splitting the operator</b> and comparing the halves, by whether the chord changes, by direction, or by phrase position. The bar a split has to clear is that it conditions on something not already in the state and not explained by metre. Direction already looks promising: descending lines land a chord tone on a strong beat 67 percent of the time against 54 for ascending.</p>
+    <p>Beyond that, adding coordinates the state currently throws away, and a different encoding based on interval content rather than degrees.</p>
+  </div>
+  <div class="aside">
+    <span class="lbl">If asked</span>
+    <p><span class="q">Why did you not do the within-chord versus across-chord split?</span> Answer honestly: I built it and set it aside. Only about 16 percent of transitions cross a chord change, which is arithmetic rather than a finding, since chords change every 6.2 events on average. It is confounded with the downbeat. And 76 percent of the chord-change flag is already recoverable from the state itself, so the split was largely re-cutting information the operator already had.</p>
+  </div>
+</div>
+
+<div class="slide">
+  <div class="head"><span class="num">17</span><span class="ttl">Thank you</span><span class="clock">0:15</span></div>
+  <div class="say">
+    <p>That is the project. Thank you, and I am happy to take questions.</p>
+    <p><span class="cue">Three backup slides follow. Do not advance into them unless a question takes you there: distribution evolution, and the spectrum.</span></p>
+  </div>
+</div>
+
+
+<!-- ================= BACKUP ================= -->
+<h2 class="part">Backup slides &nbsp;·&nbsp; only if asked</h2>
+
+<div class="slide">
+  <div class="head"><span class="num">B1</span><span class="ttl">Evolving the distribution</span><span class="clock">on demand</span></div>
+  <div class="say">
+    <p><span class="cue">Go here if asked how fast the chain converges, or how you know pi is really the limit.</span></p>
+    <p>Slide 11 found pi algebraically, as an eigenvector. This finds it by iteration instead. Start with all the probability on one state, meaning complete certainty about the current note, then multiply by P repeatedly and watch the certainty dissolve.</p>
+    <p>Starting from the busiest state, the total variation distance to pi is already below 0.5 after <b>two steps</b>, below 0.01 after <b>21</b>, and by step 40 the largest disagreement with pi anywhere is under nine parts in a million.</p>
+    <p>The decay tracks the second eigenvalue modulus raised to t almost exactly, so this is the mixing time measured rather than asserted.</p>
+  </div>
+</div>
+
+<div class="slide">
+  <div class="head"><span class="num">B2</span><span class="ttl">The spectrum</span><span class="clock">on demand</span></div>
+  <div class="say">
+    <p><span class="cue">Go here if asked about eigenvalues, mixing time, or periodicity. This is the strongest backup slide, worth volunteering if the questions are thin.</span></p>
+    <p>Every step the walk forgets a little of where it started, at a fixed rate set by the second eigenvalue. Here its modulus is 0.814, so whatever you still know shrinks to about 81 percent of itself each step, which gives a mixing time of about <b>5.4 steps</b>. After roughly five events the chain has largely forgotten where it began.</p>
+    <p>But the interesting part is that the second eigenvalue is <b>complex</b>, 0.596 plus 0.555 i. A real eigenvalue would mean the walk simply fades toward pi. A complex one means it also <b>circles</b>: it returns to similar territory at a regular interval, and the interval is two pi divided by the argument.</p>
+    <p>That comes out at <b>8.4 events</b>. One bar of eighth notes is exactly 8 events.</p>
+    <p>So the metre is sitting in the spectrum of the operator, and nothing put it there. The matrix was built by tallying which state follows which. The bar line came out as the phase of an eigenvalue.</p>
+    <p>It also tells you the chain is <b>not reversible</b>, since a reversible chain has a real spectrum. Which is right: music runs forward.</p>
+  </div>
+</div>
+
+<div class="slide">
+  <div class="head"><span class="num">B3</span><span class="ttl">Questions with no slide</span><span class="clock">on demand</span></div>
+  <div class="say">
+    <p><span class="cue">Answers to keep in your pocket. There is no slide for these.</span></p>
+  </div>
+  <div class="aside">
+    <span class="lbl">If asked</span>
+    <p><span class="q">Why notated scores and not MIDI or audio?</span> Deliberate. I want the beat position a musician intends, not the microtiming of a performance. Parker plays behind and ahead of the beat constantly, and against a performed reference almost every note would be offbeat. The notation is the syntactic layer, which is the object of the study.</p>
+    <p><span class="q">Why five chord qualities, and why keep diminished separate from half-diminished?</span> Because their chord-tone sets differ on the seventh degree, so merging them would put a chord tone and a non-chord tone in the same state.</p>
+    <p><span class="q">Fifty solos, one player. How general is this?</span> It is not, and I would not claim it is. This is a model of Charlie Parker, not of jazz. The method transfers directly to another player's corpus, and comparing operators across players is the natural extension.</p>
+    <p><span class="q">Is the whole thing reproducible?</span> Yes. One command runs the entire pipeline end to end in about a minute, with a fixed random seed throughout.</p>
+    <p><span class="q">How does this connect to the course?</span> It is the random-walk-on-a-graph exercise, applied to a real corpus instead of a synthetic graph: transition operator, stationary distribution via Perron-Frobenius, spectral gap and mixing time, hitting times by first-step analysis, PageRank as a damped walk, and Monte Carlo simulation of the ensemble.</p>
+  </div>
+</div>
+
+</body>
+</html>
