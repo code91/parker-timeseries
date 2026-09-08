@@ -161,19 +161,14 @@ def plot(per_quality, structural, beat_share, cells) -> None:
     qs = [r["quality"] for r in per_quality]
     x = np.arange(len(qs))
     covered = [r["cells_covered"] for r in per_quality]
-    null_mu = [r["null_coverage_mean"] for r in per_quality]
-    null_sd = [r["null_coverage_sd"] for r in per_quality]
 
     ax_cov.bar(x, covered, width=0.6,
                color=[MUTED if q in WELL_SAMPLED else ACCENT for q in qs])
-    ax_cov.errorbar(x, null_mu, yerr=null_sd, fmt="_", color=INK, markersize=14,
-                    linewidth=1.0, capsize=3, label="expected if played like the common chords")
     ax_cov.set_xticks(x, qs)
     ax_cov.set_ylim(0, len(cells) * 1.08)
     ax_cov.set_ylabel(f"grid cells occupied (of {len(cells)})")
     ax_cov.set_title(f"Coverage of the {len(cells)}-cell grid, by chord quality",
                      fontsize=10, pad=8)
-    ax_cov.legend(frameon=False, fontsize=7.5, loc="lower left")
     ax_cov.spines[["top", "right"]].set_visible(False)
     ax_cov.tick_params(axis="x", length=0)
 

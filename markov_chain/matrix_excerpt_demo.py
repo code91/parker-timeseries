@@ -58,22 +58,28 @@ def main() -> None:
     n = len(states)
     hi_row = states.index(HIGHLIGHT)
 
-    fig, (ax_full, ax_zoom) = plt.subplots(1, 2, figsize=(11.0, 4.6),
-                                           width_ratios=[1.0, 1.35])
+    fig, (ax_full, ax_zoom) = plt.subplots(1, 2, figsize=(11.6, 4.6),
+                                           width_ratios=[1.0, 1.35],
+                                           layout="constrained")
 
     # --- the whole operator -------------------------------------------------
-    ax_full.imshow(np.log10(P), cmap=CMAP, aspect="equal", interpolation="nearest")
+    lo, hi = np.log10(P).min(), np.log10(P).max()
+    im = ax_full.imshow(np.log10(P), cmap=CMAP, aspect="equal",
+                        interpolation="nearest", vmin=lo, vmax=hi)
     ax_full.add_patch(Rectangle((COL0 - 0.5, ROW0 - 0.5), SPAN, SPAN,
                                 fill=False, edgecolor=ACCENT, linewidth=1.4))
     ax_full.set_title(f"$\\hat{{P}}$, all {n} × {n} cells (log scale)", fontsize=10, pad=8)
     ax_full.set_xlabel("to state"); ax_full.set_ylabel("from state")
+    # the default ticks stop at 400 and make the axis look truncated; end on n-1
+    ends = [0, 100, 200, 300, n - 1]
+    ax_full.set_xticks(ends); ax_full.set_yticks(ends)
     ax_full.tick_params(labelsize=7.5)
 
     # --- a contiguous block, with the numbers -------------------------------
     blk = P[ROW0:ROW0 + SPAN, COL0:COL0 + SPAN]
     ax_zoom.imshow(np.log10(blk), cmap=CMAP, aspect="equal",
                    interpolation="nearest",
-                   vmin=np.log10(P).min(), vmax=np.log10(P).max())
+                   vmin=lo, vmax=hi)
     for r in range(SPAN):
         for c in range(SPAN):
             v = blk[r, c] * 100
@@ -93,7 +99,16 @@ def main() -> None:
     ax_zoom.set_xlabel(f"to state  ({SPAN} of {n} columns)", fontsize=8)
     ax_zoom.set_ylabel(f"from state  ({SPAN} of {n} rows)", fontsize=8)
 
-    fig.tight_layout()
+    # one colour key for both panels: they share vmin/vmax, so a single scale
+    # is correct and two would invite the reader to compare them separately
+    cb = fig.colorbar(im, ax=(ax_full, ax_zoom), location="right",
+                      fraction=0.035, pad=0.01, aspect=28)
+    ticks = [-4, -3, -2, -1, np.log10(0.6)]
+    cb.set_ticks([t for t in ticks if lo <= t <= hi])
+    cb.set_ticklabels([f"{10**t*100:g} %" for t in ticks if lo <= t <= hi])
+    cb.set_label("transition probability  $\\hat{P}_{ij}$  (log scale)", fontsize=8)
+    cb.ax.tick_params(labelsize=7.5)
+
     out = FIGURES_DIR / "section_matrix_excerpt"
     fig.savefig(out.with_suffix(".png"))
     fig.savefig(out.with_suffix(".pdf"))

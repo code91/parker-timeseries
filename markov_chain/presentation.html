@@ -178,44 +178,21 @@
   <div class="eyebrow">Final project · Dynamical Models for Social Behavior</div>
   <h1>Bebop as a Markov Chain</h1>
   <div class="sub">A discrete-time finite-state random walk on a graph of 428 states, estimated from Charlie Parker's improvisational lines.</div>
+  <p style="font-size: 18px; font-style: italic; padding: 8px 14px; border-left: 3px solid var(--accent); background: var(--accent-soft); margin: 4px 0 22px; max-width: 700px; line-height: 1.4;">
+    <b style="font-style: normal;">Research question.</b>
+    Can the syntactic rules of bebop improvisation (voice leading, harmonic gravity, the on-beat / off-beat asymmetry) be recovered as <i>numerical properties</i> of a Markov-chain operator estimated from Parker's solos?
+  </p>
   <div class="meta">
-    <div><b>Mike Rubini</b> &nbsp;·&nbsp; MSc Decision Science &nbsp;·&nbsp; Università di Bari</div>
+    <div><b>Michele "Mike" Rubini</b> &nbsp;·&nbsp; MSc Decision Science &nbsp;·&nbsp; Università di Bari</div>
     <div>Course: <i>Dynamical Models for Social Behavior</i> &nbsp;·&nbsp; Profs. Gonnella &amp; Suma</div>
   </div>
   <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 1 / 20</div>
 </section>
 
 
-<!-- ====================== SLIDE 2 : FRAMING ===================== -->
-<section class="slide">
-  <p class="eyebrow">1 · Project framing</p>
-  <h2>From Parker's solos to an operator on a finite state space</h2>
-  <div class="rule"></div>
-
-  <p style="font-size: 19px; font-style: italic; padding: 8px 14px; border-left: 3px solid var(--accent); background: var(--accent-soft); margin: 8px 0 16px;">
-    <b style="font-style: normal;">Research question.</b>
-    Can the syntactic rules of bebop improvisation (voice leading, harmonic gravity, the on-beat / off-beat asymmetry) be recovered as <i>numerical properties</i> of a Markov-chain operator estimated from Parker's solos?
-  </p>
-
-  <div class="cols" style="height: 360px;">
-    <div class="col fig">
-      <img src="../figures/section9_real_vs_synth_scale_degree.png" alt="real vs synthetic trajectory teaser">
-      <p class="tiny" style="margin-top:4px;">Teaser: top, real <i>Anthropology</i> head; below, one trajectory sampled from the fitted chain. Both are <b>projections</b>: the chain moves through 428 states, and the plot shows only the scale-degree coordinate of each (0 = root … 11 = major 7th), collapsing the chord-quality and beat coordinates. <b>R</b> = rest event, below the dotted rule.</p>
-    </div>
-    <div class="col">
-      <img src="../figures/section_notation_real_vs_synth.png" alt="bars 2-4 of Anthropology above a line sampled from P-hat, engraved on the same changes" style="width: 100%; margin-top: 8px;">
-      <p class="tiny" style="margin-top:6px;">Top: the pickup and first two bars of <i>Anthropology</i> as Parker played them. Bottom: the opening 16 events of the same synthetic trajectory plotted on the left, entering on the downbeat of bar 2 over the identical changes.</p>
-      <p class="tiny">Each event the chain emits is a full state: a scale degree (or a rest), a chord quality, and a beat position. It carries no register and no duration, so octave is supplied by nearest-neighbour voice leading and the rhythm laid out as straight eighths.</p>
-    </div>
-  </div>
-
-  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 2 / 20</div>
-</section>
-
-
 <!-- ====================== SLIDE 3 : DATA ===================== -->
 <section class="slide">
-  <p class="eyebrow">2 · The corpus</p>
+  <p class="eyebrow">1 · The corpus</p>
   <h2>50 Charlie Parker improvs &nbsp; 23,143 events (21,590 notes + 1,553 rests)</h2>
   <div class="rule"></div>
 
@@ -246,13 +223,13 @@
   <h3 style="font-size: 17px; margin: 4px 0 2px;">Corpus statistics</h3>
   <img src="../figures/section_corpus_stats.png" alt="beat-position distribution and events per tune" style="display: block; width: 92%; margin: 0;">
 
-  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 3 / 20</div>
+  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 2 / 20</div>
 </section>
 
 
 <!-- ====================== SLIDE 4 : STATE SPACE ===================== -->
 <section class="slide">
-  <p class="eyebrow">3 · State space</p>
+  <p class="eyebrow">2 · State space</p>
   <h2>State = (scale degree, chord quality, beat position)</h2>
   <div class="rule"></div>
 
@@ -276,13 +253,13 @@
   </div>
 
 
-  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 4 / 20</div>
+  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 3 / 20</div>
 </section>
 
 
 <!-- ====================== SLIDE : ANTHROPOLOGY ===================== -->
 <section class="slide">
-  <p class="eyebrow">4 · The encoding, on a real solo</p>
+  <p class="eyebrow">3 · The encoding, on a real solo</p>
   <h2>Anthropology, bar by bar</h2>
   <div class="rule"></div>
 
@@ -299,13 +276,13 @@
 
   <p class="small" style="margin-top: 10px;"><b>Important</b>: we are not considering durations, octaves (heights), dynamics (f, p, pp) etc.</p>
 
-  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 5 / 20</div>
+  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 4 / 20</div>
 </section>
 
 
 <!-- ====================== SLIDE : WHAT PARKER NEVER PLAYS ===================== -->
 <section class="slide">
-  <p class="eyebrow">5 · The other 92</p>
+  <p class="eyebrow">4 · The other 92</p>
   <h2>What Parker never plays</h2>
   <div class="rule"></div>
 
@@ -321,26 +298,42 @@
 
   <img src="../figures/section_missing_states.png" alt="grid coverage by chord quality" style="display: block; width: 42%; margin: 10px auto 0;">
 
-  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 6 / 20</div>
+  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 5 / 20</div>
 </section>
 
 
 <!-- ====================== SLIDE 5 : WHAT P IS ===================== -->
 <section class="slide">
-  <p class="eyebrow">6 · The operator, concretely</p>
+  <p class="eyebrow">5 · The operator, concretely</p>
   <h2><span class="hat">P</span> is a table: 428 rows, one question each</h2>
   <div class="rule"></div>
 
-  <div class="cols" style="height: 112px;">
-    <div class="col">
-      <p class="small" style="margin: 0;">Every row asks one question: <b>Parker is on this state, where does he go next?</b> Walk the 23,143 events in order; each time state <span class="math">i</span> is followed by state <span class="math">j</span>, add 1 to cell <span class="math">(i, j)</span>, then divide each row by its own total. The hat marks an <b>estimate</b>: <span class="math"><span class="hat">P</span></span> is what 50 solos say about the unobservable true <span class="math">P</span>.</p>
-    </div>
-    <div class="col" style="max-width: 430px;">
-      <p class="small" style="margin: 0;">Probabilities live <b>within a row</b>: each row sums to 1 across <b>all 428 columns</b>.</p>
-    </div>
-  </div>
+  <p class="small" style="margin: 6px 0 0;">Every row asks one question: <b>Parker is on this state, where does he go next?</b> Walk the 23,143 events in order; each time state <span class="math">i</span> is followed by state <span class="math">j</span>, add 1 to cell <span class="math">(i, j)</span>, then divide each row by its own total. The hat marks an <b>estimate</b>: <span class="math"><span class="hat">P</span></span> is what 50 solos say about the unobservable true <span class="math">P</span>. Probabilities live <b>within a row</b>: each row sums to 1 across <b>all 428 columns</b>.</p>
 
   <img src="../figures/section_matrix_excerpt.png" alt="the full 428x428 operator beside a 12x12 block with printed probabilities" style="display: block; width: 80%; margin: 10px auto 0;">
+
+  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 6 / 20</div>
+</section>
+
+
+<!-- ====================== SLIDE : A SAMPLE WALK ===================== -->
+<section class="slide">
+  <p class="eyebrow">6 · A sample walk</p>
+  <h2>A walk sampled from <span class="hat">P</span>, beside Parker's own</h2>
+  <div class="rule"></div>
+
+
+  <div class="cols" style="height: 470px;">
+    <div class="col fig">
+      <img src="../figures/section9_real_vs_synth_scale_degree.png" alt="real vs synthetic trajectory teaser">
+      <p class="tiny" style="margin-top:4px;">Teaser: top, real <i>Anthropology</i> head; below, one trajectory sampled from the fitted chain. Both are <b>projections</b>: the chain moves through 428 states, and the plot shows only the scale-degree coordinate of each (0 = root … 11 = major 7th), collapsing the chord-quality and beat coordinates. <b>R</b> = rest event, below the dotted rule.</p>
+    </div>
+    <div class="col">
+      <img src="../figures/section_notation_real_vs_synth.png" alt="bars 2-4 of Anthropology above a line sampled from P-hat, engraved on the same changes" style="width: 100%; margin-top: 8px;">
+      <p class="tiny" style="margin-top:6px;">Top: the pickup and first two bars of <i>Anthropology</i> as Parker played them. Bottom: the opening 16 events of the same synthetic trajectory plotted on the left, entering on the downbeat of bar 2 over the identical changes.</p>
+      <p class="tiny">Each event the chain emits is a full state: a scale degree (or a rest), a chord quality, and a beat position. It carries no register and no duration, so octave is supplied by nearest-neighbour voice leading and the rhythm laid out as straight eighths.</p>
+    </div>
+  </div>
 
   <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 7 / 20</div>
 </section>
@@ -630,7 +623,7 @@
       <h3 style="font-size: 19px; margin: 12px 0 4px;">What this tells us</h3>
       <ul class="small">
         <li>The chain is a coherent <b>generative</b> model, not just a descriptive matrix: synthetic Parker lines drawn from <span class="math"><span class="hat">P</span></span> spend the right fraction of their time in each state.</li>
-                <li><b>Scope of the claim.</b> What converges is the <i>marginal</i>, how much time is spent in each state, not phrase shape. Sampled lines range more widely than Parker's actual contour (see the teaser on slide 2): local melodic shape is an order-2 property, and Section 7 shows held-out likelihood cannot support order-2 at 23k events.</li>
+                <li><b>Scope of the claim.</b> What converges is the <i>marginal</i>, how much time is spent in each state, not phrase shape. Sampled lines range more widely than Parker's actual contour (see the sampled walk earlier): local melodic shape is an order-2 property, and Section 7 shows held-out likelihood cannot support order-2 at 23k events.</li>
       </ul>
     </div>
     <div class="col fig">
