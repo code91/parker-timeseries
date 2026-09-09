@@ -33,6 +33,7 @@ from markov_chain.common import (  # noqa: E402
     load_operator,
     load_state_order,
     state_label,
+    state_label_semitone,
 )
 
 plt.rcParams.update({
@@ -43,13 +44,14 @@ plt.rcParams.update({
 
 
 def plot_top_transitions(top, states, name: str, out: Path) -> None:
-    labels = [f"{state_label(states[i])} → {state_label(states[j])}" for i, j, _, _ in top]
+    labels = [f"{state_label_semitone(states[i])} → {state_label_semitone(states[j])}"
+              for i, j, _, _ in top]
     joints = [j * 100 for _, _, j, _ in top]
-    fig, ax = plt.subplots(figsize=(7.0, 6.5))
+    fig, ax = plt.subplots(figsize=(7.0, 5.6))
     y = np.arange(len(labels))
     ax.barh(y, joints, color="#3b6fb6", edgecolor="black", linewidth=0.3)
     ax.set_yticks(y)
-    ax.set_yticklabels(labels, fontsize=7)
+    ax.set_yticklabels(labels, fontsize=7.5)
     ax.invert_yaxis()
     ax.set_xlabel("Joint probability  π_i · P_ij  (%)")
     ax.set_title(f"{name}:  top 20 transitions by joint probability")
