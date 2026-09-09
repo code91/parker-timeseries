@@ -14,6 +14,7 @@ Run every step of the Markov-chain analysis pipeline in order:
     10_distribution_evolution.py
     11_graph_view.py
     12_direction.py
+    13_absorption_recurrence.py
     build_presentation_data.py
 
 Each step writes its artifacts to data/ and figures/.  The pipeline is
@@ -44,6 +45,7 @@ STEPS = [
     "10_distribution_evolution.py",
     "11_graph_view.py",
     "12_direction.py",
+    "13_absorption_recurrence.py",
     "build_presentation_data.py",
 ]
 

@@ -344,7 +344,66 @@ table, not a second operator: the claim requires no decomposition of P.
 
 ---
 
-## 13. The unobserved states (supplementary)
+## 13. Where the line resolves to, and how often it returns
+
+Section 4 asked how *long* an unresolved state takes to reach R.  It never
+asked which member of R the walk reaches, nor how long the walk waits before
+revisiting a state at all.  Both follow from objects already computed.
+
+**Absorption probabilities.**  With Q the sub-block of P on the 355 transient
+states and Rmat the block from transient states into the 73 resolved ones,
+
+    B = (I - Q)^{-1} · Rmat
+
+and B[i, r] is the probability that the FIRST member of R reached from i is r.
+Rows sum to 1 to within 1e-15: smoothing gives every state positive escape
+probability, so absorption is certain.
+
+Ranking the six transient states with the shortest hitting times and reading
+off their top target:
+
+| source | h | first resolved state reached | probability |
+|---|---|---|---|
+| `(7, min7, &1)` | 1.84 | `(1, min7, ♩2)` | 63.2 % |
+| `(b2, dom7, &3)` | 2.10 | `(1, dom7, ♩4)` | 49.3 % |
+| `(b2, maj7, &4)` | 2.13 | `(b7, min7, ♩1)` | 33.4 % |
+| `(3, min7, &1)` | 2.15 | `(b3, min7, ♩2)` | 65.6 % |
+| `(2, maj7, &1)` | 2.17 | `(1, maj7, ♩2)` | 50.8 % |
+| `(b3, maj7, &1)` | 2.26 | `(3, maj7, ♩2)` | 61.3 % |
+
+Four of the six resolve **by a semitone onto the nearest chord tone** (rows 1,
+2, 4, 6), between 49 % and 66 % of the time.  Row 5 falls a whole tone, the
+9th to the root, which is the other standard resolution.  Row 3 is the one
+exception: its top target sits on a different chord, so the resolution crosses
+a chord change rather than moving inside one.
+
+Row 6 is the move the encoding slide uses as its example: the minor third over
+a major chord going to the major third is the D♭ → D in bar 1 of
+*Anthropology*, at a different beat position.
+
+Caveat, stated on the slide: the *pitch* is voice leading, but the *timing* is
+metre.  Every target sits on the next strong beat, largely because the beat
+cannot go anywhere else (see the `&4 → b1` = 69 % figure in Section 1).
+
+**Recurrence times.**  For an irreducible positive-recurrent chain, Kac's
+formula gives the expected return time to state i as m_i = 1 / π_i, so this
+needs nothing beyond π.
+
+| | events |
+|---|---|
+| busiest state `(5, dom7, &4)` | 71 |
+| median state | 809 |
+| slowest state | 4,799 |
+
+71 events is about nine bars of eighth notes, so the core vocabulary comes
+round roughly once a chorus.  The right-hand spike in the histogram is a
+smoothing artifact, not a musical fact: those states have almost no data and
+their π is dominated by α, so their recurrence times report the smoothing
+constant rather than Parker.
+
+---
+
+## 14. The unobserved states (supplementary)
 
 Produced by `markov_chain/missing_states.py`; not part of `run_all.py`.
 

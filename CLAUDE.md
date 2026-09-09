@@ -29,8 +29,9 @@ the print-ready slide deck.
 
 - Pipeline runs end-to-end in ~60 s via `python markov_chain/run_all.py`.
 - 23,143 events extracted (21,590 notes + 1,553 rests), 428 / 520
-  states observed, 27 pipeline figures (PNG + PDF) plus 6 standalone
-  demo figures.  The deck is 18 slides.
+  states observed, 29 pipeline figures (PNG + PDF) plus 6 standalone
+  demo figures.  The deck is 18 numbered slides plus a title, a Backup
+  divider and 4 backup slides.
 - **v4 removed the within/across split.** There is one operator, `P`.
   See "Further work" in `results.md` for why: the across set's size is
   arithmetic (1 / 6.23 events per chord), it is confounded with the
@@ -204,6 +205,7 @@ references), `readme.md` (old project's README), `tune_titles.csv`
 | `10_distribution_evolution.py` | μ₀ = e_i, iterate μP, converge to π | `data/P.npy`, `data/pi_P.npy` | `figures/section10_*`, `data/section10_summary.json` |
 | `11_graph_view.py` | Induced subgraph on the 8 busiest states | `data/P.npy`, `data/N.npy`, `data/pi_P.npy` | `figures/section11_*`, `data/section11_summary.json` |
 | `12_direction.py` | Descending vs ascending chord-tone landing | `data/notes.parquet` | `figures/section12_*`, `data/section12_summary.json` |
+| `13_absorption_recurrence.py` | Absorption probabilities B = (I−Q)⁻¹R (which resolved state is reached first) and Kac recurrence times 1/π | `data/P.npy`, `data/hitting_P.npy`, `data/pi_P.npy`, `data/states.json` | `data/absorption_P.npy`, `data/recurrence_P.npy`, `figures/section13_*`, `data/section13_summary.json` |
 | `run_all.py` | Orchestrator | — | (re-runs every step) |
 
 Standalone scripts, **not** in `run_all.py` — run them by hand after a
@@ -255,6 +257,11 @@ They harmonize visually but if the user asks for exact crimson match,
 sweep all `color="..."` arguments.
 
 ### Edit the presentation
+`markov_chain/speaker_notes.html` is the slide-by-slide script; render it
+with headless Chrome `--print-to-pdf` to refresh `speaker_notes.pdf`.
+It carries per-slide timings that must be renumbered whenever a slide is
+inserted or removed.
+
 `markov_chain/presentation.html` is a single self-contained HTML file
 with embedded CSS. 16:9 fixed-size slides, one per printed page via
 `@page` + `page-break-after: always`. CSS variables at the top of
@@ -272,7 +279,7 @@ Figure references are relative: `../figures/...`. Don't break that.
      ≈ **0.1071**
    - `spectral.P.mixing_time_steps` ≈ **5.4**
    - `generative_validation.pearson_r_f_sim_vs_pi` ≈ **0.998**
-3. `ls figures/*.png | wc -l` should equal **24** (27 from `run_all.py`,
+3. `ls figures/*.png | wc -l` should equal **26** (29 from `run_all.py`,
    plus `parker.png`, `scrapple.png` and the demo-script figures).
 
 If any of those drift by more than rounding noise, find what changed
