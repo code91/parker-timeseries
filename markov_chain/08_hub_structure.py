@@ -61,25 +61,23 @@ plt.rcParams.update({
 })
 
 
-def plot_top_pagerank(per_op: dict, out: Path) -> None:
-    """Horizontal-bar plot: top-10 PageRank, one panel per operator."""
-    k = len(per_op)
-    fig, axes = plt.subplots(1, k, figsize=(4.6 * k + 1.4, 4.4), sharex=False, squeeze=False)
-    for ax, (name, vals) in zip(axes[0], per_op.items()):
-        labels = [row["state"] for row in vals]
-        scores = [row["value"] for row in vals]
-        y = np.arange(len(labels))
-        ax.barh(y, scores, color="#3b6fb6", edgecolor="black", linewidth=0.3)
-        ax.set_yticks(y); ax.set_yticklabels(labels, fontsize=7)
-        ax.invert_yaxis()
-        ax.set_xlabel("PageRank")
-        ax.set_title(name)
-        ax.spines[["top", "right"]].set_visible(False)
-    fig.suptitle("Top-10 hubs by damped PageRank (d = 0.85)")
+def plot_top_metric(vals: list, xlabel: str, color: str, out: Path) -> None:
+    """Horizontal-bar plot of one metric's top-10 states.  The slide carries the
+    title, so the figure carries none."""
+    labels = [row["state"] for row in vals]
+    scores = [row["value"] for row in vals]
+    y = np.arange(len(labels))
+    fig, ax = plt.subplots(figsize=(4.6, 3.3))
+    ax.barh(y, scores, color=color, edgecolor="black", linewidth=0.3)
+    ax.set_yticks(y); ax.set_yticklabels(labels, fontsize=7.5)
+    ax.invert_yaxis()
+    ax.set_xlabel(xlabel)
+    ax.spines[["top", "right"]].set_visible(False)
     fig.tight_layout()
     fig.savefig(out.with_suffix(".png"))
     fig.savefig(out.with_suffix(".pdf"))
     plt.close(fig)
+
 
 DAMPING = 0.85
 EPSILON = 1e-12
@@ -188,9 +186,12 @@ def main() -> None:
         json.dump(summary, f, indent=2)
 
     FIGURES_DIR.mkdir(parents=True, exist_ok=True)
-    per_op_pr = {name: summary[name]["metrics"]["PageRank"]["top_10"]
-                 for name in ("P",)}
-    plot_top_pagerank(per_op_pr, FIGURES_DIR / "section8_top10_pagerank")
+    plot_top_metric(summary["P"]["metrics"]["PageRank"]["top_10"],
+                    "PageRank  (d = 0.85)", "#3b6fb6",
+                    FIGURES_DIR / "section8_top10_pagerank")
+    plot_top_metric(summary["P"]["metrics"]["betweenness"]["top_10"],
+                    "betweenness centrality", "#c0392b",
+                    FIGURES_DIR / "section8_top10_betweenness")
     print(f"\nWrote section8_summary.json and figures")
 
 

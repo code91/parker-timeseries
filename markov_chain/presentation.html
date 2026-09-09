@@ -404,28 +404,23 @@
 <!-- ====================== SLIDE : PAGERANK ===================== -->
 <section class="slide">
   <p class="eyebrow">10 · PageRank</p>
-  <h2>A damped walk</h2>
+  <h2>Random surfer with damping</h2>
   <div class="rule"></div>
 
-  <div class="cols" style="height: 470px;">
-    <div class="col">
-      <p class="small">PageRank runs a walk with one change: <b>85 %</b> of the time follow an edge, otherwise <b>jump to a random state</b>.</p>
+  <p class="small" style="margin: 6px 0 0;">PageRank runs a walk with one change: <b>85 %</b> of the time follow an edge, otherwise <b>jump to a state chosen at random</b>. The teleport keeps the walk from being trapped anywhere, so the ranking is unique whatever the graph looks like. Alongside it, <b>betweenness</b> asks a different question of the same graph: not where the walk spends time, but which states sit on the likely routes between other states. 428 nodes, 5,421 directed edges.</p>
 
-      <h3 style="font-size: 19px; margin: 16px 0 4px;">Where the measures disagree</h3>
-      <table style="width: 100%;">
-        <thead><tr><th>measure</th><th>busiest state</th><th class="num">offbeat</th></tr></thead>
-        <tbody>
-          <tr><td>PageRank</td><td>7 (5), dom7, &amp;4</td><td class="num red"><b>8 / 10</b></td></tr>
-          <tr><td><b>betweenness</b></td><td>R, dom7, b3</td><td class="num blue"><b>1 / 10</b></td></tr>
-        </tbody>
-      </table>
-
+  <div class="cols" style="height: 438px; margin-top: 10px;">
+    <div class="col fig">
+      <img src="../figures/section8_top10_pagerank.png" alt="top-10 states by damped PageRank">
+      <p class="tiny" style="margin-top: 2px;"><b>Where the walk spends its time.</b> Nine of the ten are dominant sevenths, eight offbeat.</p>
     </div>
     <div class="col fig">
-      <img src="../figures/section8_top10_pagerank.png" alt="top-10 states by PageRank">
-      <p class="tiny" style="margin-top:4px;">428 nodes, 5,421 directed edges. Betweenness uses edge weight −log <span class="hat">P</span><sub>ij</sub>, so a short path is a probable one.</p>
+      <img src="../figures/section8_top10_betweenness.png" alt="top-10 states by betweenness centrality">
+      <p class="tiny" style="margin-top: 2px;"><b>Which states the routes run through.</b> Eight of the ten are <b>rests</b>, nine on the beat.</p>
     </div>
   </div>
+
+  <p class="small" style="margin: 4px 0 0; text-align: center;">Offbeat notes are where the line <b>lives</b>; rests on the beat are where it <b>passes through</b>.</p>
 
   <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 10 / 18</div>
 </section>
