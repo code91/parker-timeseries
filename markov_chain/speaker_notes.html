@@ -133,8 +133,8 @@
       <tr><td class="n">11</td><td>The walk on a graph</td><td class="t">0:40</td><td class="t">11:55</td></tr>
       <tr><td class="n">12</td><td>PageRank</td><td class="t">0:50</td><td class="t">12:45</td></tr>
       <tr><td class="n">13</td><td>Hitting times</td><td class="t">1:10</td><td class="t">13:55</td></tr>
-      <tr><td class="n">14</td><td>Where does the line resolve to?</td><td class="t">0:55</td><td class="t">14:50</td></tr>
-      <tr><td class="n">15</td><td>Which moves actually carry the music</td><td class="t">1:30</td><td class="t">16:20</td></tr>
+      <tr><td class="n">14</td><td>Absorption probabilities</td><td class="t">0:55</td><td class="t">14:50</td></tr>
+      <tr><td class="n">15</td><td>Voice-leading recovery</td><td class="t">1:30</td><td class="t">16:20</td></tr>
       <tr><td class="n">16</td><td>Questions I didn't have time to address</td><td class="t">0:30</td><td class="t">16:50</td></tr>
       <tr><td class="n">17</td><td>Take-aways</td><td class="t">1:15</td><td class="t">18:05</td></tr>
       <tr><td class="n">18</td><td>Further work</td><td class="t">0:25</td><td class="t">18:30</td></tr>
@@ -357,7 +357,7 @@
 </div>
 
 <div class="slide">
-  <div class="head"><span class="num">14</span><span class="ttl">Where does the line resolve to?</span><span class="clock">0:55</span></div>
+  <div class="head"><span class="num">14</span><span class="ttl">Absorption probabilities</span><span class="clock">0:55</span></div>
   <div class="say">
     <p>The previous slide asked how long resolution takes. This one asks <b>where it lands</b>. Take an unresolved note, follow the line forward until it first hits a chord tone on a beat, and record which one.</p>
     <p><span class="cue">Walk the four steps, do not read them.</span> Split the 428 states into the 73 resolved ones, call that R, and the other 355, call that T. Cut two blocks out of the operator: <b>Q</b>, the moves from unresolved to unresolved, and <b>P T to R</b>, the moves that land in one step. Solve one linear system. Each row of the answer is a distribution over the 73 resolved states, and it sums to 1 because the line always lands eventually.</p>
@@ -376,7 +376,7 @@
 </div>
 
 <div class="slide">
-  <div class="head"><span class="num">15</span><span class="ttl">Which moves actually carry the music</span><span class="clock">1:30</span></div>
+  <div class="head"><span class="num">15</span><span class="ttl">Voice-leading recovery</span><span class="clock">1:30</span></div>
   <div class="say">
     <p>One more question of the operator, and it needs a distinction I should make explicitly.</p>
     <p>A row of P-hat can be almost certain about a state Parker hardly ever plays. A rule can be near-deterministic and still be irrelevant, because the situation never comes up. So to ask <b>which transitions actually carry the music</b>, one number is not enough.</p>
