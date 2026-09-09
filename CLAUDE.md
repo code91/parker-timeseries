@@ -268,6 +268,21 @@ with embedded CSS. 16:9 fixed-size slides, one per printed page via
 `<style>` — change palette there, not per-slide.
 Figure references are relative: `../figures/...`. Don't break that.
 
+To export the deck, print it with headless Chrome:
+
+```
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless \
+  --disable-gpu --no-pdf-header-footer \
+  --print-to-pdf=markov_chain/presentation.pdf \
+  file://$PWD/markov_chain/presentation.html
+```
+
+The `@page` size must be `13.333in 7.5in` (= 1280x720 px). An explicit
+size cannot be combined with the `landscape` keyword: that syntax is
+invalid, the declaration is dropped, and every page silently prints as
+US Letter portrait. Check the MediaBox is `0 0 960 540` after exporting.
+Slide 3's `<video>` prints as a black rectangle; that is expected.
+
 ### Verify nothing regressed after a change
 1. `python markov_chain/run_all.py` should complete with exit 0 in
    ~50 s.

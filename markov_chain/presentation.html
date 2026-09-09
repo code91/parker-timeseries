@@ -160,7 +160,7 @@
   /* -------------------------------------------------------------------- */
   /*  Print: one slide per landscape page                                  */
   /* -------------------------------------------------------------------- */
-  @page { size: 1280px 720px landscape; margin: 0; }
+  @page { size: 13.333in 7.5in; margin: 0; }
   @media print {
     html, body { background: #fff; }
     .deck { gap: 0; padding: 0; }
@@ -694,9 +694,9 @@
   <h2>Put all the probability on one state and let it run</h2>
   <div class="rule"></div>
 
-  <div class="cols" style="height: 226px;">
+  <div class="cols" style="height: 250px;">
     <div class="col">
-      <p class="small" style="margin:0 0 6px;">Section 2 found <span class="math">π</span> algebraically, as the left eigenvector at <span class="math">λ = 1</span>. Here it is found the other way, by iteration:</p>
+      <p class="small" style="margin:0 0 6px;">Slide 9 found <span class="math">π</span> algebraically, as the left eigenvector at <span class="math">λ = 1</span>. Here it is found the other way, by iteration:</p>
       <p class="display" style="font-size: 17px; margin: 4px 0;">μ<sub>0</sub> = e<sub>i</sub> , &nbsp;&nbsp; μ<sub>t+1</sub> = μ<sub>t</sub> <span class="hat">P</span></p>
       <p class="small">Start with certainty about the note, and watch the certainty dissolve.</p>
     </div>
@@ -707,11 +707,11 @@
         <li>after <b>21 steps</b> it is below 0.01;</li>
         <li>at <span class="math">t = 40</span> the largest disagreement with <span class="math">π</span> is <b>8.7 × 10<sup>−6</sup></b>.</li>
       </ul>
-      <p class="small">The decay tracks <span class="math">|λ<sub>2</sub>|<sup>t</sup></span> almost exactly, which is the mixing time of Section 3 measured rather than asserted.</p>
+      <p class="small" style="margin: 6px 0 0;">The decay tracks <span class="math">|λ<sub>2</sub>|<sup>t</sup></span> almost exactly: the mixing time, measured rather than asserted.</p>
     </div>
   </div>
 
-  <img src="../figures/section10_distribution_evolution.png" alt="TV distance decay and distribution snapshots converging to pi" style="display: block; width: 80%; margin: 6px auto 0;">
+  <img src="../figures/section10_distribution_evolution.png" alt="TV distance decay and distribution snapshots converging to pi" style="display: block; width: 74%; margin: 4px auto 0;">
 
   <div class="pg"><span class="name">Rubini · Bebop Markov chain</span></div>
 </section>
