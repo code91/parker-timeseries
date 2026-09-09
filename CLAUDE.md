@@ -30,8 +30,8 @@ the print-ready slide deck.
 - Pipeline runs end-to-end in ~60 s via `python markov_chain/run_all.py`.
 - 23,143 events extracted (21,590 notes + 1,553 rests), 428 / 520
   states observed, 30 pipeline figures (PNG + PDF) plus 6 standalone
-  demo figures.  The deck is 18 numbered slides plus a title, a Backup
-  divider and 4 backup slides.
+  demo figures.  The deck is 19 numbered slides plus a title, a Backup
+  divider and 3 backup slides.
 - **v4 removed the within/across split.** There is one operator, `P`.
   See "Further work" in `results.md` for why: the across set's size is
   arithmetic (1 / 6.23 events per chord), it is confounded with the
