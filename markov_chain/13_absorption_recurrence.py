@@ -89,9 +89,10 @@ def plot_absorption(rows: list[dict], out: Path) -> None:
             w = tgt["prob"]
             ax.barh(y[i], w, left=left, height=0.62,
                     color=palette[k % len(palette)], edgecolor="white", linewidth=0.6)
-            if w > 0.16:
-                ax.text(left + w / 2, y[i], tgt["state"], ha="center", va="center",
-                        fontsize=7.0, color="white" if k < 2 else "#222")
+            if w > 0.18:
+                ax.text(left + w / 2, y[i], f'{tgt["state"]}   {w * 100:.0f} %',
+                        ha="center", va="center",
+                        fontsize=6.8, color="white" if k < 2 else "#222")
             left += w
         rest = 1.0 - left
         if rest > 0.001:
@@ -104,7 +105,7 @@ def plot_absorption(rows: list[dict], out: Path) -> None:
     ax.set_yticks(y)
     ax.set_yticklabels(labels, fontsize=8)
     ax.set_xlim(0, 1)
-    ax.set_xlabel("probability that this is the first resolved state the line reaches")
+    ax.set_xlabel("segment width = probability it is the first resolved state reached  (row sums to 1)")
     for side in ("top", "right", "left"):
         ax.spines[side].set_visible(False)
     fig.tight_layout()
