@@ -350,12 +350,15 @@ Section 4 asked how *long* an unresolved state takes to reach R.  It never
 asked which member of R the walk reaches, nor how long the walk waits before
 revisiting a state at all.  Both follow from objects already computed.
 
-**Absorption probabilities.**  With Q the sub-block of P on the 355 transient
-states and Rmat the block from transient states into the 73 resolved ones,
+**Absorption probabilities.**  Write T for the 355 unresolved states and R for
+the 73 resolved ones, and split P into blocks Q = P[T, T] and P_TR = P[T, R].
+Then
 
-    B = (I - Q)^{-1} · Rmat
+    B = (I - Q)^{-1} · P_TR
 
 and B[i, r] is the probability that the FIRST member of R reached from i is r.
+The textbook name for the T -> R block is "R", which collides with R the
+resolution set; P_TR is used throughout to keep the two apart.
 Rows sum to 1 to within 1e-15: smoothing gives every state positive escape
 probability, so absorption is certain.
 

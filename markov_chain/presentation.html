@@ -528,9 +528,9 @@
 
   <div class="cols" style="height: 168px;">
     <div class="col">
-      <p class="small" style="margin: 0 0 4px;"><b>Which member of the resolved set does the line reach first?</b> The same linear system that gave the waiting times answers this one at no extra cost.</p>
-      <p class="display" style="font-size: 16px; margin: 2px 0;">B = (I − Q)<sup>−1</sup> R</p>
-      <p class="small" style="margin: 0;">Row <span class="math">i</span> is a distribution over the 73 resolved states: starting unresolved at <span class="math">i</span>, where does the line first come to rest. Rows sum to 1.</p>
+      <p class="small" style="margin: 0 0 4px;"><b>Which member of <span class="math">R</span> does the line reach first?</b> The same linear system that gave the waiting times answers this one at no extra cost.</p>
+      <p class="display" style="font-size: 16px; margin: 2px 0;">B = (I − Q)<sup>−1</sup> P<sub>T→R</sub></p>
+      <p class="small" style="margin: 0;">Split the states in two: <span class="math">R</span>, the 73 resolved ones, and <span class="math">T</span>, the other 355. <span class="math">Q</span> is the block of <span class="math"><span class="hat">P</span></span> running <span class="math">T → T</span>, and <span class="math">P<sub>T→R</sub></span> the block running <span class="math">T → R</span> in one step. Row <span class="math">i</span> of <span class="math">B</span> is then a distribution over <span class="math">R</span>: starting unresolved at <span class="math">i</span>, where does the line first come to rest. Rows sum to 1.</p>
     </div>
     <div class="col" style="max-width: 520px;">
       <p class="small" style="margin: 0 0 6px;"><b>Four of the six</b> resolve <b>by a semitone onto the nearest chord tone</b>, between <b>49 %</b> and <b>66 %</b> of the time. A fifth, the 2nd over a major chord, falls a whole tone to the root. Nothing told the model what a semitone is.</p>

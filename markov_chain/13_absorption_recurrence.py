@@ -5,14 +5,17 @@ Two questions Section 4 left open.  Section 4 asked how *long* an unresolved
 state takes to reach the resolution set R; it never asked *which* member of R
 it reaches, nor how long the walk waits before revisiting a state at all.
 
-1.  Absorption probabilities.  Let Q be the sub-block of P on the transient
-    (unresolved) states and Rmat the block from transient states into R.  Then
+1.  Absorption probabilities.  Write T for the 355 unresolved states and R for
+    the 73 resolved ones.  Let Q = P[T, T] and P_TR = P[T, R].  Then
 
-        B = (I - Q)^{-1} · Rmat
+        B = (I - Q)^{-1} · P_TR
 
     and B[i, r] is the probability that, starting from transient state i, the
     FIRST member of R the walk touches is r.  Each row of B sums to 1: with
     smoothing every state escapes, so absorption is certain.
+
+    NB the textbook writes the T -> R block as "R", which collides with R the
+    resolution SET used throughout this project.  Hence P_TR.
 
     This turns voice leading from "how long until resolution" into "resolution
     to what", which is the form a musician would state the rule in.
@@ -67,8 +70,8 @@ def absorption_matrix(P: np.ndarray, R_idx: np.ndarray) -> tuple[np.ndarray, np.
     out_idx = np.where(~in_R)[0]
 
     Q = P[np.ix_(out_idx, out_idx)]
-    Rmat = P[np.ix_(out_idx, R_idx)]
-    B = np.linalg.solve(np.eye(len(out_idx)) - Q, Rmat)
+    P_TR = P[np.ix_(out_idx, R_idx)]
+    B = np.linalg.solve(np.eye(len(out_idx)) - Q, P_TR)
     return B, out_idx
 
 
