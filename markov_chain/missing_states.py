@@ -1,8 +1,8 @@
 """
-The 50 unobserved states.
+The 92 unobserved states.
 
-275 of the 325 grid cells (13 scale degrees x 5 chord qualities x 5 beat
-positions) occur in the corpus.  This script asks what the other 50 are, and
+428 of the 520 grid cells (13 scale degrees x 5 chord qualities x 8 beat
+positions) occur in the corpus.  This script asks what the other 92 are, and
 separates two very different reasons a cell can be empty:
 
     scarcity   m7b5 and dim7 carry ~165 events each and cannot cover 65 cells.
