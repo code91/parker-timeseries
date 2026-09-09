@@ -522,8 +522,8 @@
 
 <!-- ====================== SLIDE : ABSORPTION ===================== -->
 <section class="slide">
-  <p class="eyebrow">14 · Where it resolves to</p>
-  <h2>The nearest chord tone, on the next strong beat</h2>
+  <p class="eyebrow">14 · Absorption probabilities</p>
+  <h2>Where does the line resolve to?</h2>
   <div class="rule"></div>
 
   <div class="cols" style="height: 246px;">
@@ -556,19 +556,20 @@
 
   <div class="cols" style="height: 470px;">
     <div class="col">
-      <h3 style="font-size: 19px; margin: 0 0 4px;">The question</h3>
-      <p class="small" style="margin: 0 0 10px;">A row of <span class="math"><span class="hat">P</span></span> can be near-certain about a state Parker hardly ever plays. So <b>which transitions actually carry the music?</b> That needs two things at once: how much of the time the line is at <span class="math">i</span>, and where it goes from there.</p>
+      <h3 style="font-size: 19px; margin: 0 0 3px;">The question</h3>
+      <p class="small" style="margin: 0 0 8px;">A row of <span class="math"><span class="hat">P</span></span> can be near-certain about a state Parker hardly ever plays. So <b>which transitions actually carry the music?</b> That needs both how often the line is at <span class="math">i</span> and where it goes.</p>
 
-      <h3 style="font-size: 19px; margin: 0 0 4px;">What we compute</h3>
-      <p class="display" style="font-size: 17px; margin: 4px 0 8px;">Pr(X<sub>t</sub> = i, X<sub>t+1</sub> = j) &nbsp;=&nbsp; π<sub>i</sub> · <span class="hat">P</span><sub>ij</sub></p>
-      <ul class="small" style="margin: 0 0 10px; line-height: 1.4;">
+      <h3 style="font-size: 19px; margin: 0 0 3px;">What we compute</h3>
+      <p class="display" style="font-size: 17px; margin: 2px 0 6px;">Pr(X<sub>t</sub> = i, X<sub>t+1</sub> = j) &nbsp;=&nbsp; π<sub>i</sub> · <span class="hat">P</span><sub>ij</sub></p>
+      <ul class="small" style="margin: 0 0 8px; line-height: 1.35;">
         <li><span class="math">π<sub>i</sub></span>, from slide 9: the share of its time the walk spends at <span class="math">i</span>.</li>
         <li><span class="math"><span class="hat">P</span><sub>ij</sub></span>, from slide 5: <i>given</i> it is at <span class="math">i</span>, the chance the next event is <span class="math">j</span>.</li>
-        <li>Their product: the share of <b>all</b> moves in the corpus that are this exact move.</li>
+        <li>Their product: the share of <b>all</b> corpus moves that are this one.</li>
       </ul>
+      <p class="small" style="margin: 0 0 8px;"><b>Conditional</b> asks <i>standing here, where next?</i> <b>Joint</b> asks <i>how much of the music is this?</i> Ranking by joint puts <b>what Parker plays most</b> on top, not what is most rule-like.</p>
 
-      <h3 style="font-size: 19px; margin: 0 0 4px;">Joint and conditional answer different questions</h3>
-      <p class="small" style="margin: 0;"><b>Conditional</b> asks <i>standing here, where next?</i> <b>Joint</b> asks <i>how much of the music is this?</i> A move can be near-deterministic and rare, or common and weak, and only the pair of numbers tells them apart. Ranking by joint puts <b>what Parker plays most</b> at the top, not what is most rule-like.</p>
+      <h3 style="font-size: 19px; margin: 0 0 3px;">The canonical V7 → I cell</h3>
+      <p class="small" style="margin: 0; padding: 7px 11px; border-left: 3px solid var(--accent); background: var(--accent-soft);">The <b>♭7 of a dominant</b> falls a half-step to the <b>major 3rd of the tonic</b>: from <span class="math">(♭7, dom7, &amp;4)</span> the next note is <span class="math">(3, maj7, ♩1)</span> <span class="red"><b>10.71 %</b></span> of the time, neighbouring cells all under <b>0.1 %</b>. Not in the top 20: near-certain, but rare.</p>
     </div>
     <div class="col fig">
       <img src="../figures/section5_P_top20.png" alt="top-20 transitions by joint probability">

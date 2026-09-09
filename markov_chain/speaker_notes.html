@@ -133,8 +133,8 @@
       <tr><td class="n">11</td><td>The walk on a graph</td><td class="t">0:40</td><td class="t">11:55</td></tr>
       <tr><td class="n">12</td><td>PageRank</td><td class="t">0:50</td><td class="t">12:45</td></tr>
       <tr><td class="n">13</td><td>Hitting times</td><td class="t">1:10</td><td class="t">13:55</td></tr>
-      <tr><td class="n">14</td><td>Where it resolves to</td><td class="t">0:55</td><td class="t">14:50</td></tr>
-      <tr><td class="n">15</td><td>Voice-leading recovery</td><td class="t">1:30</td><td class="t">16:20</td></tr>
+      <tr><td class="n">14</td><td>Where does the line resolve to?</td><td class="t">0:55</td><td class="t">14:50</td></tr>
+      <tr><td class="n">15</td><td>Which moves actually carry the music</td><td class="t">1:30</td><td class="t">16:20</td></tr>
       <tr><td class="n">16</td><td>Questions I didn't have time to address</td><td class="t">0:30</td><td class="t">16:50</td></tr>
       <tr><td class="n">17</td><td>Take-aways</td><td class="t">1:15</td><td class="t">18:05</td></tr>
       <tr><td class="n">18</td><td>Further work</td><td class="t">0:25</td><td class="t">18:30</td></tr>
@@ -357,7 +357,7 @@
 </div>
 
 <div class="slide">
-  <div class="head"><span class="num">14</span><span class="ttl">Where it resolves to</span><span class="clock">0:55</span></div>
+  <div class="head"><span class="num">14</span><span class="ttl">Where does the line resolve to?</span><span class="clock">0:55</span></div>
   <div class="say">
     <p>The previous slide asked how long resolution takes. This one asks <b>where it lands</b>. Take an unresolved note, follow the line forward until it first hits a chord tone on a beat, and record which one.</p>
     <p><span class="cue">Walk the four steps, do not read them.</span> Split the 428 states into the 73 resolved ones, call that R, and the other 355, call that T. Cut two blocks out of the operator: <b>Q</b>, the moves from unresolved to unresolved, and <b>P T to R</b>, the moves that land in one step. Solve one linear system. Each row of the answer is a distribution over the 73 resolved states, and it sums to 1 because the line always lands eventually.</p>
@@ -376,7 +376,7 @@
 </div>
 
 <div class="slide">
-  <div class="head"><span class="num">15</span><span class="ttl">Which moves carry the music</span><span class="clock">1:30</span></div>
+  <div class="head"><span class="num">15</span><span class="ttl">Which moves actually carry the music</span><span class="clock">1:30</span></div>
   <div class="say">
     <p>One more question of the operator, and it needs a distinction I should make explicitly.</p>
     <p>A row of P-hat can be almost certain about a state Parker hardly ever plays. A rule can be near-deterministic and still be irrelevant, because the situation never comes up. So to ask <b>which transitions actually carry the music</b>, one number is not enough.</p>
@@ -384,11 +384,14 @@
     <p>So the two numbers answer different questions. <b>Conditional</b> asks: standing here, where next? <b>Joint</b> asks: how much of the music is this? Ranking by joint puts what Parker plays <b>most</b> at the top, rather than what is most rule-like.</p>
     <p><span class="cue">Point at the chart.</span> And here is the ranking. Three things about those twenty, none of them designed in. <b>Every single one stays on the same chord quality</b>, so the busiest moves happen inside a chord rather than across a change. <b>Fourteen move by a step or less</b>, two semitones at most. <b>Thirteen descend.</b></p>
     <p>That is a description of a bebop line: mostly stepwise, mostly downward, chromatic, resolving inside the harmony. It came out of ranking a matrix by traffic.</p>
+    <p><span class="cue">Point at the box.</span> And one cell in particular, because it is the most-taught rule in Western harmony. The <b>flat 7 of a dominant falls a semitone to the major 3rd of the tonic</b>. In this state space that sentence is a single cell, and it is worth <b>10.71 percent</b>: from that one state, more than one time in ten out of 428 possible destinations, the next event is that specific note on that specific beat. The cells around it are dead, all under 0.1 percent, so the model has not learned a vague tendency, it has learned the rule from one position in the bar into one position in the next.</p>
+    <p>And notice it is <b>not</b> in the ranking beside it. It needs a particular chord change under a particular note, so in absolute terms it is rare. Near-certain response, rare situation. That is the joint-versus-conditional distinction in one example.</p>
   </div>
   <div class="aside">
     <span class="lbl">If asked</span>
     <p><span class="q">Why is the joint so small, 0.37 percent at the top?</span> Because it is a share of all 21,540 transitions across 428 states. Uniform would be about 0.0005 percent, so the top cell is roughly 700 times uniform. Small in absolute terms, enormous relative to chance.</p>
-    <p><span class="q">What about the textbook V7 to I resolution?</span> It is in the operator and it is sharp: from the flat 7 of a dominant on the "and of four", the next note is the major 3rd of the tonic on the downbeat <b>10.71 percent</b> of the time, while the neighbouring cells, same move from beat 4 or from the "and of three", or landing on beat 2, are all under 0.1 percent. It does not appear in the top 20 by joint probability because it needs a particular chord change under a particular note, so it is rare in absolute terms even though it is near-deterministic when it arises. That contrast is exactly the joint-versus-conditional point.</p>
+    <p><span class="q">Which neighbouring cells, exactly?</span> The same move starting from beat 4 instead of the "and of four" is 0.05 percent; from the "and of three", 0.09; landing on beat 2 instead of beat 1, 0.01.</p>
+    <p><span class="q">Is 10.71 percent large?</span> Against 428 possible destinations, uniform would be 0.23 percent, so about 45 times uniform, and the neighbours under identical conditions are 100 to 1,000 times smaller. Smoothing cannot have created it either, since smoothing pulls toward uniform and can only shrink a peak.</p>
   </div>
 </div>
 
