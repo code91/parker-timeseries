@@ -387,48 +387,9 @@
 </section>
 
 
-<!-- ====================== SLIDE : GRAPH VIEW ===================== -->
-<section class="slide">
-  <p class="eyebrow">9 · The walk on a graph</p>
-  <h2>Eight nodes, so the walk is something you can look at</h2>
-  <div class="rule"></div>
-
-  <p class="small" style="margin: 6px 0 0;"><span class="hat">P</span> is a 428-node directed weighted graph: nodes are states, edge <span class="math">i → j</span> carries weight <span class="math"><span class="hat">P</span><sub>ij</sub></span>. Here is the subgraph on the <b>eight states the walk spends the most time in</b>, which between them account for <b>9.7 %</b> of its time. Every one of the eight is a <span class="mono">dom7</span> state, and seven of the eight sit offbeat.</p>
-
-  <img src="../figures/section11_graph_view.png" alt="the induced subgraph on the eight busiest states" style="display: block; width: 92%; margin: 8px auto 0;">
-
-  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 9 / 18</div>
-</section>
-
-
-<!-- ====================== SLIDE : PAGERANK ===================== -->
-<section class="slide">
-  <p class="eyebrow">10 · PageRank</p>
-  <h2>Random surfer with damping</h2>
-  <div class="rule"></div>
-
-  <p class="small" style="margin: 6px 0 0;">PageRank runs a walk with one change: <b>85 %</b> of the time follow an edge, otherwise <b>jump to a state chosen at random</b>. The teleport keeps the walk from being trapped anywhere, so the ranking is unique whatever the graph looks like. Alongside it, <b>betweenness</b> asks a different question of the same graph: not where the walk spends time, but which states sit on the likely routes between other states. 428 nodes, 5,421 directed edges.</p>
-
-  <div class="cols" style="height: 438px; margin-top: 10px;">
-    <div class="col fig">
-      <img src="../figures/section8_top10_pagerank.png" alt="top-10 states by damped PageRank">
-      <p class="tiny" style="margin-top: 2px;"><b>Where the walk spends its time.</b> Nine of the ten are dominant sevenths, eight offbeat.</p>
-    </div>
-    <div class="col fig">
-      <img src="../figures/section8_top10_betweenness.png" alt="top-10 states by betweenness centrality">
-      <p class="tiny" style="margin-top: 2px;"><b>Which states the routes run through.</b> Eight of the ten are <b>rests</b>, nine on the beat.</p>
-    </div>
-  </div>
-
-  <p class="small" style="margin: 4px 0 0; text-align: center;">Offbeat notes are where the line <b>lives</b>; rests on the beat are where it <b>passes through</b>.</p>
-
-  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 10 / 18</div>
-</section>
-
-
 <!-- ====================== SLIDE 7 : SECTION 2 · STATIONARY ===================== -->
 <section class="slide">
-  <p class="eyebrow">11 · Stationary distribution</p>
+  <p class="eyebrow">9 · Stationary distribution</p>
   <h2>Where the walk spends its time</h2>
   <div class="rule"></div>
 
@@ -455,13 +416,13 @@
     </div>
   </div>
 
-  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 11 / 18</div>
+  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 9 / 18</div>
 </section>
 
 
 <!-- ====================== SLIDE 11 : SECTION 9 · GENERATIVE ===================== -->
 <section class="slide">
-  <p class="eyebrow">12 · A thousand agents</p>
+  <p class="eyebrow">10 · A thousand agents</p>
   <h2>Letting agents loose on the graph</h2>
   <div class="rule"></div>
 
@@ -476,6 +437,45 @@
       <p class="tiny">Each dot is one of the 428 observed states. Diagonal = perfect match.</p>
     </div>
   </div>
+
+  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 10 / 18</div>
+</section>
+
+
+<!-- ====================== SLIDE : GRAPH VIEW ===================== -->
+<section class="slide">
+  <p class="eyebrow">11 · The walk on a graph</p>
+  <h2>Eight nodes, so the walk is something you can look at</h2>
+  <div class="rule"></div>
+
+  <p class="small" style="margin: 6px 0 0;"><span class="hat">P</span> is a 428-node directed weighted graph: nodes are states, edge <span class="math">i → j</span> carries weight <span class="math"><span class="hat">P</span><sub>ij</sub></span>. Here is the subgraph on the <b>eight states with the largest π</b>, which between them account for <b>9.7 %</b> of the walk's time. Every one of the eight is a <span class="mono">dom7</span> state, and seven of the eight sit offbeat.</p>
+
+  <img src="../figures/section11_graph_view.png" alt="the induced subgraph on the eight busiest states" style="display: block; width: 92%; margin: 8px auto 0;">
+
+  <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 11 / 18</div>
+</section>
+
+
+<!-- ====================== SLIDE : PAGERANK ===================== -->
+<section class="slide">
+  <p class="eyebrow">12 · PageRank</p>
+  <h2>Random surfer with damping</h2>
+  <div class="rule"></div>
+
+  <p class="small" style="margin: 6px 0 0;">PageRank runs a walk with one change: <b>85 %</b> of the time follow an edge, otherwise <b>jump to a state chosen at random</b>. The teleport keeps the walk from being trapped anywhere, so the ranking is unique whatever the graph looks like. Alongside it, <b>betweenness</b> asks a different question of the same graph: not where the walk spends time, but which states sit on the likely routes between other states. 428 nodes, 5,421 directed edges.</p>
+
+  <div class="cols" style="height: 438px; margin-top: 10px;">
+    <div class="col fig">
+      <img src="../figures/section8_top10_pagerank.png" alt="top-10 states by damped PageRank">
+      <p class="tiny" style="margin-top: 2px;"><b>Where the walk spends its time.</b> Nine of the ten are dominant sevenths, eight offbeat.</p>
+    </div>
+    <div class="col fig">
+      <img src="../figures/section8_top10_betweenness.png" alt="top-10 states by betweenness centrality">
+      <p class="tiny" style="margin-top: 2px;"><b>Which states the routes run through.</b> Eight of the ten are <b>rests</b>, nine on the beat.</p>
+    </div>
+  </div>
+
+  <p class="small" style="margin: 4px 0 0; text-align: center;">Offbeat notes are where the line <b>lives</b>; rests on the beat are where it <b>passes through</b>.</p>
 
   <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 12 / 18</div>
 </section>

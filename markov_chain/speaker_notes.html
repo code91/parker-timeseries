@@ -128,10 +128,10 @@
       <tr><td class="n">6</td><td>The Markov property</td><td class="t">1:30</td><td class="t">7:35</td></tr>
       <tr><td class="n">7</td><td>A sample walk</td><td class="t">1:05</td><td class="t">8:40</td></tr>
       <tr><td class="n">8</td><td>The same walk, engraved</td><td class="t">0:45</td><td class="t">9:25</td></tr>
-      <tr><td class="n">9</td><td>The walk on a graph</td><td class="t">0:50</td><td class="t">10:15</td></tr>
-      <tr><td class="n">10</td><td>PageRank</td><td class="t">1:00</td><td class="t">11:15</td></tr>
-      <tr><td class="n">11</td><td>Stationary distribution</td><td class="t">1:20</td><td class="t">12:35</td></tr>
-      <tr><td class="n">12</td><td>A thousand agents</td><td class="t">0:50</td><td class="t">13:25</td></tr>
+      <tr><td class="n">9</td><td>Stationary distribution</td><td class="t">1:20</td><td class="t">10:45</td></tr>
+      <tr><td class="n">10</td><td>A thousand agents</td><td class="t">0:50</td><td class="t">11:35</td></tr>
+      <tr><td class="n">11</td><td>The walk on a graph</td><td class="t">0:50</td><td class="t">12:25</td></tr>
+      <tr><td class="n">12</td><td>PageRank</td><td class="t">1:00</td><td class="t">13:25</td></tr>
       <tr><td class="n">13</td><td>Hitting times</td><td class="t">1:30</td><td class="t">14:55</td></tr>
       <tr><td class="n">14</td><td>Voice-leading recovery</td><td class="t">1:30</td><td class="t">16:25</td></tr>
       <tr><td class="n">15</td><td>Questions I didn't have time to address</td><td class="t">0:30</td><td class="t">16:55</td></tr>
@@ -238,7 +238,7 @@
 
 
 <!-- ================= PART 2 ================= -->
-<h2 class="part">Is it a Markov chain, and what does it do &nbsp;·&nbsp; slides 6 to 10</h2>
+<h2 class="part">Is it a Markov chain, and what does it do &nbsp;·&nbsp; slides 6 to 8</h2>
 
 <div class="slide">
   <div class="head"><span class="num">6</span><span class="ttl">The Markov property</span><span class="clock">1:30</span></div>
@@ -279,39 +279,11 @@
   </div>
 </div>
 
-<div class="slide">
-  <div class="head"><span class="num">9</span><span class="ttl">The walk on a graph</span><span class="clock">0:50</span></div>
-  <div class="say">
-    <p>The matrix and a graph are the same object. 428 nodes, one per state, and a directed edge from <i>i</i> to <i>j</i> weighted by the probability of that move.</p>
-    <p>428 nodes is not something you can look at, so this is the subgraph on the <b>eight states the walk spends the most time in</b>. Between them they account for 9.7 percent of the walk's time.</p>
-    <p>Two things about those eight, and neither was designed in. <b>Every one of them is a dominant seventh state</b>, and <b>seven of the eight sit offbeat</b>. The busiest places in Parker's language are unstable notes on weak positions. That is not where a naive model would put the centre of gravity, and it is a first hint of the result on slide 13.</p>
-  </div>
-</div>
-
-<div class="slide">
-  <div class="head"><span class="num">10</span><span class="ttl">PageRank</span><span class="clock">1:00</span></div>
-  <div class="say">
-    <p>PageRank is the same walk with one change: 85 percent of the time follow an edge as usual, and the other 15 percent of the time jump to a state chosen at random.</p>
-    <p>The teleport is what makes it well behaved. It guarantees the chain is irreducible and aperiodic, so there is a unique answer, and it stops the ranking being dominated by any part of the graph the walk could get stuck in.</p>
-    <p><span class="cue">Point at the left panel.</span> The top of the PageRank list is the fifth of a dominant chord on the "and of four". Nine of the ten are dominant sevenths and eight sit offbeat.</p>
-    <p><span class="cue">Point at the right panel.</span> Next to it, <b>betweenness</b>, which asks a different question of the same graph: not where the walk spends time, but which states sit on the likely routes between other states. It gives almost the opposite answer. <b>Eight of its top ten are rests</b>, and nine of them sit on the beat.</p>
-    <p>So offbeat notes are where the line <b>lives</b>, and rests on the beat are where it <b>passes through</b>. That second one is worth a sentence: a rest is where one phrase ends and the next begins, so silence is the junction between parts of the vocabulary that otherwise do not connect.</p>
-  </div>
-  <div class="aside">
-    <span class="lbl">If asked</span>
-    <p><span class="q">Isn't offbeat just more common anyway?</span> Yes, largely, and do not oversell this slide. 55 percent of events are offbeat and 55 percent are on dominant chords, and pi puts almost exactly that much mass in each, so on aggregate the walk is offbeat about as often as the corpus is. Eight of ten in the top of the PageRank list is above the 5.5 you would expect by chance, but only mildly. <b>The betweenness side is the real signal</b>: one of ten offbeat is far below chance. And the strong offbeat result in the project is slide 13, where all eight fastest-resolving states are offbeat, which cannot be a base-rate effect because it ranks by hitting time rather than by frequency.</p>
-    <p><span class="q">Why does betweenness weight edges by minus log P?</span> Because shortest-path algorithms add weights while probabilities along a path multiply. The log turns the product into a sum, and the minus sign makes a high probability a low cost, so the cheapest path is the most likely one.</p>
-    <p><span class="q">How does PageRank compare to the stationary distribution?</span> Very close, correlation 0.989. With damping 0.85 on a well-connected graph PageRank is a mild perturbation of pi, so it is a robustness check more than a new result.</p>
-    <p><span class="q">Did you run walks to get this?</span> No. It is power iteration on the damped operator, run to a tolerance of 1e-12. The interpretation is the average over infinitely many walks, but it is computed exactly rather than sampled. The only sampling in the talk is slide 12.</p>
-  </div>
-</div>
-
-
 <!-- ================= PART 3 ================= -->
-<h2 class="part">Results &nbsp;·&nbsp; slides 11 to 14</h2>
+<h2 class="part">Results &nbsp;·&nbsp; slides 9 to 14</h2>
 
 <div class="slide">
-  <div class="head"><span class="num">11</span><span class="ttl">Stationary distribution</span><span class="clock">1:20</span></div>
+  <div class="head"><span class="num">9</span><span class="ttl">Stationary distribution</span><span class="clock">1:20</span></div>
   <div class="say">
     <p>Now the first of the four results. Let the walk run for a long time and count the fraction of time it spends in each state. That fraction settles down to a fixed number per state, and the vector of those numbers is <b>pi</b>: one number per state, summing to one.</p>
     <p>Algebraically, pi is the distribution that <b>one more step leaves unchanged</b>. It is the left eigenvector of P-hat at eigenvalue 1, and by Perron and Frobenius it exists and is unique because the chain is irreducible and aperiodic.</p>
@@ -327,7 +299,7 @@
 </div>
 
 <div class="slide">
-  <div class="head"><span class="num">12</span><span class="ttl">A thousand agents</span><span class="clock">0:50</span></div>
+  <div class="head"><span class="num">10</span><span class="ttl">A thousand agents</span><span class="clock">0:50</span></div>
   <div class="say">
     <p>The previous slide computed pi algebraically. This one gets it the other way, by simulation, which is the version that fits the course.</p>
     <p>Drop <b>1,000 agents</b> on random starting states. Each one takes <b>100 steps</b>, choosing where to go by the odds in the row it is currently in. Nothing else. That is 100,000 events of newly generated Parker.</p>
@@ -335,6 +307,34 @@
     <p>So the two routes to the same object agree: solving the eigenvector problem, and just letting a thousand agents run. The operator does what the theory says it should.</p>
   </div>
 </div>
+
+<div class="slide">
+  <div class="head"><span class="num">11</span><span class="ttl">The walk on a graph</span><span class="clock">0:50</span></div>
+  <div class="say">
+    <p>The matrix and a graph are the same object. 428 nodes, one per state, and a directed edge from <i>i</i> to <i>j</i> weighted by the probability of that move.</p>
+    <p>428 nodes is not something you can look at, so this is the subgraph on the <b>eight states with the largest pi</b>, the top of the list from two slides ago. Between them they account for 9.7 percent of the walk's time.</p>
+    <p>Two things about those eight, and neither was designed in. <b>Every one of them is a dominant seventh state</b>, and <b>seven of the eight sit offbeat</b>. The busiest places in Parker's language are unstable notes on weak positions. That is not where a naive model would put the centre of gravity, and it is a first hint of the result on slide 13.</p>
+  </div>
+</div>
+
+<div class="slide">
+  <div class="head"><span class="num">12</span><span class="ttl">PageRank</span><span class="clock">1:00</span></div>
+  <div class="say">
+    <p>PageRank is pi with a teleport. It is the same walk with one change: 85 percent of the time follow an edge as usual, and the other 15 percent of the time jump to a state chosen at random. The stationary distribution of that modified walk is the PageRank score.</p>
+    <p>The teleport is what makes it well behaved. It guarantees the chain is irreducible and aperiodic, so there is a unique answer, and it stops the ranking being dominated by any part of the graph the walk could get stuck in.</p>
+    <p><span class="cue">Point at the left panel.</span> The top of the PageRank list is the fifth of a dominant chord on the "and of four". Nine of the ten are dominant sevenths and eight sit offbeat.</p>
+    <p><span class="cue">Point at the right panel.</span> Next to it, <b>betweenness</b>, which asks a different question of the same graph: not where the walk spends time, but which states sit on the likely routes between other states. It gives almost the opposite answer. <b>Eight of its top ten are rests</b>, and nine of them sit on the beat.</p>
+    <p>So offbeat notes are where the line <b>lives</b>, and rests on the beat are where it <b>passes through</b>. That second one is worth a sentence: a rest is where one phrase ends and the next begins, so silence is the junction between parts of the vocabulary that otherwise do not connect.</p>
+  </div>
+  <div class="aside">
+    <span class="lbl">If asked</span>
+    <p><span class="q">Isn't offbeat just more common anyway?</span> Yes, largely, and do not oversell this slide. 55 percent of events are offbeat and 55 percent are on dominant chords, and pi puts almost exactly that much mass in each, so on aggregate the walk is offbeat about as often as the corpus is. Eight of ten in the top of the PageRank list is above the 5.5 you would expect by chance, but only mildly. <b>The betweenness side is the real signal</b>: one of ten offbeat is far below chance. And the strong offbeat result in the project is slide 13, where all eight fastest-resolving states are offbeat, which cannot be a base-rate effect because it ranks by hitting time rather than by frequency.</p>
+    <p><span class="q">Why does betweenness weight edges by minus log P?</span> Because shortest-path algorithms add weights while probabilities along a path multiply. The log turns the product into a sum, and the minus sign makes a high probability a low cost, so the cheapest path is the most likely one.</p>
+    <p><span class="q">How does PageRank compare to the stationary distribution?</span> Very close, correlation 0.989. With damping 0.85 on a well-connected graph PageRank is a mild perturbation of pi, so it is a robustness check more than a new result.</p>
+    <p><span class="q">Did you run walks to get this?</span> No. It is power iteration on the damped operator, run to a tolerance of 1e-12. The interpretation is the average over infinitely many walks, but it is computed exactly rather than sampled. The only sampling in the talk is slide 10.</p>
+  </div>
+</div>
+
 
 <div class="slide">
   <div class="head"><span class="num">13</span><span class="ttl">Hitting times</span><span class="clock">1:30</span></div>
@@ -437,7 +437,7 @@
   <div class="head"><span class="num">B1</span><span class="ttl">Evolving the distribution</span><span class="clock">on demand</span></div>
   <div class="say">
     <p><span class="cue">Go here if asked how fast the chain converges, or how you know pi is really the limit.</span></p>
-    <p>Slide 11 found pi algebraically, as an eigenvector. This finds it by iteration instead. Start with all the probability on one state, meaning complete certainty about the current note, then multiply by P repeatedly and watch the certainty dissolve.</p>
+    <p>Slide 9 found pi algebraically, as an eigenvector. This finds it by iteration instead. Start with all the probability on one state, meaning complete certainty about the current note, then multiply by P repeatedly and watch the certainty dissolve.</p>
     <p>Starting from the busiest state, the total variation distance to pi is already below 0.5 after <b>two steps</b>, below 0.01 after <b>21</b>, and by step 40 the largest disagreement with pi anywhere is under nine parts in a million.</p>
     <p>The decay tracks the second eigenvalue modulus raised to t almost exactly, so this is the mixing time measured rather than asserted.</p>
   </div>
