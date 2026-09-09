@@ -376,20 +376,19 @@
 </div>
 
 <div class="slide">
-  <div class="head"><span class="num">15</span><span class="ttl">Voice-leading recovery</span><span class="clock">1:30</span></div>
+  <div class="head"><span class="num">15</span><span class="ttl">Which moves carry the music</span><span class="clock">1:30</span></div>
   <div class="say">
-    <p>The last result, and the most specific. Instead of a summary statistic, can the operator reproduce <b>one named rule</b>, in one cell?</p>
-    <p>The rule is the most-taught in Western harmony: in a five-to-one cadence, the <b>flat seven of the dominant falls by a semitone to the major third of the tonic</b>. It is the resolution the whole cadence is built on.</p>
-    <p>In this state space that sentence is a single cell: from the flat seven, on a dominant chord, on the "and of four", to the major third, on a major seventh chord, on beat one.</p>
-    <p><span class="cue">Point at the highlighted row.</span> That cell is <b>10.71 percent</b>. Out of 428 possible destinations, more than one time in ten the very next event is that specific note on that specific beat.</p>
-    <p>And the important part is the rows around it. <span class="cue">Point at the neighbouring rows.</span> The same move starting from beat four instead of the "and of four" is 0.05 percent. From the "and of three", 0.09 percent. Landing on beat two instead of beat one, 0.01 percent. <b>The neighbours are dead.</b></p>
-    <p>So the model has not learned a vague tendency for flat sevens to go to thirds. It has learned that the resolution happens from <b>one specific position in the bar</b>, into <b>one specific position in the next bar</b>. That precision is the whole argument for putting beat position in the state.</p>
-    <p><span class="cue">Point at the joint column, briefly.</span> One note on reading the table. The joint probability of that cell is only 0.015 percent, and the two columns answer different questions. The joint asks how much of the total traffic runs through this transition, and the answer is not much, because it needs a particular chord change under a particular note. The conditional asks: <b>given that Parker is on that note, where does he go</b>, and that is where the rule lives. Rare situation, near-deterministic response.</p>
+    <p>One more question of the operator, and it needs a distinction I should make explicitly.</p>
+    <p>A row of P-hat can be almost certain about a state Parker hardly ever plays. A rule can be near-deterministic and still be irrelevant, because the situation never comes up. So to ask <b>which transitions actually carry the music</b>, one number is not enough.</p>
+    <p><span class="cue">Point at the formula.</span> Multiply the two things I already have. <b>Pi at i</b>, from slide 9, is the share of its time the walk spends at that state. <b>P-hat at i j</b>, from slide 5, is the chance the next event is j <i>given</i> that it is at i. Their product is the share of <b>all</b> the moves in the corpus that are this exact move.</p>
+    <p>So the two numbers answer different questions. <b>Conditional</b> asks: standing here, where next? <b>Joint</b> asks: how much of the music is this? Ranking by joint puts what Parker plays <b>most</b> at the top, rather than what is most rule-like.</p>
+    <p><span class="cue">Point at the chart.</span> And here is the ranking. Three things about those twenty, none of them designed in. <b>Every single one stays on the same chord quality</b>, so the busiest moves happen inside a chord rather than across a change. <b>Fourteen move by a step or less</b>, two semitones at most. <b>Thirteen descend.</b></p>
+    <p>That is a description of a bebop line: mostly stepwise, mostly downward, chromatic, resolving inside the harmony. It came out of ranking a matrix by traffic.</p>
   </div>
   <div class="aside">
     <span class="lbl">If asked</span>
-    <p><span class="q">Is 10.71 percent large?</span> Against 428 destinations, uniform would be 0.23 percent, so it is about 45 times uniform. And the comparison that matters is the neighbouring cells, which are 100 to 1,000 times smaller under the same conditions.</p>
-    <p><span class="q">Could smoothing have created this?</span> No, smoothing pushes toward uniform, so it can only shrink a peak like this. It works against the result.</p>
+    <p><span class="q">Why is the joint so small, 0.37 percent at the top?</span> Because it is a share of all 21,540 transitions across 428 states. Uniform would be about 0.0005 percent, so the top cell is roughly 700 times uniform. Small in absolute terms, enormous relative to chance.</p>
+    <p><span class="q">What about the textbook V7 to I resolution?</span> It is in the operator and it is sharp: from the flat 7 of a dominant on the "and of four", the next note is the major 3rd of the tonic on the downbeat <b>10.71 percent</b> of the time, while the neighbouring cells, same move from beat 4 or from the "and of three", or landing on beat 2, are all under 0.1 percent. It does not appear in the top 20 by joint probability because it needs a particular chord change under a particular note, so it is rare in absolute terms even though it is near-deterministic when it arises. That contrast is exactly the joint-versus-conditional point.</p>
   </div>
 </div>
 

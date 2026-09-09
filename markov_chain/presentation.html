@@ -551,32 +551,28 @@
 <!-- ====================== SLIDE 10 : SECTION 5 · VOICE LEADING ===================== -->
 <section class="slide">
   <p class="eyebrow">15 · Voice-leading recovery</p>
-  <h2>The V7→I half-step resolution as a single matrix cell</h2>
+  <h2>Which moves actually carry the music</h2>
   <div class="rule"></div>
 
   <div class="cols" style="height: 470px;">
     <div class="col">
-      <p class="small">Joint transition probability under the stationary distribution:</p>
-      <p class="display" style="font-size: 17px;">Pr(X<sub>t</sub> = i, X<sub>t+1</sub> = j) &nbsp;=&nbsp; π<sub>i</sub> · <span class="hat">P</span><sub>ij</sub></p>
-      <p class="small">Ranking those cells shows which transitions actually carry the traffic.</p>
+      <h3 style="font-size: 19px; margin: 0 0 4px;">The question</h3>
+      <p class="small" style="margin: 0 0 10px;">A row of <span class="math"><span class="hat">P</span></span> can be near-certain about a state Parker hardly ever plays. So <b>which transitions actually carry the music?</b> That needs two things at once: how much of the time the line is at <span class="math">i</span>, and where it goes from there.</p>
 
-      <h3 style="font-size: 19px; margin: 14px 0 4px;">The canonical V7 → I cell</h3>
-      <p class="small">Theory says the <b>♭7 of a dominant</b> falls a half-step to the <b>major 3rd of the tonic</b>. In this state space that is one cell: <span class="math">(♭7, dom7, &amp;4) → (3, maj7, ♩1)</span>.</p>
+      <h3 style="font-size: 19px; margin: 0 0 4px;">What we compute</h3>
+      <p class="display" style="font-size: 17px; margin: 4px 0 8px;">Pr(X<sub>t</sub> = i, X<sub>t+1</sub> = j) &nbsp;=&nbsp; π<sub>i</sub> · <span class="hat">P</span><sub>ij</sub></p>
+      <ul class="small" style="margin: 0 0 10px; line-height: 1.4;">
+        <li><span class="math">π<sub>i</sub></span>, from slide 9: the share of its time the walk spends at <span class="math">i</span>.</li>
+        <li><span class="math"><span class="hat">P</span><sub>ij</sub></span>, from slide 5: <i>given</i> it is at <span class="math">i</span>, the chance the next event is <span class="math">j</span>.</li>
+        <li>Their product: the share of <b>all</b> moves in the corpus that are this exact move.</li>
+      </ul>
 
-      <table style="margin-top: 10px;">
-        <thead><tr><th>source → target</th><th class="num">joint</th><th class="num">conditional</th></tr></thead>
-        <tbody>
-          <tr><td>(♭7, dom7, ♩4) → (3, maj7, ♩1)</td><td class="num">0.000 %</td><td class="num">0.05 %</td></tr>
-          <tr><td>(♭7, dom7, &amp;3) → (3, maj7, ♩1)</td><td class="num">0.000 %</td><td class="num">0.09 %</td></tr>
-          <tr style="background: var(--accent-soft);"><td>(♭7, dom7, &amp;4) → (3, maj7, ♩1)</td><td class="num">0.015 %</td><td class="num red"><b>10.71 %</b></td></tr>
-          <tr><td>(♭7, dom7, &amp;4) → (3, maj7, ♩2)</td><td class="num">0.000 %</td><td class="num">0.01 %</td></tr>
-        </tbody>
-      </table>
-      <p class="small" style="margin-top: 10px;">From that one state the next note is the major 3rd on the downbeat <span class="red"><b>10.71 %</b></span> of the time, and <b>the neighbouring cells are dead</b>, all under 0.1 %.</p>
+      <h3 style="font-size: 19px; margin: 0 0 4px;">Joint and conditional answer different questions</h3>
+      <p class="small" style="margin: 0;"><b>Conditional</b> asks <i>standing here, where next?</i> <b>Joint</b> asks <i>how much of the music is this?</i> A move can be near-deterministic and rare, or common and weak, and only the pair of numbers tells them apart. Ranking by joint puts <b>what Parker plays most</b> at the top, not what is most rule-like.</p>
     </div>
     <div class="col fig">
       <img src="../figures/section5_P_top20.png" alt="top-20 transitions by joint probability">
-      <p class="tiny">Top 20 transitions ranked by joint probability π<sub>i</sub>·<span class="hat">P</span><sub>ij</sub>.</p>
+      <p class="tiny">Top 20 transitions ranked by joint probability π<sub>i</sub>·<span class="hat">P</span><sub>ij</sub>. <b>All 20</b> stay on the same chord quality, <b>14</b> move by a step or less, and <b>13</b> descend.</p>
     </div>
   </div>
 
