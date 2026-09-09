@@ -46,6 +46,7 @@ from markov_chain.common import (  # noqa: E402
     load_state_order,
     resolution_indices,
     state_label,
+    state_label_semitone,
 )
 
 plt.rcParams.update({
@@ -85,7 +86,7 @@ def plot_absorption(rows: list[dict], out: Path) -> None:
             w = tgt["prob"]
             ax.barh(y[i], w, left=left, height=0.62,
                     color=palette[k % len(palette)], edgecolor="white", linewidth=0.6)
-            if w > 0.09:
+            if w > 0.16:
                 ax.text(left + w / 2, y[i], tgt["state"], ha="center", va="center",
                         fontsize=7.0, color="white" if k < 2 else "#222")
             left += w
@@ -145,14 +146,14 @@ def main() -> None:
     for i in order:
         src = states[out_idx[i]]
         tgt_order = np.argsort(-B[i])
-        targets = [{"state": state_label(states[R_idx[r]]), "prob": float(B[i, r])}
+        targets = [{"state": state_label_semitone(states[R_idx[r]]), "prob": float(B[i, r])}
                    for r in tgt_order[:N_TARGETS]]
         rows.append({
-            "source": state_label(src),
+            "source": state_label_semitone(src),
             "hitting_time": float(h[out_idx[i]]),
             "targets": targets,
         })
-        print(f"  {state_label(src):26s} h={h[out_idx[i]]:.2f}  ->  " +
+        print(f"  {state_label_semitone(src):26s} h={h[out_idx[i]]:.2f}  ->  " +
               ", ".join(f"{t['state']} {t['prob']*100:.1f}%" for t in targets))
 
     plot_absorption(rows, FIGURES_DIR / "section13_absorption")

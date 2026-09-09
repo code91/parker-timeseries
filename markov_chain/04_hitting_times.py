@@ -79,7 +79,7 @@ def plot_hitting_distribution(h: np.ndarray, R_idx: np.ndarray, name: str, out: 
     ax.set_ylabel("# states")
     ax.set_title(f"{name}:  hitting-time distribution over states outside R "
                  f"(|R| = {len(R_idx)}, |S\\R| = {len(h_out)})")
-    ax.legend(frameon=False, loc="upper right")
+    ax.legend(frameon=False, loc="upper left")
     fig.tight_layout()
     fig.savefig(out.with_suffix(".png"))
     fig.savefig(out.with_suffix(".pdf"))

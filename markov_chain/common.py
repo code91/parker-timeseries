@@ -217,6 +217,17 @@ def state_label(s: State) -> str:
     return f"({scale_degree_name(d)}, {q}, {b_pretty})"
 
 
+def state_label_semitone(s: State) -> str:
+    """Label carrying both the semitone and its musician name: "(0 (1), min7, b2)".
+
+    The figures that print state names next to numbers use this rather than
+    state_label(), because a bare scale-degree name reads as an integer.
+    """
+    d, q, b = s
+    deg = str(REST_SD) if d == REST_SD else f"{d} ({scale_degree_name(d)})"
+    return f"({deg}, {q}, {b if b.startswith('&') else 'b' + b})"
+
+
 # -----------------------------------------------------------------------------
 # Resolution set R
 # -----------------------------------------------------------------------------
