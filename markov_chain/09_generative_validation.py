@@ -133,7 +133,7 @@ def plot_occupation_vs_pi(f_sim: np.ndarray, pi: np.ndarray, name: str, out: Pat
     ax.set_ylabel("Empirical occupation  f_sim")
     r, _ = pearsonr(pi, f_sim)
     tv = 0.5 * float(np.abs(f_sim - pi).sum())
-    ax.set_title(f"{name}:  Pearson r = {r:.4f},  TV = {tv:.4f}")
+    ax.set_title(f"{name}:  Pearson r = {r:.4f}")
     ax.legend(loc="lower right", frameon=False)
     fig.tight_layout()
     fig.savefig(out.with_suffix(".png"))
