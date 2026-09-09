@@ -526,22 +526,21 @@
   <h2>Where does the line resolve to?</h2>
   <div class="rule"></div>
 
-  <div class="cols" style="height: 246px;">
+  <div class="cols" style="height: 470px;">
     <div class="col">
-      <p class="small" style="margin: 0 0 6px;"><b>Take an unresolved note and follow the line forward until it first lands on a chord tone on a beat. Which one did it land on?</b></p>
-      <ol class="small" style="margin: 0; padding-left: 18px; line-height: 1.35;">
-        <li>Split the 428 states: <span class="math">R</span>, the <b>73</b> resolved ones, and <span class="math">T</span>, the other <b>355</b>.</li>
-        <li>Cut two blocks out of <span class="math"><span class="hat">P</span></span>: <span class="math">Q</span>, the moves <span class="math">T → T</span>, and <span class="math">P<sub>T→R</sub></span>, the moves <span class="math">T → R</span> in one step.</li>
-        <li>Solve <span class="math">(I − Q) B = P<sub>T→R</sub></span>, where <span class="math">I</span> is the identity matrix, the matrix version of the number 1.</li>
+      <p class="small" style="margin: 0 0 8px;"><b>Take an unresolved note and follow the line forward until it first lands on a chord tone on a beat. Which one did it land on?</b></p>
+      <ol class="small" style="margin: 0; padding-left: 18px; line-height: 1.4;">
+        <li style="margin-bottom: 8px;">Split the 428 states: <span class="math">R</span>, the <b>73</b> resolved ones, and <span class="math">T</span>, the other <b>355</b>.</li>
+        <li style="margin-bottom: 8px;">Cut two blocks out of <span class="math"><span class="hat">P</span></span>: <span class="math">Q</span>, the moves <span class="math">T → T</span>, and <span class="math">P<sub>T→R</sub></span>, the moves <span class="math">T → R</span> in one step.</li>
+        <li style="margin-bottom: 8px;">Solve <span class="math">(I − Q) B = P<sub>T→R</sub></span>, where <span class="math">I</span> is the identity matrix, the matrix version of the number 1.</li>
         <li>Row <span class="math">i</span> of <span class="math">B</span> is a distribution over <span class="math">R</span>: starting unresolved at <span class="math">i</span>, the chance each resolved state is the <b>first</b> one reached. Rows sum to 1.</li>
       </ol>
     </div>
-    <div class="col" style="max-width: 520px;">
-      <p class="small" style="margin: 0;"><b>Four of the six</b> resolve <b>by a semitone onto the nearest chord tone</b>, between <b>49 %</b> and <b>66 %</b> of the time. A fifth, the 2nd over a major chord, falls a whole tone to the root. Nothing told the model what a semitone is.</p>
+    <div class="col fig">
+      <img src="../figures/section13_absorption.png" alt="where the six fastest-resolving states first resolve to">
+      <p class="small" style="margin: 14px 0 0;"><b>Four of the six</b> resolve <b>by a semitone onto the nearest chord tone</b>, between <b>49 %</b> and <b>66 %</b> of the time. A fifth, the 2nd over a major chord, falls a whole tone to the root. Nothing told the model what a semitone is.</p>
     </div>
   </div>
-
-  <img src="../figures/section13_absorption.png" alt="where the six fastest-resolving states first resolve to" style="display: block; width: 52%; margin: 2px auto 0;">
 
   <div class="pg"><span class="name">Rubini · Bebop Markov chain</span> &nbsp; 14 / 19</div>
 </section>
