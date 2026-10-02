@@ -1397,7 +1397,7 @@ add_body(doc,
 )
 add_body(doc,
     "Transitional patterns reinforce this vocabulary structure (Table 2). The most common "
-    "transition, (111000) \u2192 (122010) (II \u2192 I, 19 occurrences), represents Parker navigating from "
+    "transition, (111000) \u2192 (122010) (II \u2192 I, 19 occurrences), represents motion from "
     "chromatic cluster to shell voicing, paralleling the archetypal II-V-I resolution by moving from "
     "chromatic tension to ambiguous stability. However, the corpus also shows substantial same-IV "
     "persistence: (111000) \u2192 (111000) appears 18 times. Because segments are defined by chord "
@@ -2372,7 +2372,8 @@ add_body(doc,
     "Parker's practice instead suggests mastery emerges from navigating between harmonic regions "
     "through triadically ambiguous pivot structures rather than from accumulating exotic triadic "
     "extensions. The correlation between triadic sparsity and usage frequency (r = \u2212.350) indicates "
-    "this is a deliberate preference: Parker systematically selects pivot structures over stable foundations."
+    "a systematic bias rather than a chance distribution: pivot structures predominate over stable "
+    "foundations across the corpus."
 )
 
 add_heading2(doc, "Phrase-Level vs. Chorus-Level Hierarchy")
@@ -2462,7 +2463,7 @@ run.font.bold = True
 run.font.name = "Times New Roman"
 run = p.add_run(
     "\"Exploratory\" performances (7 tunes) show near-zero phrase-level Granger causation (3.6%), consistent with chorus-level architectural planning; \"Balanced\" performances (25 tunes) exhibit moderate "
-    "reactive effects (11.0%); \"Contrasting\" performances (13 tunes) organize themselves instead through phrase duration, where the length of one phrase predicts the complexity or dissonance of the next (23.1%). Temporal organization is tune-specific, with Parker selecting organizational modes appropriate to compositional context."
+    "reactive effects (11.0%); \"Contrasting\" performances (13 tunes) organize themselves instead through phrase duration, where the length of one phrase predicts the complexity or dissonance of the next (23.1%). Temporal organization is tune-specific, with organizational modes differing by compositional context."
 )
 run.font.size = Pt(10)
 run.font.name = "Times New Roman"
