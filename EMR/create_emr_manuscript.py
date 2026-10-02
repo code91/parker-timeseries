@@ -10,7 +10,7 @@ from docx.shared import Pt, Inches, Cm, Emu, RGBColor
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.enum.table import WD_TABLE_ALIGNMENT
 from docx.oxml.ns import qn
-from docx.oxml import OxmlElement
+from docx.oxml import OxmlElement, parse_xml
 import os, re
 
 
@@ -220,26 +220,47 @@ def add_body_with_italic(doc, segments, first_line_indent=True):
             run.font.italic = True
     return p
 
-def add_equation(doc, parts):
-    """Display equation on its own centered line.
+OMML_NS = ('xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" '
+            'xmlns:m="http://schemas.openxmlformats.org/officeDocument/2006/math"')
 
-    parts: list of (text, style) where style is 'v' (italic variable),
-    'n' (upright), 'sub' (italic subscript) or 'subn' (upright subscript).
-    Formatted rather than an OMML equation object, so it stays editable in Word.
+
+def _m_run(text, upright=True):
+    """A run inside an equation. Upright for operators and multi-letter names,
+    italic (the OMML default) for single-letter variables."""
+    style = '<m:rPr><m:sty m:val="p"/></m:rPr>' if upright else ''
+    text = text.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
+    return f'<m:r>{style}<m:t xml:space="preserve">{text}</m:t></m:r>'
+
+
+def _m_sub(base, sub, base_upright=True):
+    return (f'<m:sSub><m:e>{_m_run(base, base_upright)}</m:e>'
+            f'<m:sub>{_m_run(sub, False)}</m:sub></m:sSub>')
+
+
+def _m_subsup(base, sub, sup):
+    return (f'<m:sSubSup><m:e>{_m_run(base)}</m:e>'
+            f'<m:sub>{_m_run(sub, False)}</m:sub>'
+            f'<m:sup>{_m_run(sup)}</m:sup></m:sSubSup>')
+
+
+def _m_nary(sub, sup, body):
+    return ('<m:nary><m:naryPr><m:chr m:val="\u2211"/><m:limLoc m:val="undOvr"/>'
+            '<m:ctrlPr/></m:naryPr>'
+            f'<m:sub>{sub}</m:sub><m:sup>{sup}</m:sup><m:e>{body}</m:e></m:nary>')
+
+
+def add_equation(doc, omml_body):
+    """Insert a real OMML equation, centered on its own line.
+
+    Word and LibreOffice both render this as a native equation object rather
+    than as formatted text, which is what the reviewer asked for.
     """
     p = doc.add_paragraph()
     p.alignment = WD_ALIGN_PARAGRAPH.CENTER
     pf = p.paragraph_format
-    pf.space_before = Pt(4)
-    pf.space_after = Pt(4)
-    for text, style in parts:
-        run = p.add_run(text)
-        run.font.size = Pt(10)
-        run.font.name = "Times New Roman"
-        if style in ('v', 'sub'):
-            run.font.italic = True
-        if style in ('sub', 'subn'):
-            run.font.subscript = True
+    pf.space_before = Pt(6)
+    pf.space_after = Pt(6)
+    p._p.append(parse_xml(f'<m:oMath {OMML_NS}>{omml_body}</m:oMath>'))
     return p
 
 
@@ -865,10 +886,10 @@ add_empty_line(doc)
 add_body_with_italic(doc, [
     ("Complexity (iv_sum)", "bold"),
 ], first_line_indent=True)
-add_equation(doc, [
-    ("complexity = ", "n"), ("\u03A3", "n"), (" ic", "n"), ("i", "sub"),
-    ("   for ", "n"), ("i", "v"), (" = 1 to 6", "n"),
-])
+add_equation(doc,
+    _m_run("complexity = ")
+    + _m_nary(_m_run("i", False) + _m_run("=") + _m_run("1"), _m_run("6"), _m_sub("ic", "i"))
+)
 add_body(doc,
     "The sum of the six entries. For the example above it is 0 + 1 + 2 + 1 + 1 + 1 = 6. Complexity "
     "rises with the number of distinct notes played over a chord, since more notes generate more "
@@ -883,10 +904,11 @@ add_body(doc,
 add_body_with_italic(doc, [
     ("Dissonance", "bold"),
 ], first_line_indent=True)
-add_equation(doc, [
-    ("dissonance = ic", "n"), ("1", "subn"), (" + 0.5 \u00d7 ic", "n"), ("2", "subn"),
-    (" + 0.8 \u00d7 ic", "n"), ("6", "subn"),
-])
+add_equation(doc,
+    _m_run("dissonance = ")
+    + _m_sub("ic", "1") + _m_run(" + 0.5 \u2219 ") + _m_sub("ic", "2")
+    + _m_run(" + 0.8 \u2219 ") + _m_sub("ic", "6")
+)
 add_body(doc,
     "For the example above, dissonance is 0 + 0.5 \u00d7 1 + 0.8 \u00d7 1 = 1.3. The weights emphasize the "
     "interval classes that produce the most acoustical roughness: minor seconds (\u00d71.0), tritones "
@@ -919,12 +941,17 @@ add_body(doc,
 add_body_with_italic(doc, [
     ("Rate of change (iv_distance)", "bold"),
 ], first_line_indent=True)
-add_equation(doc, [
-    ("rate of change = \u221A[ ", "n"), ("\u03A3", "n"), (" (ic", "n"),
-    ("i", "sub"), ("(", "n"), ("t", "v"), (" + 1) \u2212 ic", "n"), ("i", "sub"),
-    ("(", "n"), ("t", "v"), (") )\u00b2 ]", "n"),
-    ("   for ", "n"), ("i", "v"), (" = 1 to 6", "n"),
-])
+_roc_inner = (
+    '<m:sSup><m:e><m:d><m:dPr><m:begChr m:val="("/><m:endChr m:val=")"/><m:ctrlPr/></m:dPr>'
+    '<m:e>' + _m_subsup("ic", "i", "t+1") + _m_run(" \u2212 ") + _m_subsup("ic", "i", "t") + '</m:e>'
+    '</m:d></m:e><m:sup>' + _m_run("2") + '</m:sup></m:sSup>'
+)
+add_equation(doc,
+    _m_run("rate of change = ")
+    + '<m:rad><m:radPr><m:degHide m:val="1"/><m:ctrlPr/></m:radPr><m:deg/><m:e>'
+    + _m_nary(_m_run("i", False) + _m_run("=") + _m_run("1"), _m_run("6"), _roc_inner)
+    + '</m:e></m:rad>'
+)
 add_body(doc,
     "The straight-line distance between the interval vector of one segment and that of the next. If "
     "the following segment had the vector (1, 1, 1, 0, 0, 0), the differences entry by entry would be "
