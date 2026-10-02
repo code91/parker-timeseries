@@ -871,7 +871,7 @@ add_equation(doc,
 add_body(doc,
     "The sum of the six entries. For the example above it is 0 + 1 + 2 + 1 + 1 + 1 = 6. Complexity "
     "rises with the number of distinct notes played over a chord, since more notes generate more "
-    "pairs: three notes always give 3, four notes 6, five notes 10. The relation is exact rather than approximate \u2014 complexity equals n(n\u22121)/2 for n distinct pitch classes in every one of the 3,371 segments \u2014 so complexity is a re-expression of how many distinct pitch classes a segment contains, and carries no information about which ones. It is therefore a measure of how "
+    "pairs: three notes always give 3, four notes 6, five notes 10. The relation is exact rather than approximate: complexity equals n(n\u22121)/2 for n distinct pitch classes in every one of the 3,371 segments, so complexity is a re-expression of how many distinct pitch classes a segment contains, and carries no information about which ones. It is therefore a measure of how "
     "much distinct pitch material the line uses over one chord, and not a measure of how unusual "
     "that material is. A chromatic run would score highly on this measure while being, by other "
     "measures such as interval entropy, extremely predictable. We return to this point in the "
@@ -1260,7 +1260,7 @@ add_body_with_italic(doc, [
 add_body_with_italic(doc, [
     ("Sensitivity to the dissonance weights. ", "bolditalic"),
     ("The weights (1.0, 0.5, 0.8) are defensible but not forced. We recomputed dissonance under four "
-     "alternatives \u2014 ic\u2086 at 0.6, ic\u2086 at 1.0, ic\u2082 at 0.25, and all three weights equal \u2014 and under a "
+     "alternatives (ic\u2086 at 0.6, ic\u2086 at 1.0, ic\u2082 at 0.25, and all three weights equal), and under a "
      "fifth scheme adding a small penalty on ic\u2084, then repeated the clustering from scratch in each "
      "case and compared the resulting strategy assignments to the published one.", "normal")
 ])
@@ -1781,7 +1781,7 @@ add_table_heading(doc, "Table 3. Strategy assignment is largely insensitive to t
 create_table(doc,
     ["Weighting (ic\u2081, ic\u2082, ic\u2086)", "ARI", "Tunes assigned alike"],
     [
-        ["reported: 1.0, 0.5, 0.8", "\u2014", "\u2014"],
+        ["reported: 1.0, 0.5, 0.8", "n/a", "n/a"],
         ["1.0, 0.5, 0.6", "1.00", "100%"],
         ["1.0, 0.5, 1.0", "0.58", "83%"],
         ["1.0, 0.25, 0.8", "0.55", "85%"],
@@ -2234,7 +2234,7 @@ add_empty_line(doc)
 
 add_body_with_italic(doc, [
     ("Among the minority of tunes showing phrase-level Granger causation (19.6%), patterns are consistent "
-     "with\u2014though do not definitively prove\u2014reactive navigation. When ", "normal"),
+     "with, though do not definitively prove, reactive navigation. When ", "normal"),
     ("dissonance", "italic"),
     (" at phrase t "
      "predicts ", "normal"),
@@ -2319,7 +2319,7 @@ add_body(doc,
 add_body(doc,
     "The strategy-specific patterns \u2013 \"Exploratory\" showing near-zero effects (3.6%), "
     "\"Balanced\" showing moderate effects (11.0%), \"Contrasting\" emphasizing phrase-length "
-    "(23.1%) \u2014 demonstrate that organizational modes correlate with broader improvisational "
+    "(23.1%), demonstrate that organizational modes correlate with broader improvisational "
     "strategies identifiable through autocorrelation and volatility analysis. The minority status of phrase-level Granger causation overall (19.6%) suggests that chorus-level architectural planning predominates "
     "over moment-to-moment reactive navigation in Parker's mature improvisational practice. "
     "Mastery emerges not from consistent application of a single organizational principle but from "
