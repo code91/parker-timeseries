@@ -219,6 +219,29 @@ def add_body_with_italic(doc, segments, first_line_indent=True):
             run.font.italic = True
     return p
 
+def add_equation(doc, parts):
+    """Display equation on its own centered line.
+
+    parts: list of (text, style) where style is 'v' (italic variable),
+    'n' (upright), 'sub' (italic subscript) or 'subn' (upright subscript).
+    Formatted rather than an OMML equation object, so it stays editable in Word.
+    """
+    p = doc.add_paragraph()
+    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    pf = p.paragraph_format
+    pf.space_before = Pt(4)
+    pf.space_after = Pt(4)
+    for text, style in parts:
+        run = p.add_run(text)
+        run.font.size = Pt(10)
+        run.font.name = "Times New Roman"
+        if style in ('v', 'sub'):
+            run.font.italic = True
+        if style in ('sub', 'subn'):
+            run.font.subscript = True
+    return p
+
+
 def add_bullet(doc, text):
     """Bullet point"""
     p = doc.add_paragraph()
@@ -749,7 +772,7 @@ add_figure_caption(doc, 1, "Computational pipeline for time series construction 
 add_empty_line(doc)
 
 add_body(doc,
-    "The pipeline processed all 50 tunes successfully, extracting 3,371 harmonic segments. We "
+    "The pipeline processed all 50 tunes successfully, extracting 3,371 segments. We "
     "identified 165 unique interval vectors and 2,145 unique transitions. MIDI alignment successfully "
     "mapped 3,024 segments (89.7%) to precise timestamps; 4 tunes failed alignment due to missing "
     "MIDI files (\"Anthropology\", \"Shaw 'Nuff\", \"Segment\", and \"Chasing the Bird\") but retained "
@@ -764,11 +787,11 @@ add_body(doc,
     "these tunes, ensuring core findings about Parker's harmonic vocabulary remain comprehensive."
 )
 
-add_heading3(doc, "Harmonic Segmentation")
+add_heading3(doc, "Segmentation")
 add_empty_line(doc)
 
 add_body(doc,
-    "The harmonic segment is the atomic unit of every analysis reported below, so we specify its "
+    "The segment is the atomic unit of every analysis reported below, so we specify its "
     "construction in full. A segment is the span of a single chord symbol as annotated in the "
     "MusicXML score. Segment boundaries are therefore given by the corpus annotation rather than "
     "inferred: a new segment begins wherever a new chord symbol appears, and ends where the next "
@@ -825,7 +848,7 @@ add_figure_caption(doc, 2,
     "dissonance, and IV distance (rate of change) are normalized to [0,1] scale. Position normalized "
     "to percentage enables comparison across performances of different lengths. Green spikes indicate "
     "rapid harmonic shifts; blue and orange show concurrent changes in complexity and dissonance. "
-    "Mean values shown relative to corpus averages.")
+    "Each metric is plotted alongside its corpus-wide mean for comparison.")
 add_empty_line(doc)
 
 add_body(doc,
@@ -839,12 +862,12 @@ add_empty_line(doc)
 
 # Complexity metric
 add_body_with_italic(doc, [
-    ("Complexity (iv_sum): ", "bold"),
-    ("\u03A3", "normal"),
-    ("(ic", "normal"),
-    ("i", "italic"),
-    (", i = 1..6)", "normal"),
+    ("Complexity (iv_sum)", "bold"),
 ], first_line_indent=True)
+add_equation(doc, [
+    ("complexity = ", "n"), ("\u03A3", "n"), (" ic", "n"), ("i", "sub"),
+    ("   for ", "n"), ("i", "v"), (" = 1 to 6", "n"),
+])
 add_body(doc,
     "The sum of the six entries. For the example above it is 0 + 1 + 2 + 1 + 1 + 1 = 6. Complexity "
     "rises with the number of distinct notes played over a chord, since more notes generate more "
@@ -857,9 +880,12 @@ add_body(doc,
 
 # Dissonance metric
 add_body_with_italic(doc, [
-    ("Dissonance: ", "bold"),
-    ("ic\u2081 + 0.5 \u00b7 ic\u2082 + 0.8 \u00b7 ic\u2086", "normal"),
+    ("Dissonance", "bold"),
 ], first_line_indent=True)
+add_equation(doc, [
+    ("dissonance = ic", "n"), ("1", "subn"), (" + 0.5 \u00d7 ic", "n"), ("2", "subn"),
+    (" + 0.8 \u00d7 ic", "n"), ("6", "subn"),
+])
 add_body(doc,
     "For the example above, dissonance is 0 + 0.5 \u00d7 1 + 0.8 \u00d7 1 = 1.3. The weights emphasize the "
     "interval classes that produce the most acoustical roughness: minor seconds (\u00d71.0), tritones "
@@ -890,15 +916,14 @@ add_body(doc,
 
 # IV distance metric
 add_body_with_italic(doc, [
-    ("Intervallic distance (iv_distance): ", "bold"),
-    ("\u221A(\u03A3(ic", "normal"),
-    ("i", "italic"),
-    ("(t+1)", "normal"),
-    (" \u2013 ic", "normal"),
-    ("i", "italic"),
-    ("(t)", "normal"),
-    (")\u00b2, i = 1..6)", "normal"),
+    ("Rate of change (iv_distance)", "bold"),
 ], first_line_indent=True)
+add_equation(doc, [
+    ("rate of change = \u221A[ ", "n"), ("\u03A3", "n"), (" (ic", "n"),
+    ("i", "sub"), ("(", "n"), ("t", "v"), (" + 1) \u2212 ic", "n"), ("i", "sub"),
+    ("(", "n"), ("t", "v"), (") )\u00b2 ]", "n"),
+    ("   for ", "n"), ("i", "v"), (" = 1 to 6", "n"),
+])
 add_body(doc,
     "The straight-line distance between the interval vector of one segment and that of the next. If "
     "the following segment had the vector (1, 1, 1, 0, 0, 0), the differences entry by entry would be "
@@ -952,8 +977,21 @@ add_body(doc,
     "typical bebop phrase density where solo choruses contain 8-12 phrases per 32-bar form."
 )
 
+add_body(doc,
+    "Two kinds of failure are possible, and both occur. A phrase can run on: the longest in the "
+    "corpus spans twelve segments across measures 42\u201348 of \"Kim (No. 1)\", some seven bars with no "
+    "notated rest of an eighth note or longer, which on any reading contains more than one gesture. "
+    "Four further phrases span ten segments (\"Celebrity\" twice, \"Kim (No. 2)\", and \"Thriving on a "
+    "Riff\"). Conversely a boundary can be spurious, because the threshold sits at the shortest rest "
+    "we accept: 36.4% of all 1,507 boundaries are generated by a rest of exactly 0.5 quarter notes, "
+    "so raising the threshold to a single quarter note would dissolve more than a third of the "
+    "phrases in the corpus. Detection is therefore most reliable in the middle of its range and "
+    "least reliable at the extremes, and the rolling-window analyses, which average over five "
+    "consecutive phrases, are correspondingly less exposed to this than the phrase-level tests."
+)
+
 add_body_with_italic(doc, [
-    ("For each phrase, we aggregated segment-level metrics into phrase-level statistics: ", "normal"),
+    ("For each phrase, we calculated ", "normal"),
     ("mean complexity", "italic"),
     (" (mean_iv_sum), mean dissonance, ", "normal"),
     ("phrase length", "italic"),
@@ -963,7 +1001,7 @@ add_body_with_italic(doc, [
 ])
 
 add_body(doc,
-    "The resulting phrases are short. A phrase spans a median of 1 harmonic segment "
+    "The resulting phrases are short. A phrase spans a median of 1 segment "
     "(M = 2.01, range 1–12), and 54.3% of phrases consist of a single segment while 74.6% consist "
     "of two or fewer. This follows from the interaction of two facts already stated: bebop phrasing "
     "is densely articulated with short rests, while segments are as long as the harmonic rhythm. A "
@@ -1392,7 +1430,7 @@ create_table(doc,
 p = doc.add_paragraph()
 p.alignment = WD_ALIGN_PARAGRAPH.CENTER
 run = p.add_run("Note. Forte classes are given without inversional suffix (A/B). "
-                "Percentages are of all 3,371 harmonic segments. N = 165 unique interval vectors.")
+                "Percentages are of all 3,371 segments. N = 165 unique interval vectors.")
 run.font.size = Pt(9)
 run.font.italic = True
 run.font.name = "Times New Roman"
@@ -1505,6 +1543,18 @@ add_body_with_italic(doc, [
      "choruses then explore denser harmonic regions enabled by the absence of melodic memorability "
      "constraints. Figure 11 compares mean complexity across chorus positions directly.", "normal")
 ])
+
+add_body(doc,
+    "Two caveats qualify this. The contrafact relationship does not by itself explain the gap: "
+    "borrowing a progression from a standard says nothing about how dense the melody written over "
+    "it will be, and the explanation we offer is the melodic one above rather than the harmonic one. "
+    "The head/solo distinction is also less clean than chorus numbering implies. Some of Parker's "
+    "compositions carry improvised B-sections, so that part of what we count as a head is itself "
+    "improvised; and some recordings have no pre-composed head at all, Yamaguchi (2012) arguing "
+    "that pieces such as \"Bird of Paradise\" were improvised over a borrowed progression and "
+    "copyrighted as compositions afterwards. Both cases import solo material into the head category, "
+    "and would therefore narrow the difference we report rather than produce it."
+)
 
 
 add_body(doc,
@@ -2638,42 +2688,6 @@ add_reference_with_italic(doc, [
 ])
 
 add_reference_with_italic(doc, [
-    ("Frieler, K., Pfleiderer, M., Abe\u00dfer, J., & Zaddach, W.-G. (2016b). \u201cTelling a story\u201d: On the dramaturgy of monophonic jazz solos. ", "normal"),
-    ("Empirical Musicology Review, 11", "italic"),
-    ("(1), 68\u201382. https://doi.org/10.18061/emr.v11i1.4959", "normal"),
-])
-
-add_reference_with_italic(doc, [
-    ("Gorman, B. S., & Allison, D. B. (1996). Statistical alternatives for single-case designs. In R. D. Franklin, D. B. Allison, & B. S. Gorman (Eds.), ", "normal"),
-    ("Design and analysis of single-case research", "italic"),
-    (" (pp. 159\u2013214). Erlbaum.", "normal"),
-])
-
-add_reference_with_italic(doc, [
-    ("Matyas, T. A., & Greenwood, K. M. (1996). Serial dependency in single-case time series. In R. D. Franklin, D. B. Allison, & B. S. Gorman (Eds.), ", "normal"),
-    ("Design and analysis of single-case research", "italic"),
-    (" (pp. 215\u2013243). Erlbaum.", "normal"),
-])
-
-add_reference_with_italic(doc, [
-    ("Slone, K. (1978). ", "normal"),
-    ("Charlie Parker omnibook: Transcribed from his original recordings", "italic"),
-    (" (J. Aebersold, Ed.). Atlantic Music Corp.", "normal"),
-])
-
-add_reference_with_italic(doc, [
-    ("Van Bebber, M. (2009). ", "normal"),
-    ("Charlie Parker: 60 melodies & solos", "italic"),
-    (". Qpress.", "normal"),
-])
-
-add_reference_with_italic(doc, [
-    ("Love, S. C. (2017). An ecological description of jazz improvisation. ", "normal"),
-    ("Psychomusicology: Music, Mind, and Brain, 27", "italic"),
-    ("(1), 31\u201344. https://doi.org/10.1037/pmu0000173", "normal"),
-])
-
-add_reference_with_italic(doc, [
     ("Forte, A. (1973). ", "normal"),
     ("The structure of atonal music", "italic"),
     (". Yale University Press.", "normal"),
@@ -2686,9 +2700,21 @@ add_reference_with_italic(doc, [
 ])
 
 add_reference_with_italic(doc, [
+    ("Frieler, K., Pfleiderer, M., Abe\u00dfer, J., & Zaddach, W.-G. (2016b). \u201cTelling a story\u201d: On the dramaturgy of monophonic jazz solos. ", "normal"),
+    ("Empirical Musicology Review, 11", "italic"),
+    ("(1), 68\u201382. https://doi.org/10.18061/emr.v11i1.4959", "normal"),
+])
+
+add_reference_with_italic(doc, [
     ("Goldman, A. (2016). Improvisation as a way of knowing. ", "normal"),
     ("Music Theory Online, 22", "italic"),
     ("(4).", "normal"),
+])
+
+add_reference_with_italic(doc, [
+    ("Gorman, B. S., & Allison, D. B. (1996). Statistical alternatives for single-case designs. In R. D. Franklin, D. B. Allison, & B. S. Gorman (Eds.), ", "normal"),
+    ("Design and analysis of single-case research", "italic"),
+    (" (pp. 159\u2013214). Erlbaum.", "normal"),
 ])
 
 add_reference_with_italic(doc, [
@@ -2710,6 +2736,12 @@ add_reference_with_italic(doc, [
 ])
 
 add_reference_with_italic(doc, [
+    ("Love, S. C. (2017). An ecological description of jazz improvisation. ", "normal"),
+    ("Psychomusicology: Music, Mind, and Brain, 27", "italic"),
+    ("(1), 31\u201344. https://doi.org/10.1037/pmu0000173", "normal"),
+])
+
+add_reference_with_italic(doc, [
     ("Martin, H. (1996). ", "normal"),
     ("Charlie Parker and thematic improvisation", "italic"),
     (". Scarecrow Press.", "normal"),
@@ -2719,6 +2751,12 @@ add_reference_with_italic(doc, [
     ("Martin, H. (2020). ", "normal"),
     ("Charlie Parker, composer", "italic"),
     (". Oxford University Press.", "normal"),
+])
+
+add_reference_with_italic(doc, [
+    ("Matyas, T. A., & Greenwood, K. M. (1996). Serial dependency in single-case time series. In R. D. Franklin, D. B. Allison, & B. S. Gorman (Eds.), ", "normal"),
+    ("Design and analysis of single-case research", "italic"),
+    (" (pp. 215\u2013243). Erlbaum.", "normal"),
 ])
 
 add_reference_with_italic(doc, [
@@ -2771,6 +2809,24 @@ add_reference_with_italic(doc, [
     ("Sethares, W. A. (1993). Local consonance and the relationship between timbre and scale. ", "normal"),
     ("Journal of the Acoustical Society of America, 94", "italic"),
     ("(3), 1218\u20131228.", "normal"),
+])
+
+add_reference_with_italic(doc, [
+    ("Slone, K. (1978). ", "normal"),
+    ("Charlie Parker omnibook: Transcribed from his original recordings", "italic"),
+    (" (J. Aebersold, Ed.). Atlantic Music Corp.", "normal"),
+])
+
+add_reference_with_italic(doc, [
+    ("Van Bebber, M. (2009). ", "normal"),
+    ("Charlie Parker: 60 melodies & solos", "italic"),
+    (". Qpress.", "normal"),
+])
+
+add_reference_with_italic(doc, [
+    ("Yamaguchi, M. (2012). ", "normal"),
+    ("The bird book: The Charlie Parker real book", "italic"),
+    (" (2nd ed.). Masaya Music Services.", "normal"),
 ])
 
 # ── Save ─────────────────────────────────────────────────────────────────
