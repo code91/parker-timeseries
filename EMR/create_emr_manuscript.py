@@ -714,8 +714,8 @@ add_body_with_italic(doc, [
     ("We analyze the Charlie Parker Aligned Digital Omnibook, comprising 50 transcribed performances "
      "(composed melodies and solos) with aligned MusicXML and MIDI data. The notated source is the "
      "Charlie Parker Omnibook, transcribed by Ken Slone and edited by Jamey Aebersold (Slone, 1978). "
-     "D\u00e9guernel, Vincent, and Assayag (D\u00e9guernel et al., 2016) encoded those transcriptions as "
-     "MusicXML and MIDI files; Riley and Dixon (Riley & Dixon, 2024) then used an audio-to-score "
+     "D\u00e9guernel et al. (2016) encoded those transcriptions as "
+     "MusicXML and MIDI files; Riley and Dixon (2024) then used an audio-to-score "
      "transcription pipeline to align the notated material to the original recordings, which is what "
      "supplies a timestamp for each notated event. We take the pitches and rhythms from the Omnibook "
      "transcription and the timings from that alignment. This corpus provides:", "normal")
