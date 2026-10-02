@@ -1414,8 +1414,8 @@ add_body(doc,
 )
 add_body_with_italic(doc, [
     ("The bidirectional nature of these transitions, both II \u2192 I (19) and I \u2192 II (17) ranking in the "
-     "top three, reveals a fundamental finding: Parker conceives these structures not as functional "
-     "progressions but as ", "normal"),
+     "top three, reveals a fundamental finding: these structures behave less like fixed functional "
+     "progressions than like ", "normal"),
     ("navigational options", "bold"),
     (" within a network space. The interval vector (111000) is best described as a hub in the network of transitions: more distinct interval vectors follow it than follow any other, so it offers the widest range of continuations. What makes it useful is therefore its ", "normal"),
     ("position in that network", "bold"),
@@ -1635,8 +1635,8 @@ add_body(doc,
     "others are episodes (multiple peaks), others maintain consistency."
 )
 add_body(doc,
-    "This finding suggests Parker conceives each tune's improvisational arc holistically rather than "
-    "applying a single approach across all contexts. Figure 6 plots the two contours against one "
+    "This finding suggests that the temporal organization of each tune's improvisational arc differs "
+    "across compositions rather than following a single approach. Figure 6 plots the two contours against one "
     "another, with the composed head shown alongside the improvised choruses in each case."
 )
 
@@ -1693,7 +1693,8 @@ add_figure_caption(doc, 7,
     "complex passages.")
 add_empty_line(doc)
 add_body(doc,
-    "This finding demonstrates that temporal organization strategies are tune-specific; Parker conceives different architectural approaches for different compositions."
+    "This finding demonstrates that temporal organization strategies are tune-specific; different "
+    "compositions show different architectural approaches."
 )
 
 
@@ -1972,8 +1973,9 @@ add_body(doc,
 
 add_body_with_italic(doc, [
     ("This finding reframes improvisation not as uniformly spontaneous but as strategically "
-     "variable: Parker selects organizational modes, reactive navigation vs. pre-planned architecture vs. "
-     "phrase-length modulation, appropriate to each tune's character and formal constraints. "
+     "variable: the organizational mode differs by tune, between reactive navigation, pre-planned "
+     "architecture and phrase-length modulation, in ways that track each tune's character and formal "
+     "constraints. "
      "The \"Exploratory\" strategy's near-absence of phrase-level Granger causation (1 of 28 significant effects "
      "across 7 tunes) suggests that predetermined chorus-level planning can operate independently "
      "of local reactive processes. Figure 9 gives the significance rates for all four tests across "
@@ -2165,8 +2167,9 @@ add_heading2(doc, "Temporal Organization Is Tune-Specific")
 add_empty_line(doc)
 
 add_body(doc,
-    "The three improvisational strategies reveal that temporal organization is tune-specific. Parker does not apply a single approach across all contexts; rather, he "
-    "conceives distinct temporal architectures for different compositions.",
+    "The three improvisational strategies reveal that temporal organization is tune-specific. Parker "
+    "does not apply a single temporal pattern across all contexts; rather, the data show distinct "
+    "temporal architectures across compositions.",
     first_line_indent=False
 )
 
