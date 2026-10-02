@@ -893,7 +893,7 @@ add_equation(doc,
 add_body(doc,
     "The sum of the six entries. For the example above it is 0 + 1 + 2 + 1 + 1 + 1 = 6. Complexity "
     "rises with the number of distinct notes played over a chord, since more notes generate more "
-    "pairs: three notes always give 3, four notes 6, five notes 10. It is therefore a measure of how "
+    "pairs: three notes always give 3, four notes 6, five notes 10. The relation is exact rather than approximate \u2014 complexity equals n(n\u22121)/2 for n distinct pitch classes in every one of the 3,371 segments \u2014 so complexity is a re-expression of how many distinct pitch classes a segment contains, and carries no information about which ones. It is therefore a measure of how "
     "much distinct pitch material the line uses over one chord, and not a measure of how unusual "
     "that material is. A chromatic run would score highly on this measure while being, by other "
     "measures such as interval entropy, extremely predictable. We return to this point in the "
@@ -1290,8 +1290,15 @@ add_body_with_italic(doc, [
     ("Harmonic rhythm as a confound. ", "bolditalic"),
     ("Because segments follow chord symbols, some of the variation we attribute to Parker necessarily "
      "belongs to the tunes: an applied diminished seventh affords a more dissonant segment than a "
-     "tonic triad, independently of any choice he makes. We discuss the scope of this problem, and a "
-     "design that would settle it, in the Limitations.", "normal")
+     "tonic triad, independently of any choice he makes. To separate the two we built a null model "
+     "that holds the progressions fixed and replaces the improviser. For every segment it keeps the "
+     "actual chord, key, and position in the performance, draws the number of distinct pitch classes "
+     "from the distribution that chord function attracts corpus-wide, and draws that many pitch "
+     "classes at random from the scale the chord implies under chord-scale theory. Complexity and "
+     "dissonance are then computed exactly as above, phrases are rebuilt over the same rest-delimited "
+     "spans, and the same statistics are run. Five hundred such corpora were generated. Whatever the "
+     "null reproduces belongs to the progressions; whatever only the observed data shows belongs to "
+     "Parker.", "normal")
 ])
 
 add_heading3(doc, "Robustness")
@@ -1880,9 +1887,46 @@ add_body(doc,
 )
 
 add_body(doc,
+    "Because the segments follow a fixed chord sequence, these rates need to be read against what the "
+    "progressions alone would produce. Table 4 compares each statistic with the null model described "
+    "in the Methodology. Three results stand out. Phrase-to-phrase predictability is Parker's and not "
+    "the tunes': mean lag-1 autocorrelation is +0.152 in the corpus against \u22120.031 under the null, "
+    "whose 95% interval excludes it, so the continuity on which the strategy clustering rests does "
+    "not follow from the changes. The Dissonance\u2192Complexity rate also exceeds the null (17.4% "
+    "against 4.8%, 95% interval [0.0, 13.0]). The Complexity\u2192Dissonance rate does not (8.7% against "
+    "4.9%, interval [0.0, 12.0]): that weaker direction is not distinguishable from what the chord "
+    "sequence produces by itself, and we therefore withdraw any claim to it. The asymmetry we report "
+    "above is on this evidence an asymmetry between one direction that survives the control and one "
+    "that does not."
+)
+
+add_empty_line(doc)
+add_table_heading(doc, "Table 4. Observed statistics compared with a null model that holds the chord progressions fixed.")
+create_table(doc,
+    ["Statistic", "Observed", "Null mean", "Null 95% interval", "Verdict"],
+    [
+        ["Mean complexity", "10.15", "9.70", "[9.49, 9.91]", "exceeds null"],
+        ["Mean dissonance", "3.16", "2.45", "[2.39, 2.51]", "exceeds null"],
+        ["Mean lag-1 autocorrelation", "+0.152", "\u22120.031", "[\u22120.081, +0.024]", "exceeds null"],
+        ["Mean volatility (CV)", "0.588", "0.511", "[0.496, 0.527]", "exceeds null"],
+        ["Dissonance\u2192Complexity rate", "17.4%", "4.8%", "[0.0, 13.0]", "exceeds null"],
+        ["Complexity\u2192Dissonance rate", "8.7%", "4.9%", "[0.0, 12.0]", "within null"],
+    ]
+)
+p = doc.add_paragraph()
+p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+run = p.add_run("Note. 500 simulated corpora. Each keeps the observed chord sequence, key and "
+                "phrase boundaries, and replaces Parker's notes with pitch classes drawn from the "
+                "scale each chord implies.")
+run.font.size = Pt(9)
+run.font.italic = True
+run.font.name = "Times New Roman"
+add_empty_line(doc)
+
+add_body(doc,
     "These figures are computed on the raw dissonance measure, which overlaps with complexity by "
     "construction. Repeating every test with the density-independent dissonance described in the "
-    "Methodology gives the comparison in Table 4. The rates fall, as expected once the shared "
+    "Methodology gives the comparison in Table 5. The rates fall, as expected once the shared "
     "density component is removed, but the pattern does not change: Granger causation remains a "
     "minority phenomenon, and remains more common from dissonance to subsequent complexity than the "
     "reverse. On the corrected measure the share of tunes showing no relation in either direction "
@@ -1891,7 +1935,7 @@ add_body(doc,
     "confirmation that the finding does not depend on the overlap between the two measures."
 )
 add_empty_line(doc)
-add_table_heading(doc, "Table 4. Granger results are unchanged in pattern when the overlap between dissonance and complexity is removed.")
+add_table_heading(doc, "Table 5. Granger results are unchanged in pattern when the overlap between dissonance and complexity is removed.")
 create_table(doc,
     ["Dissonance measure", "D \u2192 C", "C \u2192 D", "Neither", "Mean F (D\u2192C / C\u2192D)"],
     [
@@ -2019,7 +2063,7 @@ add_body_with_italic(doc, [
 ])
 
 add_body_with_italic(doc, [
-    ("Analysis across frequency quartiles (Table 5) reveals a monotonic pattern: rare IVs (Q1) "
+    ("Analysis across frequency quartiles (Table 6) reveals a monotonic pattern: rare IVs (Q1) "
      "contain mean 3.7 triads, while the most common IVs (Q4) contain only 0.9 triads (ANOVA: ", "normal"),
     ("F", "italic"),
     (" = 12.13, ", "normal"),
@@ -2038,7 +2082,7 @@ add_body_with_italic(doc, [
 
 # Table 3
 add_empty_line(doc)
-add_table_heading(doc, "Table 5. Triadic content decreases monotonically with usage frequency.")
+add_table_heading(doc, "Table 6. Triadic content decreases monotonically with usage frequency.")
 create_table(doc,
     ["Frequency Quartile", "Mean Triads", "SD", "N"],
     [
@@ -2570,13 +2614,16 @@ add_body(doc,
     "Segments follow chord symbols, and different chords afford different values on our measures "
     "regardless of what the improviser does: an applied diminished seventh will tend to produce a "
     "more dissonant segment than a tonic triad. If certain chord types also occur at characteristic "
-    "positions in a form, as they do, then some of the temporal structure we report may belong to "
-    "the tunes rather than to Parker. Nothing in the present design separates the two. The decisive "
-    "test would be a null model in which interval vectors are generated for the same progressions by "
-    "sampling pitch classes from the chord-scale relationships alone, with the observed series "
-    "compared against that baseline; an alternative would compare different performers on the same "
-    "tune, holding the changes constant. We regard this as the most important open question raised "
-    "by the present results, and the one we would address first."
+    "positions in a form, as they do, then some of the temporal structure we report could belong to "
+    "the tunes rather than to Parker. We tested this directly with the null model described in the "
+    "Methodology, and the main findings survive it: phrase-to-phrase predictability and the "
+    "Dissonance\u2192Complexity effect both exceed what the progressions produce on their own "
+    "(Table 4). One result does not survive, and we withdraw it: the Complexity\u2192Dissonance rate "
+    "falls inside the null interval. The control is nonetheless only as good as its assumptions. It "
+    "samples uniformly from one scale per chord function, where a player chooses unevenly within a "
+    "scale and sometimes outside it, so it is a conservative floor rather than a model of how anyone "
+    "actually improvises. Comparing different performers on the same tune, holding the changes "
+    "constant, would test the same question against a human baseline rather than a random one."
 )
 add_body(doc,
     "Sixth, the one-way ANOVA across frequency quartiles treats observations as independent, which "

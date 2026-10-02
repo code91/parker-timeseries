@@ -1,0 +1,7 @@
+statistic,observed,null_mean,null_lo95,null_hi95
+mean_complexity,10.1478,9.6974,9.4881,9.9149
+mean_dissonance,3.1640,2.4509,2.3929,2.5095
+granger_d_to_c_pct,17.3913,4.7957,0.0000,13.0435
+granger_c_to_d_pct,8.6957,4.9261,0.0000,12.0109
+mean_lag1_autocorr,0.1520,-0.0315,-0.0811,0.0239
+mean_volatility_cv,0.5879,0.5108,0.4964,0.5275
