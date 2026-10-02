@@ -64,14 +64,16 @@ plots/
 # parker_timeseries.csv
 # tune_titles.csv
 
-# Ignore large analysis outputs
+# Ignore large analysis outputs that are regenerable from the committed CSVs
 parker_granger_results.csv
 parker_robustness_metrics.csv
 parker_autocorrelation_metrics.csv
 parker_cluster_assignments.csv
-parker_corpus_nodes.csv
 parker_corpus_edges.csv
-parker_iv_robustness.csv
+
+# parker_corpus_nodes.csv and parker_iv_robustness_exact.csv are deliberately
+# committed: the robustness analysis cannot be reproduced without them, since
+# parker_timeseries.csv holds only the MIDI-aligned subset of the corpus.
 
 # Ignore annotated scores and diagrams
 *_annotated.xml

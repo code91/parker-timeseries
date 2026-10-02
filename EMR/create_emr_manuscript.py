@@ -2024,7 +2024,13 @@ add_body_with_italic(doc, [
     ("F", "italic"),
     (" = 12.13, ", "normal"),
     ("p", "italic"),
-    (" < .001). This gradient demonstrates that triadic sparsity correlates systematically "
+    (" < .001). Both assumptions behind that test are violated here: the quartiles differ in variance (Levene\u2019s test centered on the median, "
+     "W = 7.28, p < .001) and none is normally distributed (Shapiro\u2013Wilk p < .05 in all four). We "
+     "therefore repeated the comparison without distributional assumptions, and the gradient holds "
+     "more strongly than the ANOVA suggests (Kruskal\u2013Wallis H(3) = 30.50, p < .001, "
+     "\u03b5\u00b2 = 0.17); the rank correlation between frequency and triadic content is likewise larger "
+     "than the Pearson value reported above (Spearman \u03c1 = \u2212.47, p < .001). This gradient "
+     "demonstrates that triadic sparsity correlates systematically "
      "with Parker's usage preferences rather than occurring by chance. Figure 9 plots triadic "
      "content against usage frequency for all 165 interval vectors, showing that the relationship "
      "holds across the full range rather than only between the quartile extremes.", "normal")
@@ -2574,10 +2580,12 @@ add_body(doc,
 )
 add_body(doc,
     "Sixth, the one-way ANOVA across frequency quartiles treats observations as independent, which "
-    "is a strong assumption for data derived from time series. The quartile comparison is between "
-    "interval vector types rather than between successive time points, which mitigates the concern, "
-    "but it does not remove it, and the reported effect sizes should be read with that in mind "
-    "(Gorman & Allison, 1996; Matyas & Greenwood, 1996)."
+    "is a strong assumption for data derived from time series (Gorman & Allison, 1996; Matyas & "
+    "Greenwood, 1996). The quartile comparison is between interval vector types rather than between "
+    "successive time points, which mitigates the concern but does not remove it. Its distributional "
+    "assumptions do fail outright, as reported in the Results, which is why the same comparison is "
+    "also given as a rank test that assumes neither equal variances nor normality and that returns a "
+    "stronger result."
 )
 add_body(doc,
     "Finally, this corpus represents Parker's recorded output as transcribed in the Omnibook, not "

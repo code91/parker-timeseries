@@ -191,6 +191,15 @@ def exact_triadic_content(iv_tuple, cardinality):
     return float(np.mean(triad_counts))
 
 
+
+def _boxplot(ax, data, tick_labels):
+    """matplotlib renamed boxplot's `labels` argument to `tick_labels` in 3.9."""
+    try:
+        return ax.boxplot(data, tick_labels=tick_labels, patch_artist=True)
+    except TypeError:
+        return ax.boxplot(data, labels=tick_labels, patch_artist=True)
+
+
 def analyze_all_ivs(nodes_df):
     """
     Compute robustness metrics for all unique IVs in Parker's vocabulary.
@@ -539,7 +548,7 @@ def visualize_robustness_distributions(results_df):
     data_by_quartile = [results_df_sorted[results_df_sorted['freq_quartile'] == q]['global_robustness'].values
                         for q in quartile_labels]
 
-    bp = ax.boxplot(data_by_quartile, labels=quartile_labels, patch_artist=True)
+    bp = _boxplot(ax, data_by_quartile, quartile_labels)
     for patch in bp['boxes']:
         patch.set_facecolor('lightcoral')
         patch.set_alpha(0.7)
@@ -558,7 +567,7 @@ def visualize_robustness_distributions(results_df):
                       rest['global_robustness'].values]
     labels_comparison = ['Top-20\nFrequent', 'Rest of\nCorpus']
 
-    bp2 = ax.boxplot(data_comparison, labels=labels_comparison, patch_artist=True)
+    bp2 = _boxplot(ax, data_comparison, labels_comparison)
     bp2['boxes'][0].set_facecolor('coral')
     bp2['boxes'][1].set_facecolor('lightblue')
 
