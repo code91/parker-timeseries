@@ -55,8 +55,8 @@ print(f"Total images extracted: {img_count}")
 # takes precedence over the copy extracted from the old PDF.
 REGEN_DIR = os.path.join(WORK_DIR, "..", "regenerated")
 REGENERATED = {
-    11: "cluster_characteristics.png",   # Figure 8: strategy characteristics
-    13: "significance_by_lag.png",       # Figure 9: Granger causation rates
+    11: "cluster_characteristics.png",   # Figure 7: strategy characteristics
+    13: "significance_by_lag.png",       # Figure 8: Granger causation rates
 }
 for idx, fname in REGENERATED.items():
     src = os.path.normpath(os.path.join(REGEN_DIR, fname))
@@ -972,7 +972,7 @@ add_body(doc,
     "series. Phrase-level results below should be read with this in mind: they describe organization "
     "at the scale of rest-delimited gestures, which in this repertoire is often the scale of one "
     "chord, and the phrase-level analyses are for that reason reported alongside rolling-window "
-    "and chorus-level analyses rather than on their own. Figure 11 sets out the five analyses that "
+    "and chorus-level analyses rather than on their own. Figure 10 sets out the five analyses that "
     "proceed from the detected phrases and the scale each addresses."
 )
 
@@ -1503,23 +1503,15 @@ add_body_with_italic(doc, [
      "melodic construction prioritizing memorable contour and singability over maximal harmonic "
      "density. Heads establish the core vocabulary while maintaining thematic clarity; improvised "
      "choruses then explore denser harmonic regions enabled by the absence of melodic memorability "
-     "constraints. Figure 4 compares mean complexity across chorus positions directly.", "normal")
+     "constraints. Figure 11 compares mean complexity across chorus positions directly.", "normal")
 ])
 
-# Figure 4
-if 7 in img_paths:
-    add_figure_image(doc, img_paths[7])
-else:
-    add_body(doc, "[Insert Figure 4: Cross-chorus complexity comparison]", first_line_indent=False)
-add_figure_caption(doc, 4,
-    "Cross-chorus complexity comparison showing head is simpler than improvised choruses.")
-add_empty_line(doc)
 
 add_body(doc,
     "Parker's core harmonic vocabulary is largely established in Chorus 1, the composed head. "
     "Chorus 1 already contains 81.1% of all distinct interval vectors that appear anywhere in the "
     "corpus, Chorus 2 adds a further 16.5%, and Choruses 3 and later contribute 2.4% between them "
-    "(Figure 5). This is a corpus-level statistic rather than a single performance: chorus numbers "
+    "(Figure 4). This is a corpus-level statistic rather than a single performance: chorus numbers "
     "are assigned per tune by dividing measure position by form length (12 bars for blues, 32 "
     "otherwise), the distinct vectors occurring in each chorus position are pooled across all 46 "
     "MIDI-aligned tunes, and coverage is then accumulated across chorus positions. Temporal "
@@ -1527,13 +1519,13 @@ add_body(doc,
     "nodes rather than progressive vocabulary expansion."
 )
 
-# Figure 5
+# Figure 4
 add_empty_line(doc)
 if 6 in img_paths:
     add_figure_image(doc, img_paths[6])
 else:
-    add_body(doc, "[Insert Figure 5: Vocabulary coverage waterfall]", first_line_indent=False)
-add_figure_caption(doc, 5,
+    add_body(doc, "[Insert Figure 4: Vocabulary coverage waterfall]", first_line_indent=False)
+add_figure_caption(doc, 4,
     "Cumulative vocabulary coverage across chorus positions, pooled across the 46 MIDI-"
     "aligned tunes. Chorus 1 (the head) accounts for 81.1% of all distinct interval vectors in the "
     "corpus, Chorus 2 (the first improvised chorus) adds 16.5%, and Choruses 3–5 add 2.4% "
@@ -1578,17 +1570,17 @@ add_body(doc,
 )
 add_body(doc,
     "This finding suggests Parker conceives each tune's improvisational arc holistically rather than "
-    "applying a single approach across all contexts. Figure 6 plots the two contours against one "
+    "applying a single approach across all contexts. Figure 5 plots the two contours against one "
     "another, with the composed head shown alongside the improvised choruses in each case."
 )
 
-# Figure 6
+# Figure 5
 add_empty_line(doc)
 if 8 in img_paths:
     add_figure_image(doc, img_paths[8])
 else:
-    add_body(doc, "[Insert Figure 6: Comparing composed melody and solo development between \"Cosmic Rays\" and \"Bluebird\"]", first_line_indent=False)
-add_figure_caption(doc, 6,
+    add_body(doc, "[Insert Figure 5: Comparing composed melody and solo development between \"Cosmic Rays\" and \"Bluebird\"]", first_line_indent=False)
+add_figure_caption(doc, 5,
     "Comparing composed melody and solo development between \"Cosmic Rays\" and \"Bluebird.\"")
 add_empty_line(doc)
 
@@ -1621,16 +1613,16 @@ add_body_with_italic(doc, [
      "signature is high volatility combined with high lag-1 autocorrelation, since each level "
      "persists for several phrases once entered. Unlike other tunes, where volatility rises with "
      "mean complexity, \"My Little Suede Shoes\" achieves high volatility through this alternation "
-     "rather than through sustained complexity (Figure 7).", "normal")
+     "rather than through sustained complexity (Figure 6).", "normal")
 ])
 
-# Figure 7
+# Figure 6
 add_empty_line(doc)
 if 9 in img_paths:
     add_figure_image(doc, img_paths[9])
 else:
-    add_body(doc, "[Insert Figure 7: \"My Little Suede Shoes\" rolling window analysis]", first_line_indent=False)
-add_figure_caption(doc, 7,
+    add_body(doc, "[Insert Figure 6: \"My Little Suede Shoes\" rolling window analysis]", first_line_indent=False)
+add_figure_caption(doc, 6,
     "The outlier \"My Little Suede Shoes\" showing extreme alternation between simple and "
     "complex passages.")
 add_empty_line(doc)
@@ -1745,18 +1737,18 @@ add_empty_line(doc)
 
 add_body(doc,
     "These strategies are not claims about conscious performer choice but emergent properties of "
-    "tune-specific temporal organization. Figure 8 shows how the four groups separate across the "
+    "tune-specific temporal organization. Figure 7 shows how the four groups separate across the "
     "clustering features, and Figure 13 gives their autocorrelation profiles across lags 1\u20135, "
     "where the contrast between continuous development and alternation is clearest."
 )
 
-# Figure 8
+# Figure 7
 add_empty_line(doc)
 if 11 in img_paths:
     add_figure_image(doc, img_paths[11])
 else:
-    add_body(doc, "[Insert Figure 8: Cluster characteristics]", first_line_indent=False)
-add_figure_caption(doc, 8,
+    add_body(doc, "[Insert Figure 7: Cluster characteristics]", first_line_indent=False)
+add_figure_caption(doc, 7,
     "Strategy characteristics showing separation across four features. Strategy 1 (\"Balanced\", "
     "n=25): moderate complexity with positive autocorrelation. Strategy 2 (\"Contrasting\", n=13): "
     "moderate complexity with negative autocorrelation. Strategy 3 (\"Exploratory\", n=7): highest "
@@ -1879,17 +1871,17 @@ add_body_with_italic(doc, [
      "phrase-length modulation, appropriate to each tune's character and formal constraints. "
      "The \"Exploratory\" strategy's near-absence of phrase-level Granger causation (1 of 28 significant effects "
      "across 7 tunes) suggests that predetermined chorus-level planning can operate independently "
-     "of local reactive processes. Figure 9 gives the significance rates for all four tests across "
+     "of local reactive processes. Figure 8 gives the significance rates for all four tests across "
      "the 46 tunes.", "normal")
 ])
 
-# Figure 9
+# Figure 8
 add_empty_line(doc)
 if 13 in img_paths:
     add_figure_image(doc, img_paths[13])
 else:
-    add_body(doc, "[Insert Figure 9: Granger causality significance rates]", first_line_indent=False)
-add_figure_caption(doc, 9,
+    add_body(doc, "[Insert Figure 8: Granger causality significance rates]", first_line_indent=False)
+add_figure_caption(doc, 8,
     "Granger causation significance rates across 46 tunes showing that phrase-level Granger causation is a minority pattern (19.6% overall). Among tunes showing Granger causation, Dissonance\u2192"
     "Complexity (17.4%) exceeds Complexity\u2192Dissonance (8.7%), though asymmetry is "
     "suggestive rather than definitive (p = .109).")
@@ -1955,7 +1947,7 @@ add_body_with_italic(doc, [
     (" = 12.13, ", "normal"),
     ("p", "italic"),
     (" < .001). This gradient demonstrates that triadic sparsity correlates systematically "
-     "with Parker's usage preferences rather than occurring by chance. Figure 10 plots triadic "
+     "with Parker's usage preferences rather than occurring by chance. Figure 9 plots triadic "
      "content against usage frequency for all 165 interval vectors, showing that the relationship "
      "holds across the full range rather than only between the quartile extremes.", "normal")
 ])
@@ -1980,12 +1972,12 @@ run.font.italic = True
 run.font.name = "Times New Roman"
 add_empty_line(doc)
 
-# Figure 10
+# Figure 9
 if 14 in img_paths:
     add_figure_image(doc, img_paths[14])
 else:
-    add_body(doc, "[Insert Figure 10: Robustness vs frequency]", first_line_indent=False)
-add_figure_caption(doc, 10,
+    add_body(doc, "[Insert Figure 9: Robustness vs frequency]", first_line_indent=False)
+add_figure_caption(doc, 9,
     "Robustness (triadic content) as a function of usage frequency.")
 add_empty_line(doc)
 
@@ -2796,16 +2788,25 @@ add_body(doc,
 )
 add_empty_line(doc)
 
-# Figure 11
+# Figure 10
 add_empty_line(doc)
 if 4 in img_paths:
     add_figure_image(doc, img_paths[4])
 else:
-    add_body(doc, "[Insert Figure 11: Analytical pipeline after phrase detection]", first_line_indent=False)
-add_figure_caption(doc, 11,
+    add_body(doc, "[Insert Figure 10: Analytical pipeline after phrase detection]", first_line_indent=False)
+add_figure_caption(doc, 10,
     "After phrase detection, five parallel approaches examine temporal patterns at different "
     "scales: local dynamics (rolling windows), predictability (autocorrelation), strategies (clustering), "
     "directional prediction (Granger testing), and structural properties (robustness).")
+add_empty_line(doc)
+
+# Figure 11
+if 7 in img_paths:
+    add_figure_image(doc, img_paths[7])
+else:
+    add_body(doc, "[Insert Figure 11: Cross-chorus complexity comparison]", first_line_indent=False)
+add_figure_caption(doc, 11,
+    "Cross-chorus complexity comparison showing head is simpler than improvised choruses.")
 add_empty_line(doc)
 
 
