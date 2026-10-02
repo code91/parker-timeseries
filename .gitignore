@@ -71,6 +71,9 @@ parker_autocorrelation_metrics.csv
 parker_cluster_assignments.csv
 parker_corpus_edges.csv
 
+# Generated draft prose; the manuscript is the source of truth and this drifts
+paper_text_robustness.txt
+
 # parker_corpus_nodes.csv and parker_iv_robustness_exact.csv are deliberately
 # committed: the robustness analysis cannot be reproduced without them, since
 # parker_timeseries.csv holds only the MIDI-aligned subset of the corpus.
