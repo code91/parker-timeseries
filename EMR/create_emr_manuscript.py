@@ -54,12 +54,14 @@ print(f"Total images extracted: {img_count}")
 # their printed labels match the manuscript. Where a regenerated file exists it
 # takes precedence over the copy extracted from the old PDF.
 REGEN_DIR = os.path.join(WORK_DIR, "..", "regenerated")
-NOTATION_FIG = os.path.normpath(os.path.join(WORK_DIR, "..", "regenerated", "ex_notation.png"))
+NOTATION_FIG = os.path.normpath(os.path.join(WORK_DIR, "..", "regenerated", "ex_notation_hi.png"))
 
 REGENERATED = {
-    4:  "pipeline2.png",                 # analysis pipeline, relabelled after review
+    1:  "pipeline1_hi.png",              # construction pipeline, re-rendered at 300+ dpi
+    4:  "pipeline2_hi.png",              # analysis pipeline, relabelled and re-rendered
     11: "cluster_characteristics.png",   # strategy characteristics
     13: "significance_by_lag.png",       # Granger causation rates
+    14: "robustness_frequency_scatter.png",  # redrawn from parker_iv_robustness_exact.csv
 }
 for idx, fname in REGENERATED.items():
     src = os.path.normpath(os.path.join(REGEN_DIR, fname))
@@ -213,7 +215,10 @@ def add_body_with_italic(doc, segments, first_line_indent=True):
         run = p.add_run(text)
         run.font.size = Pt(10)
         run.font.name = "Times New Roman"
-        if style == 'italic':
+        if style == 'first':
+            # the template sets the article's opening letter in 12 point
+            run.font.size = Pt(12)
+        elif style == 'italic':
             run.font.italic = True
         elif style == 'bold':
             run.font.bold = True
@@ -352,7 +357,7 @@ def create_table(doc, headers, rows, col_widths=None):
         p = cell.paragraphs[0]
         p.alignment = WD_ALIGN_PARAGRAPH.CENTER
         run = p.add_run(header)
-        run.font.size = Pt(9)
+        run.font.size = Pt(10)
         run.font.bold = True
         run.font.name = "Times New Roman"
 
@@ -364,7 +369,7 @@ def create_table(doc, headers, rows, col_widths=None):
             p = cell.paragraphs[0]
             p.alignment = WD_ALIGN_PARAGRAPH.CENTER
             run = p.add_run(str(cell_text))
-            run.font.size = Pt(9)
+            run.font.size = Pt(10)
             run.font.name = "Times New Roman"
 
     # Style borders
@@ -464,99 +469,55 @@ add_affiliation(doc, "Independent Researcher")
 add_empty_line(doc)
 
 # ── Abstract ─────────────────────────────────────────────────────────────
-p = doc.add_paragraph()
-p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
-p.paragraph_format.space_before = Pt(0)
-p.paragraph_format.space_after = Pt(0)
-run = p.add_run("ABSTRACT: ")
-run.font.size = Pt(10)
-run.font.bold = True
-run.font.name = "Times New Roman"
-abstract_text = (
-    "This study presents a computational time series analysis of Charlie Parker's improvisational "
-    "practice using the complete Charlie Parker Omnibook corpus. We develop metrics for harmonic "
-    "complexity, dissonance, and rate of change, analyzing temporal patterns through phrase-level "
-    "segmentation using actual rest boundaries. We identify three distinct improvisational strategies "
-    "and introduce two measures: "
-)
-run = p.add_run(abstract_text)
-run.font.size = Pt(10)
-run.font.name = "Times New Roman"
-run = p.add_run("gravity")
-run.font.size = Pt(10)
-run.font.name = "Times New Roman"
-run.font.italic = True
-run = p.add_run(", the extent to which one harmonic dimension helps predict another across phrase boundaries, tested with Granger causality; and ")
-run.font.size = Pt(10)
-run.font.name = "Times New Roman"
-run = p.add_run("robustness")
-run.font.size = Pt(10)
-run.font.name = "Times New Roman"
-run.font.italic = True
-run = p.add_run(", the number of complete triads a given interval vector contains.")
-run.font.size = Pt(10)
-run.font.name = "Times New Roman"
+# Block indented 4.5 cm (1.75 in) from both margins, per the template, and
+# held under the 200-word limit it sets.
+def add_abstract_para(doc, segments, label=None):
+    p = doc.add_paragraph()
+    p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+    pf = p.paragraph_format
+    pf.space_before = Pt(0)
+    pf.space_after = Pt(0)
+    pf.left_indent = Cm(4.5)
+    pf.right_indent = Cm(4.5)
+    if label:
+        r = p.add_run(label)
+        r.font.size = Pt(10); r.font.bold = True; r.font.name = "Times New Roman"
+    for text, style in segments:
+        r = p.add_run(text)
+        r.font.size = Pt(10); r.font.name = "Times New Roman"
+        if style == 'italic':
+            r.font.italic = True
+    return p
+
+add_abstract_para(doc, [
+    ("This study presents a computational time series analysis of Charlie Parker's improvisational "
+     "practice using the complete Charlie Parker Omnibook corpus. We develop metrics for complexity, "
+     "dissonance, and rate of change, and analyze temporal patterns through phrase-level segmentation "
+     "using notated rest boundaries. We identify three improvisational strategies and introduce two "
+     "measures: ", "normal"),
+    ("gravity", "italic"),
+    (", the extent to which one dimension helps predict another across phrase boundaries, tested with "
+     "Granger causality; and ", "normal"),
+    ("robustness", "italic"),
+    (", the number of complete triads an interval vector contains.", "normal"),
+], label="ABSTRACT: ")
 
 add_empty_line(doc)
 
-p = doc.add_paragraph()
-p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
-p.paragraph_format.space_before = Pt(0)
-p.paragraph_format.space_after = Pt(0)
-p.paragraph_format.first_line_indent = Inches(0.5)
-abstract2 = (
-    'In most performances, what Parker played in one phrase does not help predict the next: in 80.4% '
-    'of solos, dissonance carries no predictive information about the complexity that follows, or the '
-    'reverse. Phrase-to-phrase reaction is therefore the exception, and organization above the phrase, '
-    'at the level of the chorus, appears to be the rule. Clustering the solos on their complexity, '
-    'volatility and predictability yields three groups that differ in exactly this respect: the group '
-    'we call Exploratory shows almost no phrase-to-phrase prediction (3.6%), the Balanced group a '
-    'moderate amount (11.0%), and the Contrasting group organizes itself through phrase duration '
-    'instead (23.1%). Where prediction does hold, it runs more often from dissonance to subsequent '
-    'complexity than the '
-)
-run = p.add_run(abstract2)
-run.font.size = Pt(10)
-run.font.name = "Times New Roman"
-run = p.add_run("reverse (17.4% versus 8.7%), though this difference is suggestive rather than conclusive (")
-run.font.size = Pt(10)
-run.font.name = "Times New Roman"
-run = p.add_run("p")
-run.font.size = Pt(10)
-run.font.name = "Times New Roman"
-run.font.italic = True
-run = p.add_run(" = .109). ")
-run.font.size = Pt(10)
-run.font.name = "Times New Roman"
-run = p.add_run(
-    "Separately, the interval vectors Parker uses most often contain the fewest complete triads ("
-)
-run.font.size = Pt(10)
-run.font.name = "Times New Roman"
-run = p.add_run("r")
-run.font.size = Pt(10)
-run.font.name = "Times New Roman"
-run.font.italic = True
-run = p.add_run(" = \u2212.350, ")
-run.font.size = Pt(10)
-run.font.name = "Times New Roman"
-run = p.add_run("p")
-run.font.size = Pt(10)
-run.font.name = "Times New Roman"
-run.font.italic = True
-run = p.add_run(" < .001, Cohen's ")
-run.font.size = Pt(10)
-run.font.name = "Times New Roman"
-run = p.add_run("d")
-run.font.size = Pt(10)
-run.font.name = "Times New Roman"
-run.font.italic = True
-run = p.add_run(
-    " = \u22120.87), suggesting that his fluency rests on structures that stay open to many "
-    "continuations rather than on an accumulation of rare material."
-)
-run.font.size = Pt(10)
-run.font.name = "Times New Roman"
+add_abstract_para(doc, [
+    ("In most performances what Parker plays in one phrase does not help predict the next: in 80.4% "
+     "of solos, dissonance carries no predictive information about the complexity that follows, or "
+     "the reverse; organization above the phrase appears to be the rule. Clustering on complexity, "
+     "volatility and predictability yields three groups differing in this respect, from almost no "
+     "phrase-to-phrase prediction (3.6%) to organization through phrase duration (23.1%). A null "
+     "model holding the progressions fixed confirms this continuity is Parker's, not the tunes'. "
+     "Separately, the interval vectors he uses most often contain the fewest complete triads "
+     "(", "normal"),
+    ("r", "italic"),
+    (" = \u2212.350, ", "normal"),
+    ("p", "italic"),
+    (" < .001), suggesting fluency built on structures that stay open to many continuations.", "normal"),
+])
 
 add_empty_line(doc)
 
@@ -576,6 +537,7 @@ run.font.bold = True
 run.font.name = "Times New Roman"
 run = p.add_run("Charlie Parker, computational musicology, time series analysis, interval vectors, jazz improvisation, Granger causality")
 run.font.size = Pt(10)
+run.font.italic = True
 run.font.name = "Times New Roman"
 add_empty_line(doc)
 
@@ -584,7 +546,8 @@ add_empty_line(doc)
 # ══════════════════════════════════════════════════════════════════════════
 
 add_body_with_italic(doc, [
-    ("HOW", "normal"),
+    ("H", "first"),
+    ("OW", "normal"),
     (" pitch content of a jazz solo changes over the course of a performance in ways that remain "
      "incompletely understood despite extensive theoretical and pedagogical attention. Charlie Parker "
      "(1920–1955), the alto saxophonist whose playing did more than any other to establish the "
@@ -1482,7 +1445,7 @@ p = doc.add_paragraph()
 p.alignment = WD_ALIGN_PARAGRAPH.CENTER
 run = p.add_run("Note. Forte classes are given without inversional suffix (A/B). "
                 "Percentages are of all 3,371 segments. N = 165 unique interval vectors.")
-run.font.size = Pt(9)
+run.font.size = Pt(10)
 run.font.italic = True
 run.font.name = "Times New Roman"
 add_empty_line(doc)
@@ -1831,7 +1794,7 @@ p.alignment = WD_ALIGN_PARAGRAPH.CENTER
 run = p.add_run("Note. Clustering repeated from scratch under each weighting (k = 4, 20 restarts, "
                 "standardized features). ARI is the adjusted Rand index against the reported "
                 "solution, where 1.00 denotes identical grouping.")
-run.font.size = Pt(9)
+run.font.size = Pt(10)
 run.font.italic = True
 run.font.name = "Times New Roman"
 add_empty_line(doc)
@@ -1934,7 +1897,7 @@ p.alignment = WD_ALIGN_PARAGRAPH.CENTER
 run = p.add_run("Note. 500 simulated corpora. Each keeps the observed chord sequence, key and "
                 "phrase boundaries, and replaces Parker's notes with pitch classes drawn from the "
                 "scale each chord implies.")
-run.font.size = Pt(9)
+run.font.size = Pt(10)
 run.font.italic = True
 run.font.name = "Times New Roman"
 add_empty_line(doc)
@@ -1965,7 +1928,7 @@ run = p.add_run("Note. Lag 1, p < .05, 46 tunes. D \u2192 C denotes dissonance G
                 "subsequent complexity. The density-independent measure is dissonance divided by "
                 "complexity, which correlates with complexity at r = .03 against r = .94 for the "
                 "raw measure.")
-run.font.size = Pt(9)
+run.font.size = Pt(10)
 run.font.italic = True
 run.font.name = "Times New Roman"
 add_empty_line(doc)
@@ -2111,7 +2074,7 @@ create_table(doc,
 p = doc.add_paragraph()
 p.alignment = WD_ALIGN_PARAGRAPH.CENTER
 run = p.add_run("One-way ANOVA: F(3, 161) = 12.13, p < .001")
-run.font.size = Pt(9)
+run.font.size = Pt(10)
 run.font.italic = True
 run.font.name = "Times New Roman"
 add_empty_line(doc)

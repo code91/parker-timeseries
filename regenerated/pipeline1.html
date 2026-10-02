@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parker Pipeline - Simple</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            padding: 40px;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .pipeline {
+            background: white;
+            padding: 50px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            max-width: 700px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2C3E50;
+            margin-bottom: 50px;
+            font-size: 22px;
+            font-weight: 600;
+        }
+        
+        .box {
+            padding: 18px 30px;
+            border-radius: 10px;
+            border: 2.5px solid #2C3E50;
+            text-align: center;
+            font-size: 15px;
+            color: #2C3E50;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+        
+        .box strong {
+            font-weight: 600;
+        }
+        
+        .input { background: #E8F4F8; }
+        .process { background: #B8E6F0; }
+        .output { background: #7DD3E8; }
+        .metrics { background: #4ECDC4; }
+        
+        .note {
+            font-size: 12px;
+            color: #7F8C8D;
+            font-style: italic;
+            margin-top: 6px;
+        }
+        
+        .arrow {
+            text-align: center;
+            margin: 8px 0;
+        }
+        
+        .arrow-line {
+            display: inline-block;
+            width: 2px;
+            height: 30px;
+            background: #34495E;
+            position: relative;
+        }
+        
+        .arrow-line::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-top: 10px solid #34495E;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="pipeline">
+        <h1>Computational Pipeline for Time Series Construction</h1>
+        
+        <div class="box input">
+            <strong>MusicXML Files (50 tunes)</strong>
+        </div>
+        
+        <div class="arrow">
+            <div class="arrow-line"></div>
+        </div>
+        
+        <div class="box process">
+            Extract Pitch Classes per Chord Change
+        </div>
+        
+        <div class="arrow">
+            <div class="arrow-line"></div>
+        </div>
+        
+        <div class="box process">
+            Compute Interval Vectors (ic₁, ic₂, ic₃, ic₄, ic₅, ic₆)
+        </div>
+        
+        <div class="arrow">
+            <div class="arrow-line"></div>
+        </div>
+        
+        <div class="box output">
+            <strong>Sequential Dataset: 3,371 segments</strong>
+            <div class="note">165 unique IVs · 2,145 transitions</div>
+        </div>
+        
+        <div class="arrow">
+            <div class="arrow-line"></div>
+        </div>
+        
+        <div class="box process">
+            Align with MIDI Timestamps
+        </div>
+        
+        <div class="arrow">
+            <div class="arrow-line"></div>
+        </div>
+        
+        <div class="box output">
+            <strong>Time Series with Millisecond Precision</strong>
+            <div class="note">3,024 aligned segments (89.7%) · 46 tunes</div>
+        </div>
+        
+        <div class="arrow">
+            <div class="arrow-line"></div>
+        </div>
+        
+        <div class="box metrics">
+            <strong>Temporal Metrics:</strong><br>
+            Complexity · Dissonance · Rate of Change
+        </div>
+    </div>
+</body>
+</html>

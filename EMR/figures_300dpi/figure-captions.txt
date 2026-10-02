@@ -1,0 +1,31 @@
+Figure captions - "Bird" Over Time (Rubini)
+Files supplied as 300+ dpi TIFF (LZW) and JPEG (quality 95).
+
+Figure 1. Computational pipeline for time series construction over the Omnibook corpus.
+
+Figure 2. Temporal evolution of harmonic metrics for "Confirmation." IV sum (complexity), dissonance, and IV distance (rate of change) are normalized to [0,1] scale. Position normalized to percentage enables comparison across performances of different lengths. Green spikes indicate rapid harmonic shifts; blue and orange show concurrent changes in complexity and dissonance. Each metric is plotted alongside its corpus-wide mean for comparison.
+
+Figure 3. Notated examples, all over a C7 chord. (a) The worked example used in the text: {C, E, G, B♭}, whose interval vector is (0, 1, 2, 1, 1, 1). (b) A triadically sparse collection, {C, D, E♭, B♭}, which contains no complete triad. (c) A triadically dense collection, {C, E♭, G♭, A}, which contains four, one on each of its notes.
+
+Figure 4. Corpus-wide complexity distribution; please note that the first segment of each tune is excluded from rate-of-change analyses as it has no prior segment for comparison.
+
+Figure 5. Cumulative vocabulary coverage across chorus positions, pooled across the 46 MIDI-aligned tunes. Chorus 1 (the head) accounts for 81.1% of all distinct interval vectors in the corpus, Chorus 2 (the first improvised chorus) adds 16.5%, and Choruses 3–5 add 2.4% in total. The curves are flat over long stretches because each step adds only interval vectors not already seen: once the common vocabulary has appeared, most later segments repeat it and contribute nothing new.
+
+Figure 6. Comparing composed melody and solo development between "Cosmic Rays" and "Bluebird."
+
+Figure 7. The outlier "My Little Suede Shoes" showing extreme alternation between simple and complex passages.
+
+Figure 8. Strategy characteristics showing separation across four features. Strategy 1 ("Balanced", n=25): moderate complexity with positive autocorrelation. Strategy 2 ("Contrasting", n=13): moderate complexity with negative autocorrelation. Strategy 3 ("Exploratory", n=7): highest complexity and volatility with near-zero autocorrelation. The outlier tune (n = 1): paradoxically combines lowest complexity with extreme volatility and high positive autocorrelation.
+
+Figure 9. Granger causation significance rates across 46 tunes showing that phrase-level Granger causation is a minority pattern (19.6% overall). Among tunes showing Granger causation, Dissonance→Complexity (17.4%) exceeds Complexity→Dissonance (8.7%), though asymmetry is suggestive rather than definitive (p = .109).
+
+Figure 10. Robustness (triadic content) as a function of usage frequency.
+
+Figure 11. After phrase detection, five parallel approaches examine temporal patterns at different scales: local dynamics (rolling windows), predictability (autocorrelation), strategies (clustering), directional prediction (Granger testing), and structural properties (robustness).
+
+Figure 12. Cross-chorus complexity comparison showing head is simpler than improvised choruses.
+
+Figure 13. Complexity of the composed head compared with the first improvised chorus, one point per tune. The horizontal axis is the index of the tune within the corpus, carrying no meaning beyond identifying each performance; the vertical axis is mean complexity.
+
+Figure 14. Autocorrelation profiles demonstrating four improvisational strategies. "My Little Suede Shoes" (orange) maintains highest autocorrelation across all lags, suggesting trap-door structure with predictable mode persistence. Si Si (red) begins negative, revealing contrasting phrase organization. Cosmic Rays (purple) starts low-positive but decays negative, consistent with episodic exploratory structure. Barbados (green) shows moderate positive autocorrelation characteristic of balanced strategy.
+
