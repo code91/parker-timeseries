@@ -507,7 +507,7 @@ abstract2 = (
     'of solos, dissonance carries no predictive information about the complexity that follows, or the '
     'reverse. Phrase-to-phrase reaction is therefore the exception, and organization above the phrase, '
     'at the level of the chorus, appears to be the rule. Clustering the solos on their complexity, '
-    'variability and predictability yields three groups that differ in exactly this respect: the group '
+    'volatility and predictability yields three groups that differ in exactly this respect: the group '
     'we call Exploratory shows almost no phrase-to-phrase prediction (3.6%), the Balanced group a '
     'moderate amount (11.0%), and the Contrasting group organizes itself through phrase duration '
     'instead (23.1%). Where prediction does hold, it runs more often from dissonance to subsequent '
@@ -851,7 +851,7 @@ add_body(doc,
     "For each chord change in the corpus, we extract all pitch classes sounding over that harmonic "
     "moment and compute the interval vector. The interval vector is a six-dimensional vector "
     "(ic\u2081, ic\u2082, ic\u2083, ic\u2084, ic\u2085, ic\u2086) where each component counts occurrences of each interval class. This "
-    "abstracts away from register and specific voicing while preserving harmonic content. Successive "
+    "abstracts away from register and specific voicing while preserving intervallic content. Successive "
     "interval vectors, aligned with their MIDI timestamps, create a time series representation of "
     "harmonic evolution. This enables standard time series analysis techniques while maintaining "
     "musical relevance: interval vectors capture harmonic information essential to jazz theory. "
@@ -1430,8 +1430,8 @@ add_body_with_italic(doc, [
      "progressions but as ", "normal"),
     ("navigational options", "bold"),
     (" within a network space. The interval vector (111000) is best described as a hub in the network of transitions: more distinct interval vectors follow it than follow any other, so it offers the widest range of continuations. What makes it useful is therefore its ", "normal"),
-    ("positional centrality", "bold"),
-    (", offering maximum continuation options to diverse harmonic destinations. This observation "
+    ("position in that network", "bold"),
+    (" rather than any stability of its own. This observation "
      "motivates our subsequent time series analysis, which examines how Parker deploys this core "
      "vocabulary across temporal scales from phrase-level articulation to full-chorus development arcs.", "normal")
 ])
@@ -1490,7 +1490,7 @@ add_heading2(doc, "Complexity Distribution between Segments")
 add_empty_line(doc)
 
 add_body_with_italic(doc, [
-    ("Analysis of 3,371 segments across 50 tunes reveals wide variation in harmonic complexity "
+    ("Analysis of 3,371 segments across 50 tunes reveals wide variation in complexity "
      "(Figure 3). Mean ", "normal"),
     ("complexity", "italic"),
     (" (iv_sum) is 10.01 (", "normal"),
@@ -1511,7 +1511,7 @@ add_sub_bullet(doc, "\"Moose the Mooche\": 7.21")
 add_sub_bullet(doc, "\"Yardbird Suite\": 7.57")
 
 add_body_with_italic(doc, [
-    ("Importantly, complexity and variability correlate strongly (", "normal"),
+    ("Importantly, complexity and volatility correlate strongly (", "normal"),
     ("r", "italic"),
     (" = 0.68): complex tunes tend to "
      "show more variation in complexity across their temporal evolution. However, this relationship "
@@ -1677,8 +1677,8 @@ add_body_with_italic(doc, [
     ("My Little Suede Shoes", "bold"),
 ])
 add_bullet(doc, "Lowest mean complexity in corpus: 6.58")
-add_bullet(doc, "Highest complexity variability: CV = 0.99")
-add_bullet(doc, "Highest dissonance variability: CV = 1.37")
+add_bullet(doc, "Highest complexity volatility: CV = 0.99")
+add_bullet(doc, "Highest dissonance volatility: CV = 1.37")
 
 add_body_with_italic(doc, [
     ("This tune alternates between extremely simple and moderately complex passages, exhibiting "
@@ -1760,7 +1760,7 @@ add_sub_bullet(doc, "Example: \"Si Si\"")
 add_sub_bullet(doc, "Moderate complexity (mean: 10.70)")
 add_sub_bullet(doc, "Moderate volatility (CV: 0.517)")
 add_sub_bullet(doc, "Negative autocorrelation (LAG-1: \u22120.106)")
-add_sub_bullet(doc, "Characteristics: Phrase t negatively predicts phrase t + 1: Parker alternates between contrasting harmonic materials rather than developing continuously. The alternation itself is consistent, even though the direction of each move is not.")
+add_sub_bullet(doc, "Characteristics: Phrase t negatively predicts phrase t + 1: Parker alternates between contrasting material rather than developing continuously. The alternation itself is consistent, even though the direction of each move is not.")
 
 add_empty_line(doc)
 add_body_with_italic(doc, [
@@ -2148,7 +2148,7 @@ add_body(doc,
 add_body(doc, "This suggests improvisation operates at multiple scales with different organizing principles:")
 add_bullet(doc, "Material level (which interval vectors): relatively consistent across tunes")
 add_bullet(doc, "Temporal level (how material unfolds): tune-specific strategic architectures")
-add_bullet(doc, "Phrase level (surface articulation): consistently short across all tunes")
+add_bullet(doc, "Phrase level (the rest-delimited gestures themselves): consistently short across all tunes")
 
 add_body(doc,
     "The interaction between these scales produces the rich temporal complexity we observe in expert "
@@ -2283,7 +2283,7 @@ add_body(doc,
     "harmonic tension exerts directional force on subsequent choices (reactive/algorithmic "
     "mode); in others, temporal organization proceeds independently of local conditions (composed/inspirational "
     "mode); in still others, phrase-length variation drives temporal structure independently "
-    "of harmonic content (structural algorithm).",
+    "of intervallic content (structural algorithm).",
     first_line_indent=False
 )
 
@@ -2309,7 +2309,7 @@ add_body_with_italic(doc, [
     (" < .001) "
      "challenges fundamental assumptions about bebop harmony. Traditional harmony assumes triads "
      "provide stable foundations above which extensions are added. In jazz harmony, triads also "
-     "make great \"upper structure\" to super-impose over harmonic material. Parker's practice reveals "
+     "make great \"upper structure\" to super-impose over the underlying chord. Parker's practice reveals "
      "a different organizing principle: his most frequently deployed interval vectors are triadically "
      "sparse, not triadically rich.", "normal")
 ], first_line_indent=False)
@@ -2364,7 +2364,7 @@ add_body_with_italic(doc, [
      "tune, \"My Little Suede Shoes\", alternates between simple and complex ", "normal"),
     ("phrase groups", "bold"),
     (", not individual phrases. This suggests Parker's improvisational conception "
-     "operates primarily at phrase-group and chorus levels, with surface articulation following from "
+     "operates primarily at phrase-group and chorus levels, with the rest-delimited gestures following from "
      "these higher-level plans.", "normal")
 ])
 
@@ -2490,7 +2490,7 @@ run.font.size = Pt(10)
 run.font.bold = True
 run.font.name = "Times New Roman"
 run = p.add_run(
-    "surface articulation (relatively brief phrases averaging 2 segments) organizes into phrase groups (5-phrase "
+    "rest-delimited phrases (averaging 2 segments) organize into phrase groups (5-phrase "
     "windows revealing meaningful patterns) organized by chorus-level strategic architecture, with "
     "different organizing principles operating at each temporal scale."
 )
