@@ -55,8 +55,9 @@ print(f"Total images extracted: {img_count}")
 # takes precedence over the copy extracted from the old PDF.
 REGEN_DIR = os.path.join(WORK_DIR, "..", "regenerated")
 REGENERATED = {
-    11: "cluster_characteristics.png",   # Figure 7: strategy characteristics
-    13: "significance_by_lag.png",       # Figure 8: Granger causation rates
+    4:  "pipeline2.png",                 # analysis pipeline, relabelled after review
+    11: "cluster_characteristics.png",   # strategy characteristics
+    13: "significance_by_lag.png",       # Granger causation rates
 }
 for idx, fname in REGENERATED.items():
     src = os.path.normpath(os.path.join(REGEN_DIR, fname))
