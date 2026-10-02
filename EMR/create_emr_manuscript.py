@@ -469,16 +469,19 @@ add_affiliation(doc, "Independent Researcher")
 add_empty_line(doc)
 
 # ── Abstract ─────────────────────────────────────────────────────────────
-# Block indented 4.5 cm (1.75 in) from both margins, per the template, and
-# held under the 200-word limit it sets.
+# The template asks for the abstract "block indented 4.5 centimeters (1.75
+# inches) from both the left and right margins". That is measured from the page
+# edge, not from the text block: the template's own abstract carries indents of
+# 1.27 cm and 1.5875 cm, which on a 3.175 cm page margin put it at exactly
+# 4.445 cm (1.75 in) and 4.76 cm from the edge. We use the template's values.
 def add_abstract_para(doc, segments, label=None):
     p = doc.add_paragraph()
     p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
     pf = p.paragraph_format
     pf.space_before = Pt(0)
     pf.space_after = Pt(0)
-    pf.left_indent = Cm(4.5)
-    pf.right_indent = Cm(4.5)
+    pf.left_indent = Cm(1.27)
+    pf.right_indent = Cm(1.5875)
     if label:
         r = p.add_run(label)
         r.font.size = Pt(10); r.font.bold = True; r.font.name = "Times New Roman"
