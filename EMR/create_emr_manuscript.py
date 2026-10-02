@@ -631,7 +631,7 @@ add_body(doc,
 add_body(doc,
     "Computational corpus study has made claims of this kind testable at scale. The Jazzomat project "
     "assembled the Weimar Jazz Database and developed midlevel analysis as a way of segmenting "
-    "monophonic solos into perceptually plausible units (Frieler et al., 2016a; Pfleiderer et al., 2017). "
+    "monophonic solos into perceptually plausible units (Frieler et al., 2016b; Pfleiderer et al., 2017). "
     "Broze and Shanahan (2013) used a corpus of 1,086 jazz compositions to trace diachronic change "
     "in harmonic practice, finding both gradual drift in chord-quality distributions and abrupt "
     "changes in chord-to-chord transitions, and so demonstrating that transitions and frequencies "
@@ -2109,7 +2109,7 @@ add_heading2(doc, "Relation to Earlier Findings")
 add_empty_line(doc)
 
 add_body(doc,
-    "Two prior studies bear directly on these results. Frieler and colleagues (2016b) examined the "
+    "Two prior studies bear directly on these results. Frieler and colleagues (2016a) examined the "
     "dramaturgy of monophonic jazz solos in the Weimar Jazz Database, asking whether solos exhibit "
     "arc-like intensity contours, and found that a single rising-then-falling shape describes only a "
     "minority of performances, with several distinct contour types coexisting in the corpus. Our "
@@ -2591,7 +2591,7 @@ add_body(doc,
     "Finally, this corpus represents Parker's recorded output as transcribed in the Omnibook, not "
     "the complete space of his improvisational practice. The Omnibook transcriptions were made from "
     "LPs and tapes without the aid of modern slow-down tools, and they contain errors: Van Bebber "
-    "(2009) reports correcting more than a thousand of them. Errors at that rate will introduce "
+    "(n.d.) reports correcting more than a thousand of them. Errors at that rate will introduce "
     "noise into every measure reported here. They are unlikely to be systematic with respect to "
     "position in a performance, so we do not expect them to generate the temporal patterns we "
     "report, but they will attenuate real effects and add uncertainty to the specific values. "
@@ -2702,7 +2702,7 @@ add_reference_with_italic(doc, [
 add_reference_with_italic(doc, [
     ("Broze, Y., & Shanahan, D. (2013). Diachronic changes in jazz harmony: A cognitive perspective. ", "normal"),
     ("Music Perception, 31", "italic"),
-    ("(1), 32\u201345.", "normal"),
+    ("(1), 32\u201345. https://doi.org/10.1525/mp.2013.31.1.32", "normal"),
 ])
 
 add_reference_with_italic(doc, [
@@ -2730,15 +2730,15 @@ add_reference_with_italic(doc, [
 ])
 
 add_reference_with_italic(doc, [
-    ("Frieler, K., Pfleiderer, M., Zaddach, W.-G., & Abe\u00dfer, J. (2016a). Midlevel analysis of monophonic jazz solos: A new approach to the study of improvisation. ", "normal"),
-    ("Musicae Scientiae, 20", "italic"),
-    ("(2), 143\u2013162.", "normal"),
+    ("Frieler, K., Pfleiderer, M., Abe\u00dfer, J., & Zaddach, W.-G. (2016a). \u201cTelling a story\u201d: On the dramaturgy of monophonic jazz solos. ", "normal"),
+    ("Empirical Musicology Review, 11", "italic"),
+    ("(1), 68\u201382. https://doi.org/10.18061/emr.v11i1.4959", "normal"),
 ])
 
 add_reference_with_italic(doc, [
-    ("Frieler, K., Pfleiderer, M., Abe\u00dfer, J., & Zaddach, W.-G. (2016b). \u201cTelling a story\u201d: On the dramaturgy of monophonic jazz solos. ", "normal"),
-    ("Empirical Musicology Review, 11", "italic"),
-    ("(1), 68\u201382. https://doi.org/10.18061/emr.v11i1.4959", "normal"),
+    ("Frieler, K., Pfleiderer, M., Zaddach, W.-G., & Abe\u00dfer, J. (2016b). Midlevel analysis of monophonic jazz solos: A new approach to the study of improvisation. ", "normal"),
+    ("Musicae Scientiae, 20", "italic"),
+    ("(2), 143\u2013162.", "normal"),
 ])
 
 add_reference_with_italic(doc, [
@@ -2854,15 +2854,15 @@ add_reference_with_italic(doc, [
 ])
 
 add_reference_with_italic(doc, [
-    ("Van Bebber, M. (2009). ", "normal"),
-    ("Charlie Parker: 60 melodies & solos", "italic"),
-    (". Qpress.", "normal"),
+    ("Van Bebber, M. (n.d.). ", "normal"),
+    ("Charlie Parker\u2019s 60 melodies & solos", "italic"),
+    (". qPress. https://qpress.ca/product/60-melodies-solos-charlie-parker-omnibook", "normal"),
 ])
 
 add_reference_with_italic(doc, [
     ("Yamaguchi, M. (2012). ", "normal"),
     ("The bird book: The Charlie Parker real book", "italic"),
-    (" (2nd ed.). Masaya Music Services.", "normal"),
+    (". Hal Leonard.", "normal"),
 ])
 
 # ── Save ─────────────────────────────────────────────────────────────────
